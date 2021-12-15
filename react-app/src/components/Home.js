@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
+import AudioPlayer from 'react-h5-audio-player';
+import 'react-h5-audio-player/lib/styles.css';
 import * as songStore from '../store/song';
 
 function Home() {
@@ -7,15 +9,18 @@ function Home() {
     const allSongs = useSelector((state) => state.songReducer.allSongs)
     const dispatch = useDispatch();
 
+    const [selectedSong, setSelectedSong] = useState('');
+
     let allSongsArr;
     if (allSongs) {
         allSongsArr = Object.values(allSongs)
     }
 
-    let userPlaylistArr;
+    let userPlaylistsArr;
     if (user?.playlists) {
-        userPlaylistArr = Object.values(user?.playlists)
+        userPlaylistsArr = Object.values(user?.playlists)
     }
+
 
     useEffect(() => {
         // Get all songs
@@ -31,7 +36,7 @@ function Home() {
                 const dateAdded = `${splitDate[2]} ${splitDate[1]}, ${splitDate[3]}`
                 return <ul>
                     <li>
-                        <img src={song.albumCover_URL} />
+                        <img onClick={() => {setSelectedSong(song); console.log(selectedSong.song_URL)}} src={song.albumCover_URL} />
                     </li>
                     <li>
                         <div>{song.title}</div>
@@ -46,13 +51,19 @@ function Home() {
                 </ul>
             })}
             <h1>Logged-in user's playlists</h1>
-            {userPlaylistArr && userPlaylistArr.map((playlist) => {
+            {userPlaylistsArr && userPlaylistsArr.map((playlist) => {
                 return <ul>
                     <li>
                         <div>{playlist.title}</div>
                     </li>
                 </ul>
             })}
+            <AudioPlayer
+                autoPlay
+                src={selectedSong.song_URL}
+                onPlay={e => console.log("onPlay")}
+                // other props here
+            />
         </>
     );
 }
