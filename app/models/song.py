@@ -45,5 +45,7 @@ class Song(db.Model):
             'genre': self.genre,
             'duration': self.duration,
             'albumCover_URL': self.albumCover_URL,
-            'albumCover_s3Name': self.albumCover_s3Name
+            'albumCover_s3Name': self.albumCover_s3Name,
+            'created_at': self.created_at,
+            'updated_at': self.updated_at
         }

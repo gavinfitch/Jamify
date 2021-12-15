@@ -9,7 +9,7 @@ const SignUpForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
-  const user = useSelector(state => state.session.user);
+  const user = useSelector(state => state.sessionReducer.user);
   const dispatch = useDispatch();
 
   const onSignUp = async (e) => {
