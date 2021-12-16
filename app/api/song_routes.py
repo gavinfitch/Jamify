@@ -3,11 +3,13 @@ from app.models import db, Song
 
 song_routes = Blueprint('songs', __name__)
 
+# Get all songs
 @song_routes.route('/')
 def all_songs():
     songs = Song.query.all()
     return {'songs': [song.to_dict() for song in songs]}
 
+# Upload song
 @song_routes.route('/upload', methods=['POST'])
 def upload_song():
     new_song = Song(
@@ -23,6 +25,17 @@ def upload_song():
     )
 
     db.session.add(new_song)
+    db.session.commit()
+
+    songs = Song.query.all()
+    return {'songs': [song.to_dict() for song in songs]}
+
+# Delete song
+@song_routes.route("/<int:id>", methods=['DELETE'])
+def deletePost(id):
+    songToDelete = Song.query.get(id)
+
+    db.session.delete(songToDelete)
     db.session.commit()
 
     songs = Song.query.all()
