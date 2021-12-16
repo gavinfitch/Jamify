@@ -92,16 +92,46 @@ function Home() {
                             <i class="fas fa-caret-down"></i>
                         </button>
                     </div>
-                    <div className="banner_text">Welcome, {user?.username}</div>
+                    <div className="banner_mainText">Welcome, {user?.username}</div>
                     <div className="song_container">
+                        <ul className="playlist_header">
+                            <li>#</li>
+                            <li>TITLE</li>
+                            <li>ALBUM</li>
+                            <li>DATE ADDED</li>
+                            <li>DURATION</li>
+                        </ul>
+                        {allSongsArr && allSongsArr.map((song, index) => {
 
+                            const splitDate = song.created_at.split(" ")
+                            const dateAdded = `${splitDate[2]} ${splitDate[1]}, ${splitDate[3]}`
+                            return <ul className="playlist_row">
+                                <li>{index + 1}</li>
+                                <li className="titleAndButtons_container">
+                                    <div className="playlistTitle_container">
+                                        <img onClick={() => setSelectedSong(song)} className="albumCover_thumbnail" src={song.albumCover_URL}></img>
+                                        <div>
+                                            <div className="playlist_songTitle">{song.title}</div>
+                                            <div>{song.artist}</div>
+                                        </div>
+                                    </div>
+                                    {user.id == song.userId && <div className="edit_delete_container">
+                                        <div onClick={() => history.push(`/songs/${song.id}/edit`)}><i class="fas fa-edit"></i></div>
+                                        <div onClick={() => deleteSong(song.id, song.song_s3Name)}><i class="fas fa-trash-alt"></i></div>
+                                    </div>}
+                                </li>
+                                <li>{song.album}</li>
+                                <li>{dateAdded}</li>
+                                <li>3:18</li>
+                            </ul>
+                        })}
                     </div>
                 </div>
             </div>
 
 
-            <h1>All Songs</h1>
-            {allSongsArr && false && allSongsArr.map((song) => {
+            {/* <h1>All Songs</h1> */}
+            {/* {allSongsArr && allSongsArr.map((song) => {
 
                 const splitDate = song.created_at.split(" ")
                 const dateAdded = `${splitDate[2]} ${splitDate[1]}, ${splitDate[3]}`
@@ -132,11 +162,16 @@ function Home() {
                         <div>{playlist.title}</div>
                     </li>
                 </ul>
-            })}
+            })} */}
             <AudioPlayer
-                autoPlay
+                className="audioPlayer"
+                // autoPlay
+                layout="stacked-reverse"
+                showSkipControls={true}
+                showJumpControls={false}
+                customAdditionalControls={[]}
                 src={selectedSong.song_URL}
-                onPlay={e => console.log("onPlay")}
+            // onPlay={e => console.log("onPlay")}
             // other props here
             />
         </>
