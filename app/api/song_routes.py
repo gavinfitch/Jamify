@@ -8,7 +8,7 @@ def all_songs():
     songs = Song.query.all()
     return {'songs': [song.to_dict() for song in songs]}
 
-@song_routes.route('/upload')
+@song_routes.route('/upload', methods=['POST'])
 def upload_song():
     new_song = Song(
         userId=request.json["userId"],

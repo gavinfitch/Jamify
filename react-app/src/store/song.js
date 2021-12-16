@@ -7,7 +7,7 @@ const allSongs = (songs) => ({
 
 export const thunk_uploadSong = ({ userId, title, song_URL, song_s3Name, album, artist, genre, albumCover_URL, albumCover_s3Name }) =>
     async (dispatch) => {
-        const res = await fetch("/api/posts/new", {
+        const res = await fetch("/api/songs/upload", {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json"
