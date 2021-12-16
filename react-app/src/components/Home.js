@@ -71,6 +71,13 @@ function Home() {
                             <li>Liked Songs</li>
                         </ul>
                     </div>
+                    <div className="playlist_container">
+                        <ul>
+                            <li>Upload Song</li>
+                            <li>Create Playlist</li>
+                            <li>Liked Songs</li>
+                        </ul>
+                    </div>
                 </div>
                 <div className="banner">
                     <div className="song_container"></div>
