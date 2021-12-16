@@ -8,12 +8,6 @@ import * as songStore from '../../store/song';
 
 const EditSongForm = () => {
     const [errors, setErrors] = useState([]);
-    const [title, setTitle] = useState('');
-    const [artist, setArtist] = useState('');
-    const [album, setAlbum] = useState('');
-    const [genre, setGenre] = useState('');
-    const [albumCover, setAlbumCover] = useState('')
-    const [albumCover_title, setAlbumCover_title] = useState('')
 
     const user = useSelector(state => state.sessionReducer.user);
     const allSongs = useSelector((state) => state.songReducer.allSongs)
@@ -26,10 +20,15 @@ const EditSongForm = () => {
 
     let currentSong;
     if (allSongs) {
-        currentSong = allSongs.filter(song => song.id == songId)
+        currentSong = allSongs.filter(song => song.id == songId)[0]
     }
 
-
+    const [title, setTitle] = useState(currentSong?.title);
+    const [artist, setArtist] = useState(currentSong?.artist);
+    const [album, setAlbum] = useState(currentSong?.album);
+    const [genre, setGenre] = useState(currentSong?.genre);
+    const [albumCover, setAlbumCover] = useState('')
+    const [albumCover_title, setAlbumCover_title] = useState('')
 
     const s3envKey = process.env.REACT_APP_AWS_KEY;
     const s3envSecretKey = process.env.REACT_APP_AWS_SECRET_KEY;
@@ -48,30 +47,34 @@ const EditSongForm = () => {
 
         const userId = user.id;
 
-        // let s3AlbumCover;
-        // await ReactS3Client
-        //     .uploadFile(albumCover, albumCover_title.split(" ").join("-"))
-        //     .then(data => s3AlbumCover = data)
-        //     .catch(err => console.error(err))
+        let albumCover_URL = '';
+        let albumCover_s3Name = '';
 
-        // const albumCover_URL = s3AlbumCover.location;
-        // const albumCover_s3Name = s3AlbumCover.key;
+        if (albumCover) {
+            let s3AlbumCover;
 
-        // return dispatch(songStore.thunk_editSong({
-        //     userId,
-        //     title,
-        //     song_URL,
-        //     song_s3Name,
-        //     album,
-        //     artist,
-        //     genre,
-        //     albumCover_URL,
-        //     albumCover_s3Name
-        // }))
-        //     .catch(async (res) => {
-        //         const data = await res.json();
-        //         if (data && data.errors) setErrors(data.errors)
-        //     }).then((res) => res && history.push("/"));
+            await ReactS3Client
+            .uploadFile(albumCover, albumCover_title.split(" ").join("-"))
+            .then(data => s3AlbumCover = data)
+            .catch(err => console.error(err))
+
+            albumCover_URL = s3AlbumCover.location;
+            albumCover_s3Name = s3AlbumCover.key;
+        }
+        
+        return dispatch(songStore.thunk_editSong({
+            songId,
+            title,
+            album,
+            artist,
+            genre,
+            albumCover_URL,
+            albumCover_s3Name
+        }))
+            .catch(async (res) => {
+                const data = await res.json();
+                if (data && data.errors) setErrors(data.errors)
+            }).then((res) => res && history.push("/"));    
     }
 
     return (
@@ -85,6 +88,7 @@ const EditSongForm = () => {
                 <div>
                     <input
                         type="text"
+                        value={title}
                         onChange={(e) => setTitle(e.target.value)}
                         placeholder="Title"
                     // required
@@ -93,6 +97,7 @@ const EditSongForm = () => {
                 <div>
                     <input
                         type="text"
+                        value={artist}
                         onChange={(e) => setArtist(e.target.value)}
                         placeholder="Artist"
                     // required
@@ -101,12 +106,13 @@ const EditSongForm = () => {
                 <div>
                     <input
                         type="text"
+                        value={album}
                         onChange={(e) => setAlbum(e.target.value)}
                         placeholder="Album (optional)"
                     // required
                     />
                 </div>
-                <select onChange={(e) => setGenre(e.target.value)}>
+                <select value={genre} onChange={(e) => setGenre(e.target.value)}>
                     <option value="Ambient">Ambient</option>
                     <option value="Blues">Blues</option>
                     <option value="Country">Country</option>

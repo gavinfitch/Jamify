@@ -39,10 +39,10 @@ function Home() {
     const deleteSong = async (songId, song_s3Name) => {
 
         await ReactS3Client
-          .deleteFile(song_s3Name)
-          .then(response => console.log(response))
-          .catch(err => console.error(err))
-    
+            .deleteFile(song_s3Name)
+            .then(response => console.log(response))
+            .catch(err => console.error(err))
+
         await dispatch(songStore.thunk_deleteSong({ songId }))
     };
 

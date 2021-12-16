@@ -32,7 +32,7 @@ export const thunk_uploadSong = ({ userId, title, song_URL, song_s3Name, album, 
         }
     };
 
-export const thunk_deleteSong = ({ songId }) => 
+export const thunk_deleteSong = ({ songId }) =>
     async (dispatch) => {
         const res = await fetch(`/api/songs/${songId}`, {
             method: 'DELETE',
@@ -42,8 +42,33 @@ export const thunk_deleteSong = ({ songId }) =>
             body: JSON.stringify({
                 songId
             })
-    });
-      
+        });
+
+        if (res.ok) {
+            const songs = await res.json();
+            dispatch(allSongs(songs));
+            return songs;
+        }
+    };
+
+export const thunk_editSong = ({ songId, title, album, artist, genre, albumCover_URL, albumCover_s3Name }) =>
+    async (dispatch) => {
+        const res = await fetch(`/api/songs/${songId}/edit`, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                songId,
+                title,
+                album,
+                artist,
+                genre,
+                albumCover_URL,
+                albumCover_s3Name
+            })
+        });
+
         if (res.ok) {
             const songs = await res.json();
             dispatch(allSongs(songs));

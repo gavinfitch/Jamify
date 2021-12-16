@@ -30,8 +30,6 @@ class Song(db.Model):
         back_populates="songs"
     )
 
-    
-
     def to_dict(self):
         return {
             'id': self.id,
