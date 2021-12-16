@@ -5,6 +5,33 @@ const allSongs = (songs) => ({
     payload: songs
 });
 
+export const thunk_uploadSong = ({ userId, title, song_URL, song_s3Name, album, artist, genre, albumCover_URL, albumCover_s3Name }) =>
+    async (dispatch) => {
+        const res = await fetch("/api/songs/upload", {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                userId,
+                title,
+                song_URL,
+                song_s3Name,
+                album,
+                artist,
+                genre,
+                albumCover_URL,
+                albumCover_s3Name
+            })
+        });
+
+        if (res.ok) {
+            const songs = await res.json();
+            dispatch(allSongs(songs));
+            return songs;
+        }
+    };
+
 export const thunk_getAllSongs = () =>
     async (dispatch) => {
         const res = await fetch(`/api/songs/`)
