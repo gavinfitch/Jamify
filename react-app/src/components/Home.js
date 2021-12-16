@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
+import S3 from 'react-aws-s3';
 import * as songStore from '../store/song';
 
 function Home() {
@@ -20,6 +21,28 @@ function Home() {
     if (user?.playlists) {
         userPlaylistsArr = Object.values(user?.playlists)
     }
+
+    const s3envKey = process.env.REACT_APP_AWS_KEY;
+    const s3envSecretKey = process.env.REACT_APP_AWS_SECRET_KEY;
+
+    const config = {
+        bucketName: 'jamify',
+        region: 'us-west-2',
+        accessKeyId: s3envKey,
+        secretAccessKey: s3envSecretKey,
+    }
+
+    const ReactS3Client = new S3(config);
+
+    const deleteSong = async (songId, song_s3Name) => {
+
+        await ReactS3Client
+          .deleteFile(song_s3Name)
+          .then(response => console.log(response))
+          .catch(err => console.error(err))
+    
+        await dispatch(songStore.thunk_deleteSong({ songId }))
+    };
 
 
     useEffect(() => {
@@ -48,6 +71,10 @@ function Home() {
                     <li>
                         <div>{dateAdded}</div>
                     </li>
+                    {user.id == song.userId && <div>
+                        <div>Edit</div>
+                        <div onClick={() => deleteSong(song.id, song.song_s3Name)}>Delete</div>
+                    </div>}
                 </ul>
             })}
             <h1>Logged-in user's playlists</h1>
