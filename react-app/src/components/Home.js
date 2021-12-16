@@ -57,17 +57,17 @@ function Home() {
         <>
             <div className="page_container">
                 <div className="sidebar">
-                    <div>
+                    <div className="sideNav_container">
                         <ul>
                             <li>Home</li>
                             <li>Search</li>
                             <li>Your Library</li>
                         </ul>
                     </div>
-                    <div>
+                    <div className="sideForm_container">
                         <ul>
-                            <li>Upload Song</li>
-                            <li>Create Playlist</li>
+                            <li>^Upload Song</li>
+                            <li>+Create Playlist</li>
                             <li>Liked Songs</li>
                         </ul>
                     </div>
