@@ -40,3 +40,21 @@ def deletePost(id):
 
     songs = Song.query.all()
     return {'songs': [song.to_dict() for song in songs]}
+
+# Edit Song
+@song_routes.route("/<int:id>/edit", methods=['POST'])
+def editSong(id):
+    SongToUpdate = Song.query.get(id)
+    SongToUpdate.title = request.json["title"]
+    SongToUpdate.album = request.json["album"]
+    SongToUpdate.artist = request.json["artist"]
+    SongToUpdate.genre = request.json["genre"]
+
+    if request.json["albumCover_URL"]:
+        SongToUpdate.albumCover_URL=request.json["albumCover_URL"],
+        SongToUpdate.albumCover_s3Name=request.json["albumCover_s3Name"]
+    
+    db.session.commit()
+
+    songs = Song.query.all()
+    return {'songs': [song.to_dict() for song in songs]}

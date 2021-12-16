@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from 'react-router-dom';
 import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
 import S3 from 'react-aws-s3';
@@ -9,6 +10,7 @@ function Home() {
     const user = useSelector((state) => state.sessionReducer.user);
     const allSongs = useSelector((state) => state.songReducer.allSongs)
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const [selectedSong, setSelectedSong] = useState('');
 
@@ -37,10 +39,10 @@ function Home() {
     const deleteSong = async (songId, song_s3Name) => {
 
         await ReactS3Client
-          .deleteFile(song_s3Name)
-          .then(response => console.log(response))
-          .catch(err => console.error(err))
-    
+            .deleteFile(song_s3Name)
+            .then(response => console.log(response))
+            .catch(err => console.error(err))
+
         await dispatch(songStore.thunk_deleteSong({ songId }))
     };
 
@@ -72,7 +74,7 @@ function Home() {
                         <div>{dateAdded}</div>
                     </li>
                     {user.id == song.userId && <div>
-                        <div>Edit</div>
+                        <div onClick={() => history.push(`/songs/${song.id}/edit`)}>Edit</div>
                         <div onClick={() => deleteSong(song.id, song.song_s3Name)}>Delete</div>
                     </div>}
                 </ul>
