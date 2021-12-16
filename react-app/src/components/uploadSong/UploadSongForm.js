@@ -15,7 +15,11 @@ const UploadSongForm = () => {
     const [genre, setGenre] = useState('');
     const [albumCover, setAlbumCover] = useState('')
     const [albumCover_title, setAlbumCover_title] = useState('')
+
     const user = useSelector(state => state.sessionReducer.user);
+
+    const dispatch = useDispatch()
+    const history = useHistory()
 
     const s3envKey = process.env.REACT_APP_AWS_KEY;
     const s3envSecretKey = process.env.REACT_APP_AWS_SECRET_KEY;
@@ -52,7 +56,21 @@ const UploadSongForm = () => {
         const albumCover_URL = s3AlbumCover.location;
         const albumCover_s3Name = s3AlbumCover.key;
 
-
+        return dispatch(songStore.thunk_uploadSong({
+            userId,
+            title,
+            song_URL,
+            song_s3Name,
+            album,
+            artist,
+            genre,
+            albumCover_URL,
+            albumCover_s3Name
+        }))
+            .catch(async (res) => {
+                const data = await res.json();
+                if (data && data.errors) setErrors(data.errors)
+            }).then((res) => res && history.push("/"));
     }
 
     return (

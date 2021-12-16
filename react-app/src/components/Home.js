@@ -36,7 +36,7 @@ function Home() {
                 const dateAdded = `${splitDate[2]} ${splitDate[1]}, ${splitDate[3]}`
                 return <ul>
                     <li>
-                        <img onClick={() => {setSelectedSong(song); console.log(selectedSong.song_URL)}} src={song.albumCover_URL} />
+                        <img onClick={() => { setSelectedSong(song); console.log(selectedSong.song_URL) }} src={song.albumCover_URL} />
                     </li>
                     <li>
                         <div>{song.title}</div>
@@ -62,7 +62,7 @@ function Home() {
                 autoPlay
                 src={selectedSong.song_URL}
                 onPlay={e => console.log("onPlay")}
-                // other props here
+            // other props here
             />
         </>
     );
