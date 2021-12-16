@@ -73,18 +73,33 @@ function Home() {
                     </div>
                     <div className="playlist_container">
                         <ul>
-                            <li>Upload Song</li>
-                            <li>Create Playlist</li>
-                            <li>Liked Songs</li>
+                            {userPlaylistsArr && userPlaylistsArr.map((playlist) => {
+                                return <li>
+                                    <div>{playlist.title}</div>
+                                </li>
+                            })}
                         </ul>
                     </div>
                 </div>
                 <div className="banner">
-                    <div className="song_container"></div>
-                </div>       
+                    <div className="logo_profileButton_container">
+                        <div className="banner_logo">
+                            <div className="bannerLogo_circle"><i class="fas fa-headphones"></i></div>Jamify
+                        </div>
+                        <button className="profileButton">
+                            <div className="profileButton_thumbnail"></div>
+                            <div className="profileButton_username">{user?.username}</div>
+                            <i class="fas fa-caret-down"></i>
+                        </button>
+                    </div>
+                    <div className="banner_text">Welcome, {user?.username}</div>
+                    <div className="song_container">
+
+                    </div>
+                </div>
             </div>
-            
-            
+
+
             <h1>All Songs</h1>
             {allSongsArr && false && allSongsArr.map((song) => {
 
