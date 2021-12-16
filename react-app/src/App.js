@@ -9,6 +9,7 @@ import UsersList from './components/UsersList';
 import User from './components/User';
 import Home from './components/Home'
 import UploadSongForm from './components/uploadSong/UploadSongForm'
+import EditSongForm from './components/editSong/EditSongForm'
 import { authenticate } from './store/session';
 
 function App() {
@@ -47,6 +48,9 @@ function App() {
         </ProtectedRoute>
         <ProtectedRoute path='/songs/upload' exact={true} >
           <UploadSongForm />
+        </ProtectedRoute>
+        <ProtectedRoute path='/songs/:id/edit' exact={true} >
+          <EditSongForm />
         </ProtectedRoute>
       </Switch>
     </BrowserRouter>
