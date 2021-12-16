@@ -54,14 +54,14 @@ const EditSongForm = () => {
             let s3AlbumCover;
 
             await ReactS3Client
-            .uploadFile(albumCover, albumCover_title.split(" ").join("-"))
-            .then(data => s3AlbumCover = data)
-            .catch(err => console.error(err))
+                .uploadFile(albumCover, albumCover_title.split(" ").join("-"))
+                .then(data => s3AlbumCover = data)
+                .catch(err => console.error(err))
 
             albumCover_URL = s3AlbumCover.location;
             albumCover_s3Name = s3AlbumCover.key;
         }
-        
+
         return dispatch(songStore.thunk_editSong({
             songId,
             title,
@@ -74,7 +74,7 @@ const EditSongForm = () => {
             .catch(async (res) => {
                 const data = await res.json();
                 if (data && data.errors) setErrors(data.errors)
-            }).then((res) => res && history.push("/"));    
+            }).then((res) => res && history.push("/"));
     }
 
     return (

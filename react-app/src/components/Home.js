@@ -5,6 +5,7 @@ import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
 import S3 from 'react-aws-s3';
 import * as songStore from '../store/song';
+import './Home.css';
 
 function Home() {
     const user = useSelector((state) => state.sessionReducer.user);
@@ -54,8 +55,31 @@ function Home() {
 
     return (
         <>
+            <div className="page_container">
+                <div className="sidebar">
+                    <div>
+                        <ul>
+                            <li>Home</li>
+                            <li>Search</li>
+                            <li>Your Library</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <ul>
+                            <li>Upload Song</li>
+                            <li>Create Playlist</li>
+                            <li>Liked Songs</li>
+                        </ul>
+                    </div>
+                </div>
+                <div className="banner">
+                    <div className="song_container"></div>
+                </div>       
+            </div>
+            
+            
             <h1>All Songs</h1>
-            {allSongsArr && allSongsArr.map((song) => {
+            {allSongsArr && false && allSongsArr.map((song) => {
 
                 const splitDate = song.created_at.split(" ")
                 const dateAdded = `${splitDate[2]} ${splitDate[1]}, ${splitDate[3]}`

@@ -1,0 +1,38 @@
+* {
+    margin: 0px;
+    box-sizing: border-box;
+    font-family: 'Gothic A1';
+    font-weight: 500;
+    font-size: 13.5px;
+    color: rgb(170, 170, 170);
+    letter-spacing: 0.02em;
+}
+
+li {
+    list-style-type: none;
+}
+
+.page_container {
+    display: flex;
+}
+
+.sidebar {
+    background-color: black;
+    min-width: 280px;
+    height: 100vh;
+}
+
+.banner {
+    position: relative;
+    background: linear-gradient(to right, #7454ca, #008c82);
+    width: 100vw;
+    height: 100vh;
+}
+
+.song_container {
+    position: absolute;
+    bottom: 0px;
+    background: linear-gradient(to top, black 50%, rgba(0, 0, 0, 0.5));
+    width: 100%;
+    height: 75%;
+}
