@@ -31,9 +31,6 @@ function Home() {
     }
 
     let userPlaylistsArr;
-    // if (user?.playlists) {
-    //     userPlaylistsArr = Object.values(user?.playlists)
-    // }
     if (userPlaylists) {
         userPlaylistsArr = Object.values(userPlaylists)
     }
@@ -57,6 +54,14 @@ function Home() {
             .catch(err => console.error(err))
 
         await dispatch(songStore.thunk_deleteSong({ songId }))
+    };
+
+    const addToPlaylist = async (playlistId, songId) => {
+        await dispatch(playlistStore.thunk_addToPlaylist({ playlistId, songId }))
+    };
+
+    const removeFromPlaylist = async (playlistId, songId) => {
+        await dispatch(playlistStore.thunk_removeFromPlaylist({ playlistId, songId }))
     };
 
     const deletePlaylist = async (playlistId, coverPhoto_s3Name) => {
@@ -96,7 +101,7 @@ function Home() {
                     <div className="playlist_container">
                         <ul>
                             {userPlaylistsArr && userPlaylistsArr.map((playlist) => {
-                                return <li>
+                                return <li className="sideBar_playlist_container">
                                     <div onClick={() => setSelectedPlaylist(playlist.id)}>{playlist.title}</div>
                                     <div className="edit_delete_container">
                                         <div onClick={() => history.push(`/playlists/${playlist.id}/edit`)}><i class="fas fa-edit"></i></div>
@@ -125,7 +130,7 @@ function Home() {
                             <li>TITLE</li>
                             <li>ALBUM</li>
                             <li>DATE ADDED</li>
-                            <li>DURATION</li>
+                            <li>GENRE</li>
                         </ul>
                         {allSongsArr && allSongsArr.map((song, index) => {
 
@@ -147,8 +152,20 @@ function Home() {
                                     </div>}
                                 </li>
                                 <li>{song.album}</li>
-                                <li>{dateAdded}</li>
-                                <li>3:18</li>
+                                <li className="playlistDate_container">
+                                    {dateAdded}
+                                    <div className="likeAndAdd_container">
+                                        {/* <ul className="testDiv">
+                                            {userPlaylistsArr && userPlaylistsArr.map(playlist => {
+                                                return <li onClick={() => addToPlaylist(playlist.id, song.id)}>{playlist.title}</li>
+                                            })}
+                                        </ul> */}
+                                        {!selectedPlaylist && <div><i class="fas fa-plus"></i></div>}
+                                        {selectedPlaylist && <div onClick={() => removeFromPlaylist(selectedPlaylist, song.id)}><i class="fas fa-minus"></i></div>}
+                                        <div><i class="fas fa-heart"></i></div>
+                                    </div>
+                                </li>
+                                <li>{song.genre}</li>
                             </ul>
                         })}
                     </div>

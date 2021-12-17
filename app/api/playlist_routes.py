@@ -1,5 +1,7 @@
 from flask import Blueprint, request
-from app.models import db, Playlist
+from app.models import db, Song, Playlist, playlist_song, playlist_songs
+from sqlalchemy import insert
+
 
 playlist_routes = Blueprint('playlists', __name__)
 
@@ -33,7 +35,34 @@ def delete_playlist(id):
     db.session.delete(playlistToDelete)
     db.session.commit()
 
-    print("THIS IS THE PLAYLIST TO DELETE --->", playlistToDelete)
+    playlists = Playlist.query.all()
+    return {'playlists': [playlist.to_dict() for playlist in playlists]}
+
+
+# Add song to playlist
+@playlist_routes.route("/<int:id>/addsong", methods=['POST'])
+def addsong_playlist(id):
+
+    addsong = insert(playlist_songs).values(
+        song_id= request.json["songId"],
+        playlist_id= request.json["playlistId"]
+    )
+
+    db.session.execute(addsong)
+    db.session.commit()
+    
+    playlists = Playlist.query.all()
+    return {'playlists': [playlist.to_dict() for playlist in playlists]}
+
+# Remove song from playlist
+@playlist_routes.route("/<int:id>/removesong", methods=['POST'])
+def removesong_playlist(id):
+    
+    playlist = Playlist.query.filter(Playlist.id == request.json["playlistId"]).first()
+    song = Song.query.filter(Song.id == request.json["songId"]).first()
+    playlist.songs.remove(song)
+
+    db.session.commit()
 
     playlists = Playlist.query.all()
     return {'playlists': [playlist.to_dict() for playlist in playlists]}

@@ -30,7 +30,7 @@ li {
 
 .sideNav_container {
     padding-left: 15px;
-    margin: 92px 30px 30px 30px;
+    margin: 85px 30px 30px 30px;
 }
 
 .sideNav_container > ul > li {
@@ -49,12 +49,18 @@ li {
 }
 
 .playlist_container {
-    padding-left: 15px;
+    padding: 0px 10px 0px 10px;
+    
     margin: 0px 30px 0px 30px;
 }
 
 .playlist_container > ul > li {
     padding: 4px 0px;
+}
+
+.sideBar_playlist_container {
+    display: flex;
+    justify-content: space-between;
 }
 
 /* Banner */
@@ -93,6 +99,7 @@ li {
     border-radius: 100%;
     margin-bottom: 10px;
     margin-right: 2px;
+    /* border: 2px solid rgb(20, 20, 20); */
 }
 
 .fa-headphones {
@@ -139,10 +146,10 @@ li {
 /* Song Container */
 .song_container {
     position: absolute;
-    bottom: 0px;
+    top: 20vh;
     background: linear-gradient(to top, black 50%, rgba(0, 0, 0, 0.5));
     width: 100%;
-    height: 75%;
+    height: 80vh;
     padding-bottom: 85px;
     overflow: scroll;
 }
@@ -203,10 +210,30 @@ li {
     align-self: center;
 }
 
-.fa-edit, .fa-trash-alt {
+.fa-edit, .fa-trash-alt, .fa-plus, .fa-minus, .fa-heart {
     padding: 0px 3px;
     font-size: 12.5px;
 }
+
+.playlistDate_container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-right: 12px;
+}
+
+.likeAndAdd_container {
+    display: flex;
+    align-items: center;
+}
+
+/* .testDiv {
+    position: fixed;
+    right: 10vw;
+    margin-top: 20px;
+    padding: 4px 8px 4px 8px;
+    background-color: white;
+} */
 
 
 /* Audio Player */

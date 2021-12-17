@@ -27,6 +27,46 @@ export const thunk_createPlaylist = ({ userId, title, coverPhoto_URL, coverPhoto
         }
     };
 
+export const thunk_addToPlaylist = ({ playlistId, songId }) =>
+async (dispatch) => {
+    const res = await fetch(`/api/playlists/${playlistId}/addsong`, {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            playlistId,
+            songId
+        })
+    });
+
+    if (res.ok) {
+        const playlists = await res.json();
+        dispatch(allPlaylists(playlists));
+        return playlists;
+    }
+};
+
+export const thunk_removeFromPlaylist = ({ playlistId, songId }) =>
+async (dispatch) => {
+    const res = await fetch(`/api/playlists/${playlistId}/removesong`, {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            playlistId,
+            songId
+        })
+    });
+
+    if (res.ok) {
+        const playlists = await res.json();
+        dispatch(allPlaylists(playlists));
+        return playlists;
+    }
+};
+
 export const thunk_deletePlaylist = ({ playlistId }) =>
     async (dispatch) => {
         const res = await fetch(`/api/playlists/${playlistId}`, {
