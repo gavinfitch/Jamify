@@ -27,45 +27,67 @@ export const thunk_createPlaylist = ({ userId, title, coverPhoto_URL, coverPhoto
         }
     };
 
-export const thunk_addToPlaylist = ({ playlistId, songId }) =>
-async (dispatch) => {
-    const res = await fetch(`/api/playlists/${playlistId}/addsong`, {
-        method: 'POST',
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            playlistId,
-            songId
-        })
-    });
+export const thunk_editPlaylist = ({ playlistToEdit, title, coverPhoto_URL, coverPhoto_s3Name }) =>
+    async (dispatch) => {
+        const res = await fetch(`/api/playlists/${playlistToEdit}/edit`, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                playlistToEdit,
+                title,
+                coverPhoto_URL, 
+                coverPhoto_s3Name
+            })
+        });
 
-    if (res.ok) {
-        const playlists = await res.json();
-        dispatch(allPlaylists(playlists));
-        return playlists;
-    }
-};
+        if (res.ok) {
+            const playlists = await res.json();
+            dispatch(allPlaylists(playlists));
+            return playlists;
+        }
+    };
+
+export const thunk_addToPlaylist = ({ playlistId, songId }) =>
+    async (dispatch) => {
+        const res = await fetch(`/api/playlists/${playlistId}/addsong`, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                playlistId,
+                songId
+            })
+        });
+
+        if (res.ok) {
+            const playlists = await res.json();
+            dispatch(allPlaylists(playlists));
+            return playlists;
+        }
+    };
 
 export const thunk_removeFromPlaylist = ({ playlistId, songId }) =>
-async (dispatch) => {
-    const res = await fetch(`/api/playlists/${playlistId}/removesong`, {
-        method: 'POST',
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            playlistId,
-            songId
-        })
-    });
+    async (dispatch) => {
+        const res = await fetch(`/api/playlists/${playlistId}/removesong`, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                playlistId,
+                songId
+            })
+        });
 
-    if (res.ok) {
-        const playlists = await res.json();
-        dispatch(allPlaylists(playlists));
-        return playlists;
-    }
-};
+        if (res.ok) {
+            const playlists = await res.json();
+            dispatch(allPlaylists(playlists));
+            return playlists;
+        }
+    };
 
 export const thunk_deletePlaylist = ({ playlistId }) =>
     async (dispatch) => {

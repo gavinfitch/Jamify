@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
 import S3 from 'react-aws-s3';
+import EditPlaylistModal from './editPlaylist/EditPlaylistModal'
 import * as songStore from '../store/song';
 import * as playlistStore from '../store/playlist';
 import './Home.css';
@@ -21,6 +22,11 @@ function Home() {
     const [selectedPlaylist, setSelectedPlaylist] = useState('');
     const [songToAdd, setSongToAdd] = useState('');
     const [playlistToAdd, setPlaylistToAdd] = useState('');
+    const [playlistToEdit, setPlaylistToEdit] = useState('');
+
+    const [title, setTitle] = useState('');
+    const [coverPhoto, setCoverPhoto] = useState('')
+    const [coverPhoto_title, setCoverPhoto_title] = useState('')
 
     let allSongsArr;
     if (allSongs) {
@@ -100,6 +106,32 @@ function Home() {
                 </div>
             </div>}
             <div className="page_container">
+                {/* ----- Hidden Edit playlist details modal ----- */}
+                { playlistToEdit && < EditPlaylistModal playlistToEdit={playlistToEdit} setPlaylistToEdit={setPlaylistToEdit} />}
+                {/* {playlistToEdit && <div className="addSongModal_background">
+                    <div className="addSong_modal">
+                        <i onClick={() => setPlaylistToEdit('')} class="fas fa-window-close"></i>
+                        <div className="addSong_header">Edit playlist details</div>
+                        <div>
+                            <input
+                                type="text"
+                                value={title}
+                                onChange={(e) => setTitle(e.target.value)}
+                                placeholder="Title"
+                            // required
+                            />
+                        </div>
+                        {coverPhoto_title && <div>{coverPhoto_title}</div>}
+                        <div>
+                            <input
+                                type="file"
+                                onChange={(e) => { setCoverPhoto(e.target.files[0]); setCoverPhoto_title(e.target.files[0].name) }}
+                            />
+                        </div>
+                        <button onClick={() => addToPlaylist(playlistToEdit)} className="addSong_button">Edit playlist</button>
+                    </div>
+                </div>} */}
+                <div className="page_container"></div>
                 {/* ----- Navigation section of sidebar ----- */}
                 <div className="sidebar">
                     <div className="sideNav_container">
@@ -123,7 +155,7 @@ function Home() {
                                 return <li className="sideBar_playlist_container">
                                     <div onClick={() => setSelectedPlaylist(playlist.id)}>{playlist.title}</div>
                                     <div className="edit_delete_container">
-                                        <div onClick={() => history.push(`/playlists/${playlist.id}/edit`)}><i class="fas fa-edit"></i></div>
+                                        <div onClick={() => setPlaylistToEdit(playlist.id)}><i class="fas fa-edit"></i></div>
                                         <div onClick={() => deletePlaylist(playlist.id, playlist.coverPhoto_s3Name)}><i class="fas fa-trash-alt"></i></div>
                                     </div>
                                 </li>

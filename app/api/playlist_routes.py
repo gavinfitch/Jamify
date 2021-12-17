@@ -28,11 +28,26 @@ def create_playlist():
     return {'playlists': [playlist.to_dict() for playlist in playlists]}
 
 # Delete playlist
-@playlist_routes.route("/<int:id>", methods=['DELETE'])
+@playlist_routes.route("/<int:id>/edit", methods=['DELETE'])
 def delete_playlist(id):
     playlistToDelete = Playlist.query.get(id)
 
     db.session.delete(playlistToDelete)
+    db.session.commit()
+
+    playlists = Playlist.query.all()
+    return {'playlists': [playlist.to_dict() for playlist in playlists]}
+
+# Edit playlist
+@playlist_routes.route("/<int:id>/edit", methods=['POST'])
+def edit_song(id):
+    playlistToUpdate = Playlist.query.get(id)
+    playlistToUpdate.title = request.json["title"]
+
+    if request.json["coverPhoto_URL"]:
+        playlistToUpdate.coverPhoto_URL=request.json["coverPhoto_URL"],
+        playlistToUpdate.coverPhoto_s3Name=request.json["coverPhoto_s3Name"]
+    
     db.session.commit()
 
     playlists = Playlist.query.all()
