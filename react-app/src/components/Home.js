@@ -15,10 +15,16 @@ function Home() {
     const history = useHistory();
 
     const [selectedSong, setSelectedSong] = useState('');
+    const [selectedPlaylist, setSelectedPlaylist] = useState('');
 
     let allSongsArr;
+
     if (allSongs) {
-        allSongsArr = Object.values(allSongs)
+        if (selectedPlaylist) {
+            allSongsArr = user?.playlists.filter((playlist) => playlist.id == selectedPlaylist)[0].songs
+        } else {
+            allSongsArr = Object.values(allSongs)
+        }
     }
 
     let userPlaylistsArr;
@@ -39,7 +45,6 @@ function Home() {
     const ReactS3Client = new S3(config);
 
     const deleteSong = async (songId, song_s3Name) => {
-
         await ReactS3Client
             .deleteFile(song_s3Name)
             .then(response => console.log(response))
@@ -47,7 +52,6 @@ function Home() {
 
         await dispatch(songStore.thunk_deleteSong({ songId }))
     };
-
 
     useEffect(() => {
         // Get all songs
@@ -62,7 +66,7 @@ function Home() {
                 <div className="sidebar">
                     <div className="sideNav_container">
                         <ul>
-                            <li>Home</li>
+                            <li onClick={() => {history.push(`/`); setSelectedPlaylist('')}}>Home</li>
                             <li>Search</li>
                             <li>Your Library</li>
                         </ul>
@@ -78,7 +82,7 @@ function Home() {
                         <ul>
                             {userPlaylistsArr && userPlaylistsArr.map((playlist) => {
                                 return <li>
-                                    <div>{playlist.title}</div>
+                                    <div onClick={() => setSelectedPlaylist(playlist.id)}>{playlist.title}</div>
                                 </li>
                             })}
                         </ul>
