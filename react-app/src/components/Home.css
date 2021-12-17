@@ -280,11 +280,13 @@ li {
 }
 
 .addSong_dropdown > li:hover {
+    color: rgb(250, 250, 250);
+    background-color: rgb(150, 150, 150);
+}
+
+#addSong_selected {
     color: black;
     background-color: rgb(250, 250, 250);
-    font-size: 14px;
-    text-align: center;
-    padding: 5px;
 }
 
 .addSong_button {

@@ -62,6 +62,7 @@ function Home() {
     const addToPlaylist = async (playlistId, songId) => {
         await dispatch(playlistStore.thunk_addToPlaylist({ playlistId, songId }))
         setSongToAdd('')
+        setSelectedPlaylist(playlistId)
     };
 
     const removeFromPlaylist = async (playlistId, songId) => {
@@ -92,7 +93,7 @@ function Home() {
                     <div className="addSong_header">Choose a playlist</div>
                     <ul className="addSong_dropdown">
                         {userPlaylistsArr && userPlaylistsArr.map(playlist => {
-                            return <li onClick={() => setPlaylistToAdd(playlist.id)} >{playlist.title}</li>
+                            return playlistToAdd == playlist.id ? <li id="addSong_selected" onClick={() => setPlaylistToAdd(playlist.id)} >{playlist.title}</li> : <li onClick={() => setPlaylistToAdd(playlist.id)} >{playlist.title}</li>
                         })}
                     </ul>
                     <button onClick={() => addToPlaylist(playlistToAdd, songToAdd)} className="addSong_button">Add song</button>
