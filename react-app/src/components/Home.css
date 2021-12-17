@@ -257,7 +257,8 @@ li {
     font-size: 24px;
     font-weight: 600;
     color: white;
-    margin-top: 35%;
+    /* margin-top: 28%; */
+    margin-top: 75px;
     margin-bottom: 12%;
     padding: 20px 0px;
 }
@@ -301,14 +302,6 @@ li {
     padding-top: 12px;
     margin: 25px 0px;
     width: 100%;
-}
-
-.fa-window-close {
-    position: absolute;
-    top: 14px;
-    right: 16px;
-    color: white;
-    font-size: 22px;
 }
 
 /* Audio Player */

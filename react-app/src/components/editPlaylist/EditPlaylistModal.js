@@ -60,14 +60,20 @@ const EditPlaylistModal = ({ playlistToEdit, setPlaylistToEdit }) => {
     return (
         <div className="addSongModal_background">
             <div className="addSong_modal">
-                <i onClick={() => setPlaylistToEdit('')} class="fas fa-window-close"></i>
+                <div className="modal_logoClose_container">
+                    <div className="form_logo">
+                        <div className="formLogo_circle"><i id="formLogo_headphones" class="fas fa-headphones"></i></div>Jamify
+                    </div>
+                    <i onClick={() => setPlaylistToEdit('')} class="fas fa-window-close"></i>
+                </div>
+
                 <div className="addSong_header">Edit Playlist</div>
                 <input
                     className="form_inputField"
                     type="text"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
-                    // placeholder="Title"
+                // placeholder="Title"
                 />
                 {currentPlaylist.coverPhoto_URL && !coverPhoto && <img className="editPlaylist_coverPhoto" src={currentPlaylist.coverPhoto_URL}></img>}
                 {coverPhoto_title ? <div className="fileInput_label">{coverPhoto_title}</div> : <label className="fileInput_label" for="coverPhoto_input">Select cover photo (optional)</label>}

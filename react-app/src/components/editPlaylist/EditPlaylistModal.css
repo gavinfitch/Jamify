@@ -83,7 +83,53 @@ input[type=file]::file-selector-button:hover {
     border-radius: 20px;
     padding: 8px;
     padding-top: 12px;
-    margin-bottom: 50%;
+    /* margin-bottom: 50%; */
+    margin-bottom: 170px;
     /* margin: 20px 0px; */
     width: 100%;
+}
+
+.modal_logoClose_container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.form_logo {
+    position: relative;
+    top: 12px;
+    left: -32px;
+    display: flex;
+    align-items: center;
+    font-size: 19px;
+    font-weight: 800;
+    color: white;
+}
+
+.formLogo_circle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-color: #55ca55; */
+    background-color: #02c48a;
+    width: 26px;
+    height: 26px;
+    border-radius: 100%;
+    margin-bottom: 8px;
+    margin-right: 1px;
+    /* border: 2px solid rgb(20, 20, 20); */
+}
+
+#formLogo_headphones {
+    font-size: 19px;
+    color: rgb(20, 20, 20);
+}
+
+.fa-window-close {
+    position: relative;
+    top: 12px;
+    right: -30px;
+    color: white;
+    font-size: 17px;
 }
