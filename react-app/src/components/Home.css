@@ -30,7 +30,7 @@ li {
 
 .sideNav_container {
     padding-left: 15px;
-    margin: 92px 30px 30px 30px;
+    margin: 85px 30px 30px 30px;
 }
 
 .sideNav_container > ul > li {
@@ -49,12 +49,18 @@ li {
 }
 
 .playlist_container {
-    padding-left: 15px;
+    padding: 0px 10px 0px 10px;
+    
     margin: 0px 30px 0px 30px;
 }
 
 .playlist_container > ul > li {
     padding: 4px 0px;
+}
+
+.sideBar_playlist_container {
+    display: flex;
+    justify-content: space-between;
 }
 
 /* Banner */
@@ -93,6 +99,7 @@ li {
     border-radius: 100%;
     margin-bottom: 10px;
     margin-right: 2px;
+    /* border: 2px solid rgb(20, 20, 20); */
 }
 
 .fa-headphones {
@@ -139,10 +146,10 @@ li {
 /* Song Container */
 .song_container {
     position: absolute;
-    bottom: 0px;
+    top: 20vh;
     background: linear-gradient(to top, black 50%, rgba(0, 0, 0, 0.5));
     width: 100%;
-    height: 75%;
+    height: 80vh;
     padding-bottom: 85px;
     overflow: scroll;
 }
@@ -203,17 +210,112 @@ li {
     align-self: center;
 }
 
-.fa-edit, .fa-trash-alt {
+.fa-edit, .fa-trash-alt, .fa-plus, .fa-minus, .fa-heart {
     padding: 0px 3px;
     font-size: 12.5px;
 }
 
+.playlistDate_container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-right: 12px;
+}
+
+.likeAndAdd_container {
+    display: flex;
+    align-items: center;
+}
+
+/* Add song to playlist modal */
+.addSongModal_background {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 1000;
+}
+
+.addSong_modal {
+    background-color: white;
+    min-width: 375px;
+    min-height: 50vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0px 45px;
+    border-radius: 10px;
+}
+
+.addSong_header {
+    font-size: 22px;
+    font-weight: 600;
+    color: rgb(20, 20, 20);
+    margin-top: 25%;
+    margin-bottom: 5%;
+    padding: 20px 0px;
+}
+
+.addSong_dropdown {
+    width: 100%;
+    min-width: 200px;
+    padding: 16px 4px;
+    background-color: rgb(20, 20, 20);
+    border-radius: 5px;
+    align-items: center;
+    justify-content: center;
+}
+
+.addSong_dropdown > li {
+    color: white;
+    font-size: 14px;
+    text-align: center;
+    padding: 5px;
+    border-radius: 2px;
+}
+
+.addSong_dropdown > li:hover {
+    color: rgb(250, 250, 250);
+    background-color: rgb(150, 150, 150);
+}
+
+#addSong_selected {
+    color: black;
+    background-color: rgb(250, 250, 250);
+}
+
+.addSong_button {
+    color: rgb(20, 20, 20);
+    font-size: 16px;
+    font-weight: 700;
+    background-color: #02c48a;
+    border: none;
+    border-radius: 20px;
+    padding: 8px;
+    padding-top: 12px;
+    margin: 25px 0px;
+    width: 100%;
+}
+
+.fa-window-close {
+    position: absolute;
+    top: 14px;
+    right: 16px;
+    color: white;
+    font-size: 22px;
+}
 
 /* Audio Player */
 .audioPlayer {
     position: fixed;
     bottom: 0px;
     background-color: rgb(18, 18, 18);
+    z-index: 1001;
 }
 
 .rhap_container {

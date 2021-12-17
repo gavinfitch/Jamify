@@ -19,6 +19,9 @@ function Home() {
 
     const [selectedSong, setSelectedSong] = useState('');
     const [selectedPlaylist, setSelectedPlaylist] = useState('');
+    const [songToAdd, setSongToAdd] = useState('');
+    const [playlistToAdd, setPlaylistToAdd] = useState('');
+
 
     let allSongsArr;
 
@@ -31,9 +34,6 @@ function Home() {
     }
 
     let userPlaylistsArr;
-    // if (user?.playlists) {
-    //     userPlaylistsArr = Object.values(user?.playlists)
-    // }
     if (userPlaylists) {
         userPlaylistsArr = Object.values(userPlaylists)
     }
@@ -59,6 +59,16 @@ function Home() {
         await dispatch(songStore.thunk_deleteSong({ songId }))
     };
 
+    const addToPlaylist = async (playlistId, songId) => {
+        await dispatch(playlistStore.thunk_addToPlaylist({ playlistId, songId }))
+        setSongToAdd('')
+        setSelectedPlaylist(playlistId)
+    };
+
+    const removeFromPlaylist = async (playlistId, songId) => {
+        await dispatch(playlistStore.thunk_removeFromPlaylist({ playlistId, songId }))
+    };
+
     const deletePlaylist = async (playlistId, coverPhoto_s3Name) => {
         await ReactS3Client
             .deleteFile(coverPhoto_s3Name)
@@ -77,6 +87,18 @@ function Home() {
 
     return (
         <>
+            {songToAdd && <div className="addSongModal_background">
+                <div className="addSong_modal">
+                    <i onClick={() => setSongToAdd('')} class="fas fa-window-close"></i>
+                    <div className="addSong_header">Choose a playlist</div>
+                    <ul className="addSong_dropdown">
+                        {userPlaylistsArr && userPlaylistsArr.map(playlist => {
+                            return playlistToAdd == playlist.id ? <li id="addSong_selected" onClick={() => setPlaylistToAdd(playlist.id)} >{playlist.title}</li> : <li onClick={() => setPlaylistToAdd(playlist.id)} >{playlist.title}</li>
+                        })}
+                    </ul>
+                    <button onClick={() => addToPlaylist(playlistToAdd, songToAdd)} className="addSong_button">Add song</button>
+                </div>
+            </div>}
             <div className="page_container">
                 <div className="sidebar">
                     <div className="sideNav_container">
@@ -96,7 +118,7 @@ function Home() {
                     <div className="playlist_container">
                         <ul>
                             {userPlaylistsArr && userPlaylistsArr.map((playlist) => {
-                                return <li>
+                                return <li className="sideBar_playlist_container">
                                     <div onClick={() => setSelectedPlaylist(playlist.id)}>{playlist.title}</div>
                                     <div className="edit_delete_container">
                                         <div onClick={() => history.push(`/playlists/${playlist.id}/edit`)}><i class="fas fa-edit"></i></div>
@@ -125,7 +147,7 @@ function Home() {
                             <li>TITLE</li>
                             <li>ALBUM</li>
                             <li>DATE ADDED</li>
-                            <li>DURATION</li>
+                            <li>GENRE</li>
                         </ul>
                         {allSongsArr && allSongsArr.map((song, index) => {
 
@@ -147,8 +169,15 @@ function Home() {
                                     </div>}
                                 </li>
                                 <li>{song.album}</li>
-                                <li>{dateAdded}</li>
-                                <li>3:18</li>
+                                <li className="playlistDate_container">
+                                    {dateAdded}
+                                    <div className="likeAndAdd_container">
+                                        {!selectedPlaylist && <div onClick={() => setSongToAdd(song.id)}><i class="fas fa-plus"></i></div>}
+                                        {selectedPlaylist && <div onClick={() => removeFromPlaylist(selectedPlaylist, song.id)}><i class="fas fa-minus"></i></div>}
+                                        <div><i class="fas fa-heart"></i></div>
+                                    </div>
+                                </li>
+                                <li>{song.genre}</li>
                             </ul>
                         })}
                     </div>
