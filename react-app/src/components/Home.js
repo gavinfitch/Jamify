@@ -11,6 +11,9 @@ import './Home.css';
 function Home() {
     const user = useSelector((state) => state.sessionReducer.user);
     const allSongs = useSelector((state) => state.songReducer.allSongs)
+    const allPlaylists = useSelector((state) => state.playlistReducer.allPlaylists)
+
+    const userPlaylists = allPlaylists?.filter((playlist) => playlist.userId = user.id)
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -21,15 +24,18 @@ function Home() {
 
     if (allSongs) {
         if (selectedPlaylist) {
-            allSongsArr = user?.playlists.filter((playlist) => playlist.id == selectedPlaylist)[0].songs
+            allSongsArr = userPlaylists.filter((playlist) => playlist.id == selectedPlaylist)[0].songs
         } else {
             allSongsArr = Object.values(allSongs)
         }
     }
 
     let userPlaylistsArr;
-    if (user?.playlists) {
-        userPlaylistsArr = Object.values(user?.playlists)
+    // if (user?.playlists) {
+    //     userPlaylistsArr = Object.values(user?.playlists)
+    // }
+    if (userPlaylists) {
+        userPlaylistsArr = Object.values(userPlaylists)
     }
 
     const s3envKey = process.env.REACT_APP_AWS_KEY;
@@ -51,6 +57,15 @@ function Home() {
             .catch(err => console.error(err))
 
         await dispatch(songStore.thunk_deleteSong({ songId }))
+    };
+
+    const deletePlaylist = async (playlistId, coverPhoto_s3Name) => {
+        await ReactS3Client
+            .deleteFile(coverPhoto_s3Name)
+            .then(response => console.log(response))
+            .catch(err => console.error(err))
+
+        await dispatch(playlistStore.thunk_deletePlaylist({ playlistId }))
     };
 
     useEffect(() => {
@@ -83,6 +98,10 @@ function Home() {
                             {userPlaylistsArr && userPlaylistsArr.map((playlist) => {
                                 return <li>
                                     <div onClick={() => setSelectedPlaylist(playlist.id)}>{playlist.title}</div>
+                                    <div className="edit_delete_container">
+                                        <div onClick={() => history.push(`/playlists/${playlist.id}/edit`)}><i class="fas fa-edit"></i></div>
+                                        <div onClick={() => deletePlaylist(playlist.id, playlist.coverPhoto_s3Name)}><i class="fas fa-trash-alt"></i></div>
+                                    </div>
                                 </li>
                             })}
                         </ul>

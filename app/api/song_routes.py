@@ -32,7 +32,7 @@ def upload_song():
 
 # Delete song
 @song_routes.route("/<int:id>", methods=['DELETE'])
-def deletePost(id):
+def delete_song(id):
     songToDelete = Song.query.get(id)
 
     db.session.delete(songToDelete)
@@ -43,7 +43,7 @@ def deletePost(id):
 
 # Edit Song
 @song_routes.route("/<int:id>/edit", methods=['POST'])
-def editSong(id):
+def edit_song(id):
     SongToUpdate = Song.query.get(id)
     SongToUpdate.title = request.json["title"]
     SongToUpdate.album = request.json["album"]
