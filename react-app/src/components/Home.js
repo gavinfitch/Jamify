@@ -19,6 +19,9 @@ function Home() {
 
     const [selectedSong, setSelectedSong] = useState('');
     const [selectedPlaylist, setSelectedPlaylist] = useState('');
+    const [songToAdd, setSongToAdd] = useState('');
+    const [playlistToAdd, setPlaylistToAdd] = useState('');
+
 
     let allSongsArr;
 
@@ -58,6 +61,7 @@ function Home() {
 
     const addToPlaylist = async (playlistId, songId) => {
         await dispatch(playlistStore.thunk_addToPlaylist({ playlistId, songId }))
+        setSongToAdd('')
     };
 
     const removeFromPlaylist = async (playlistId, songId) => {
@@ -82,6 +86,18 @@ function Home() {
 
     return (
         <>
+            {songToAdd && <div className="addSongModal_background">
+                <div className="addSong_modal">
+                    <i onClick={() => setSongToAdd('')} class="fas fa-window-close"></i>
+                    <div className="addSong_header">Choose a playlist</div>
+                    <ul className="addSong_dropdown">
+                        {userPlaylistsArr && userPlaylistsArr.map(playlist => {
+                            return <li onClick={() => setPlaylistToAdd(playlist.id)} >{playlist.title}</li>
+                        })}
+                    </ul>
+                    <button onClick={() => addToPlaylist(playlistToAdd, songToAdd)} className="addSong_button">Add song</button>
+                </div>
+            </div>}
             <div className="page_container">
                 <div className="sidebar">
                     <div className="sideNav_container">
@@ -155,12 +171,7 @@ function Home() {
                                 <li className="playlistDate_container">
                                     {dateAdded}
                                     <div className="likeAndAdd_container">
-                                        {/* <ul className="testDiv">
-                                            {userPlaylistsArr && userPlaylistsArr.map(playlist => {
-                                                return <li onClick={() => addToPlaylist(playlist.id, song.id)}>{playlist.title}</li>
-                                            })}
-                                        </ul> */}
-                                        {!selectedPlaylist && <div><i class="fas fa-plus"></i></div>}
+                                        {!selectedPlaylist && <div onClick={() => setSongToAdd(song.id)}><i class="fas fa-plus"></i></div>}
                                         {selectedPlaylist && <div onClick={() => removeFromPlaylist(selectedPlaylist, song.id)}><i class="fas fa-minus"></i></div>}
                                         <div><i class="fas fa-heart"></i></div>
                                     </div>

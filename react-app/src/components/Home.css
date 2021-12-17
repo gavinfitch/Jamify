@@ -227,20 +227,93 @@ li {
     align-items: center;
 }
 
-/* .testDiv {
+/* Add song to playlist modal */
+.addSongModal_background {
     position: fixed;
-    right: 10vw;
-    margin-top: 20px;
-    padding: 4px 8px 4px 8px;
-    background-color: white;
-} */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 1000;
+}
 
+.addSong_modal {
+    background-color: white;
+    min-width: 375px;
+    min-height: 50vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0px 45px;
+    border-radius: 10px;
+}
+
+.addSong_header {
+    font-size: 22px;
+    font-weight: 600;
+    color: rgb(20, 20, 20);
+    margin-top: 25%;
+    margin-bottom: 5%;
+    padding: 20px 0px;
+}
+
+.addSong_dropdown {
+    width: 100%;
+    min-width: 200px;
+    padding: 16px 4px;
+    background-color: rgb(20, 20, 20);
+    border-radius: 5px;
+    align-items: center;
+    justify-content: center;
+}
+
+.addSong_dropdown > li {
+    color: white;
+    font-size: 14px;
+    text-align: center;
+    padding: 5px;
+    border-radius: 2px;
+}
+
+.addSong_dropdown > li:hover {
+    color: black;
+    background-color: rgb(250, 250, 250);
+    font-size: 14px;
+    text-align: center;
+    padding: 5px;
+}
+
+.addSong_button {
+    color: rgb(20, 20, 20);
+    font-size: 16px;
+    font-weight: 700;
+    background-color: #02c48a;
+    border: none;
+    border-radius: 20px;
+    padding: 8px;
+    padding-top: 12px;
+    margin: 25px 0px;
+    width: 100%;
+}
+
+.fa-window-close {
+    position: absolute;
+    top: 14px;
+    right: 16px;
+    color: white;
+    font-size: 22px;
+}
 
 /* Audio Player */
 .audioPlayer {
     position: fixed;
     bottom: 0px;
     background-color: rgb(18, 18, 18);
+    z-index: 1001;
 }
 
 .rhap_container {
