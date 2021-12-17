@@ -66,7 +66,7 @@ function Home() {
                 <div className="sidebar">
                     <div className="sideNav_container">
                         <ul>
-                            <li onClick={() => {history.push(`/`); setSelectedPlaylist('')}}>Home</li>
+                            <li onClick={() => { history.push(`/`); setSelectedPlaylist('') }}>Home</li>
                             <li>Search</li>
                             <li>Your Library</li>
                         </ul>
@@ -74,7 +74,7 @@ function Home() {
                     <div className="sideForm_container">
                         <ul>
                             <li onClick={() => history.push(`/songs/upload/`)}>Upload Song</li>
-                            <li>Create Playlist</li>
+                            <li onClick={() => history.push(`/playlists/create/`)}>Create Playlist</li>
                             <li>Liked Songs</li>
                         </ul>
                     </div>
