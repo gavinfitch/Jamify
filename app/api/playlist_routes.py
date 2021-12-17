@@ -33,7 +33,5 @@ def delete_playlist(id):
     db.session.delete(playlistToDelete)
     db.session.commit()
 
-    print("THIS IS THE PLAYLIST TO DELETE --->", playlistToDelete)
-
     playlists = Playlist.query.all()
     return {'playlists': [playlist.to_dict() for playlist in playlists]}
