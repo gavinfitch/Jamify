@@ -5,6 +5,7 @@ import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
 import S3 from 'react-aws-s3';
 import * as songStore from '../store/song';
+import * as playlistStore from '../store/playlist';
 import './Home.css';
 
 function Home() {
@@ -51,6 +52,8 @@ function Home() {
     useEffect(() => {
         // Get all songs
         dispatch(songStore.thunk_getAllSongs());
+        // Get all playlists
+        dispatch(playlistStore.thunk_getAllPlaylists());
     }, [dispatch])
 
     return (
@@ -66,7 +69,7 @@ function Home() {
                     </div>
                     <div className="sideForm_container">
                         <ul>
-                            <li>Upload Song</li>
+                            <li onClick={() => history.push(`/songs/upload/`)}>Upload Song</li>
                             <li>Create Playlist</li>
                             <li>Liked Songs</li>
                         </ul>
