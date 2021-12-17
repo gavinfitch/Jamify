@@ -32,18 +32,22 @@ const EditPlaylistModal = ({ playlistToEdit, setPlaylistToEdit }) => {
     const ReactS3Client = new S3(config);
 
     const editPlaylist = async () => {
-        // e.preventDefault()
 
-        const userId = user.id;
+        setPlaylistToEdit('')
         let s3CoverPhoto;
 
-        await ReactS3Client
+        let coverPhoto_URL = '';
+        let coverPhoto_s3Name = ''
+
+        if (coverPhoto) {
+            await ReactS3Client
             .uploadFile(coverPhoto, coverPhoto_title.split(" ").join("-"))
             .then(data => s3CoverPhoto = data)
             .catch(err => console.error(err))
 
-        const coverPhoto_URL = s3CoverPhoto.location;
-        const coverPhoto_s3Name = s3CoverPhoto.key;
+            coverPhoto_URL = s3CoverPhoto.location;
+            coverPhoto_s3Name = s3CoverPhoto.key;
+        }
 
         return dispatch(playlistStore.thunk_editPlaylist({
             playlistToEdit,
@@ -58,30 +62,32 @@ const EditPlaylistModal = ({ playlistToEdit, setPlaylistToEdit }) => {
     }
 
     return (
-        <div className="addSongModal_background">
-            <div className="addSong_modal">
+        <div className="modal_background">
+            <div className="modal_container">
                 <div className="modal_logoClose_container">
                     <div className="form_logo">
                         <div className="formLogo_circle"><i id="formLogo_headphones" class="fas fa-headphones"></i></div>Jamify
                     </div>
                     <i onClick={() => setPlaylistToEdit('')} class="fas fa-window-close"></i>
                 </div>
-
-                <div className="addSong_header">Edit Playlist</div>
-                <input
-                    className="form_inputField"
-                    type="text"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                // placeholder="Title"
-                />
-                {currentPlaylist.coverPhoto_URL && !coverPhoto && <img className="editPlaylist_coverPhoto" src={currentPlaylist.coverPhoto_URL}></img>}
+                <div className="form_headerText">Edit Playlist</div>
+                <div className="formInput_wrapper">
+                    <input
+                        className="form_inputField"
+                        type="text"
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                    />
+                </div>
+                {currentPlaylist.coverPhoto_URL && !coverPhoto && <img className="form_image" src={currentPlaylist.coverPhoto_URL}></img>}
                 {coverPhoto_title ? <div className="fileInput_label">{coverPhoto_title}</div> : <label className="fileInput_label" for="coverPhoto_input">Select cover photo (optional)</label>}
-                <input
-                    type="file"
-                    id="coverPhoto_input"
-                    onChange={(e) => { setCoverPhoto(e.target.files[0]); setCoverPhoto_title(e.target.files[0].name) }}
-                />
+                <div className="formInput_wrapper">
+                    <input
+                        type="file"
+                        id="coverPhoto_input"
+                        onChange={(e) => { setCoverPhoto(e.target.files[0]); setCoverPhoto_title(e.target.files[0].name) }}
+                    />
+                </div>
                 <div className="dividerLine"></div>
                 <button onClick={() => editPlaylist(playlistToEdit)} className="form_submitButton">Save</button>
             </div>

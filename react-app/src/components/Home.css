@@ -227,7 +227,7 @@ li {
 }
 
 /* Add song to playlist modal */
-.addSongModal_background {
+/* .addSongModal_background {
     position: fixed;
     display: flex;
     align-items: center;
@@ -236,32 +236,31 @@ li {
     left: 0px;
     width: 100vw;
     height: 100vh;
-    /* background-color: rgba(0, 0, 0, 0.9); */
     background-color: #02c48a75;
     z-index: 1000;
-}
+} */
 
-.addSong_modal {
+/* .addSong_modal {
     background-color: black;
     min-width: 375px;
-    /* min-height: 50vh; */
-    /* height: 1000px; */
+    max-height: 70vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 0px 45px;
     border-radius: 10px;
-}
+    overflow: scroll;
+} */
 
-.addSong_header {
+/* .addSong_header {
     font-size: 24px;
     font-weight: 600;
     color: white;
-    /* margin-top: 28%; */
-    margin-top: 75px;
+    margin-top: 5vh;
+
     margin-bottom: 12%;
     padding: 20px 0px;
-}
+} */
 
 /* .form_inputField {
     width: 100%;
@@ -273,7 +272,7 @@ li {
     justify-content: center;
 } */
 
-.addSong_dropdown > li {
+/* .addSong_dropdown > li {
     color: white;
     font-size: 14px;
     text-align: center;
@@ -302,14 +301,14 @@ li {
     padding-top: 12px;
     margin: 25px 0px;
     width: 100%;
-}
+} */
 
 /* Audio Player */
 .audioPlayer {
     position: fixed;
     bottom: 0px;
     background-color: rgb(18, 18, 18);
-    z-index: 1001;
+    z-index: 1000;
 }
 
 .rhap_container {
