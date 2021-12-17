@@ -62,6 +62,7 @@ function Home() {
     const addToPlaylist = async (playlistId, songId) => {
         await dispatch(playlistStore.thunk_addToPlaylist({ playlistId, songId }))
         setSongToAdd('')
+        setPlaylistToAdd('')
         setSelectedPlaylist(playlistId)
     };
 
