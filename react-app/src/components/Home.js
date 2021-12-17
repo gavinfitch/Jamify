@@ -12,8 +12,8 @@ function Home() {
     const user = useSelector((state) => state.sessionReducer.user);
     const allSongs = useSelector((state) => state.songReducer.allSongs)
     const allPlaylists = useSelector((state) => state.playlistReducer.allPlaylists)
-
     const userPlaylists = allPlaylists?.filter((playlist) => playlist.userId = user.id)
+
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -22,9 +22,7 @@ function Home() {
     const [songToAdd, setSongToAdd] = useState('');
     const [playlistToAdd, setPlaylistToAdd] = useState('');
 
-
     let allSongsArr;
-
     if (allSongs) {
         if (selectedPlaylist) {
             allSongsArr = userPlaylists.filter((playlist) => playlist.id == selectedPlaylist)[0].songs
@@ -88,6 +86,7 @@ function Home() {
 
     return (
         <>
+            {/* ----- Hidden Add song to playlist modal ----- */}
             {songToAdd && <div className="addSongModal_background">
                 <div className="addSong_modal">
                     <i onClick={() => setSongToAdd('')} class="fas fa-window-close"></i>
@@ -101,6 +100,7 @@ function Home() {
                 </div>
             </div>}
             <div className="page_container">
+                {/* ----- Navigation section of sidebar ----- */}
                 <div className="sidebar">
                     <div className="sideNav_container">
                         <ul>
@@ -116,6 +116,7 @@ function Home() {
                             <li>Liked Songs</li>
                         </ul>
                     </div>
+                    {/* ----- Playlist section of sidebar ----- */}
                     <div className="playlist_container">
                         <ul>
                             {userPlaylistsArr && userPlaylistsArr.map((playlist) => {
@@ -130,6 +131,7 @@ function Home() {
                         </ul>
                     </div>
                 </div>
+                {/* ----- Banner ----- */}
                 <div className="banner">
                     <div className="logo_profileButton_container">
                         <div className="banner_logo">
@@ -142,6 +144,7 @@ function Home() {
                         </button>
                     </div>
                     <div className="banner_mainText">Welcome, {user?.username}</div>
+                    {/* ----- Song feed (playlist) ----- */}
                     <div className="song_container">
                         <ul className="playlist_header">
                             <li>#</li>
@@ -184,41 +187,7 @@ function Home() {
                     </div>
                 </div>
             </div>
-
-
-            {/* <h1>All Songs</h1> */}
-            {/* {allSongsArr && allSongsArr.map((song) => {
-
-                const splitDate = song.created_at.split(" ")
-                const dateAdded = `${splitDate[2]} ${splitDate[1]}, ${splitDate[3]}`
-                return <ul>
-                    <li>
-                        <img onClick={() => { setSelectedSong(song); console.log(selectedSong.song_URL) }} src={song.albumCover_URL} />
-                    </li>
-                    <li>
-                        <div>{song.title}</div>
-                        <div>{song.artist}</div>
-                    </li>
-                    <li>
-                        <div>{song.album}</div>
-                    </li>
-                    <li>
-                        <div>{dateAdded}</div>
-                    </li>
-                    {user.id == song.userId && <div>
-                        <div onClick={() => history.push(`/songs/${song.id}/edit`)}>Edit</div>
-                        <div onClick={() => deleteSong(song.id, song.song_s3Name)}>Delete</div>
-                    </div>}
-                </ul>
-            })}
-            <h1>Logged-in user's playlists</h1>
-            {userPlaylistsArr && userPlaylistsArr.map((playlist) => {
-                return <ul>
-                    <li>
-                        <div>{playlist.title}</div>
-                    </li>
-                </ul>
-            })} */}
+            {/* ----- Audio player ----- */}
             <AudioPlayer
                 className="audioPlayer"
                 // autoPlay
