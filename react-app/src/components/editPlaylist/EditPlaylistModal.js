@@ -6,15 +6,16 @@ import './EditPlaylistModal.css';
 import S3 from 'react-aws-s3';
 import * as playlistStore from '../../store/playlist';
 
-const EditPlaylistModal = ({playlistToEdit, setPlaylistToEdit}) => {
+const EditPlaylistModal = ({ playlistToEdit, setPlaylistToEdit }) => {
     const [errors, setErrors] = useState([]);
     const user = useSelector(state => state.sessionReducer.user);
+    const allPlaylists = useSelector((state) => state.playlistReducer.allPlaylists)
+    const currentPlaylist = allPlaylists?.filter((playlist) => playlist.id == playlistToEdit)[0]
 
     const dispatch = useDispatch()
     const history = useHistory()
 
-    // const [playlistToEdit, setPlaylistToEdit] = useState('');
-    const [title, setTitle] = useState('');
+    const [title, setTitle] = useState(currentPlaylist?.title);
     const [coverPhoto, setCoverPhoto] = useState('')
     const [coverPhoto_title, setCoverPhoto_title] = useState('')
 
@@ -60,24 +61,23 @@ const EditPlaylistModal = ({playlistToEdit, setPlaylistToEdit}) => {
         <div className="addSongModal_background">
             <div className="addSong_modal">
                 <i onClick={() => setPlaylistToEdit('')} class="fas fa-window-close"></i>
-                <div className="addSong_header">Edit playlist details</div>
-                <div>
-                    <input
-                        type="text"
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                        placeholder="Title"
-                    // required
-                    />
-                </div>
-                {coverPhoto_title && <div>{coverPhoto_title}</div>}
-                <div>
-                    <input
-                        type="file"
-                        onChange={(e) => { setCoverPhoto(e.target.files[0]); setCoverPhoto_title(e.target.files[0].name) }}
-                    />
-                </div>
-                <button onClick={() => editPlaylist(playlistToEdit)} className="addSong_button">Edit playlist</button>
+                <div className="addSong_header">Edit Playlist</div>
+                <input
+                    className="form_inputField"
+                    type="text"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    // placeholder="Title"
+                />
+                {currentPlaylist.coverPhoto_URL && !coverPhoto && <img className="editPlaylist_coverPhoto" src={currentPlaylist.coverPhoto_URL}></img>}
+                {coverPhoto_title ? <div className="fileInput_label">{coverPhoto_title}</div> : <label className="fileInput_label" for="coverPhoto_input">Select cover photo (optional)</label>}
+                <input
+                    type="file"
+                    id="coverPhoto_input"
+                    onChange={(e) => { setCoverPhoto(e.target.files[0]); setCoverPhoto_title(e.target.files[0].name) }}
+                />
+                <div className="dividerLine"></div>
+                <button onClick={() => editPlaylist(playlistToEdit)} className="form_submitButton">Save</button>
             </div>
         </div>
     )

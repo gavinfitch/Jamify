@@ -107,7 +107,7 @@ function Home() {
             </div>}
             <div className="page_container">
                 {/* ----- Hidden Edit playlist details modal ----- */}
-                { playlistToEdit && < EditPlaylistModal playlistToEdit={playlistToEdit} setPlaylistToEdit={setPlaylistToEdit} />}
+                {playlistToEdit && < EditPlaylistModal playlistToEdit={playlistToEdit} setPlaylistToEdit={setPlaylistToEdit} />}
                 {/* {playlistToEdit && <div className="addSongModal_background">
                     <div className="addSong_modal">
                         <i onClick={() => setPlaylistToEdit('')} class="fas fa-window-close"></i>
