@@ -1,25 +1,34 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useParams } from "react-router"
 import { useHistory } from 'react-router-dom';
-import './UploadSongForm.css';
+import './EditSongForm.css';
 import S3 from 'react-aws-s3';
 import * as songStore from '../../store/song';
 
-const UploadSongForm = () => {
+const EditSongForm = () => {
     const [errors, setErrors] = useState([]);
-    const [audioFile, setAudioFile] = useState('')
-    const [audioFile_title, setAudioFile_title] = useState('')
-    const [title, setTitle] = useState('');
-    const [artist, setArtist] = useState('');
-    const [album, setAlbum] = useState('');
-    const [genre, setGenre] = useState('');
-    const [albumCover, setAlbumCover] = useState('')
-    const [albumCover_title, setAlbumCover_title] = useState('')
 
     const user = useSelector(state => state.sessionReducer.user);
+    const allSongs = useSelector((state) => state.songReducer.allSongs)
 
     const dispatch = useDispatch()
     const history = useHistory()
+
+    const { id } = useParams();
+    const songId = id;
+
+    let currentSong;
+    if (allSongs) {
+        currentSong = allSongs.filter(song => song.id == songId)[0]
+    }
+
+    const [title, setTitle] = useState(currentSong?.title);
+    const [artist, setArtist] = useState(currentSong?.artist);
+    const [album, setAlbum] = useState(currentSong?.album);
+    const [genre, setGenre] = useState(currentSong?.genre);
+    const [albumCover, setAlbumCover] = useState('')
+    const [albumCover_title, setAlbumCover_title] = useState('')
 
     const s3envKey = process.env.REACT_APP_AWS_KEY;
     const s3envSecretKey = process.env.REACT_APP_AWS_SECRET_KEY;
@@ -38,29 +47,24 @@ const UploadSongForm = () => {
 
         const userId = user.id;
 
-        let s3Song;
-        await ReactS3Client
-            .uploadFile(audioFile, audioFile_title.split(" ").join("-"))
-            .then(data => s3Song = data)
-            .catch(err => console.error(err))
+        let albumCover_URL = '';
+        let albumCover_s3Name = '';
 
-        const song_URL = s3Song.location;
-        const song_s3Name = s3Song.key;
+        if (albumCover) {
+            let s3AlbumCover;
 
-        let s3AlbumCover;
-        await ReactS3Client
-            .uploadFile(albumCover, albumCover_title.split(" ").join("-"))
-            .then(data => s3AlbumCover = data)
-            .catch(err => console.error(err))
+            await ReactS3Client
+                .uploadFile(albumCover, albumCover_title.split(" ").join("-"))
+                .then(data => s3AlbumCover = data)
+                .catch(err => console.error(err))
 
-        const albumCover_URL = s3AlbumCover.location;
-        const albumCover_s3Name = s3AlbumCover.key;
+            albumCover_URL = s3AlbumCover.location;
+            albumCover_s3Name = s3AlbumCover.key;
+        }
 
-        return dispatch(songStore.thunk_uploadSong({
-            userId,
+        return dispatch(songStore.thunk_editSong({
+            songId,
             title,
-            song_URL,
-            song_s3Name,
             album,
             artist,
             genre,
@@ -81,17 +85,10 @@ const UploadSongForm = () => {
                         <div key={index}>{error}</div>
                     ))}
                 </div>
-                {audioFile_title && <div>{audioFile_title}</div>}
-                <div>
-                    <input
-                        type="file"
-                        onChange={(e) => { setAudioFile(e.target.files[0]); setAudioFile_title(e.target.files[0].name) }}
-                    // required
-                    />
-                </div>
                 <div>
                     <input
                         type="text"
+                        value={title}
                         onChange={(e) => setTitle(e.target.value)}
                         placeholder="Title"
                     // required
@@ -100,6 +97,7 @@ const UploadSongForm = () => {
                 <div>
                     <input
                         type="text"
+                        value={artist}
                         onChange={(e) => setArtist(e.target.value)}
                         placeholder="Artist"
                     // required
@@ -108,13 +106,14 @@ const UploadSongForm = () => {
                 <div>
                     <input
                         type="text"
+                        value={album}
                         onChange={(e) => setAlbum(e.target.value)}
                         placeholder="Album (optional)"
                     // required
                     />
                 </div>
-                <select onChange={(e) => setGenre(e.target.value)}>
-                    <option value="Ambient">Ambient</option>
+                <select value={genre} onChange={(e) => setGenre(e.target.value)}>
+                    {/* <option value="Ambient">Ambient</option> */}
                     <option value="Blues">Blues</option>
                     <option value="Country">Country</option>
                     <option value="Classical">Classical</option>
@@ -135,10 +134,10 @@ const UploadSongForm = () => {
                         onChange={(e) => { setAlbumCover(e.target.files[0]); setAlbumCover_title(e.target.files[0].name) }}
                     />
                 </div>
-                <button type='submit'>Upload</button>
+                <button type='submit'>Edit</button>
             </form>
         </section>
     )
 };
 
-export default UploadSongForm;
+export default EditSongForm;

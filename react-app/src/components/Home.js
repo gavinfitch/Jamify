@@ -4,8 +4,11 @@ import { useHistory } from 'react-router-dom';
 import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
 import S3 from 'react-aws-s3';
+import UploadSongModal from './uploadSong/UploadSongModal'
+import EditSongModal from './editSong/EditSongModal'
 import CreatePlaylistModal from './createPlaylist/CreatePlaylistModal'
 import EditPlaylistModal from './editPlaylist/EditPlaylistModal'
+import AddToPlaylistModal from './addToPlaylist/AddToPlaylistModal'
 import * as songStore from '../store/song';
 import * as playlistStore from '../store/playlist';
 import './Home.css';
@@ -25,10 +28,14 @@ function Home() {
     const [playlistToAdd, setPlaylistToAdd] = useState('');
     const [playlistToEdit, setPlaylistToEdit] = useState('');
     const [createPlaylist, setCreatePlaylist] = useState(false);
+    const [uploadSong, setUploadSong] = useState(false)
+    const [editSong, setEditSong] = useState('')
 
     const [title, setTitle] = useState('');
     const [coverPhoto, setCoverPhoto] = useState('')
     const [coverPhoto_title, setCoverPhoto_title] = useState('')
+
+    const genresArr = ["Ambient", "Blues", "Country", "Dance", "Electronic", "Experimental", "Folk", "Funk", "Hip-Hop", "Indie-Rock", "Jazz", "Metal", "Pop", "Punk", "R&B", "Rock", "Shoegaze", "Soul"]
 
     let allSongsArr;
     if (allSongs) {
@@ -65,12 +72,12 @@ function Home() {
         await dispatch(songStore.thunk_deleteSong({ songId }))
     };
 
-    const addToPlaylist = async (playlistId, songId) => {
-        await dispatch(playlistStore.thunk_addToPlaylist({ playlistId, songId }))
-        setSongToAdd('')
-        setPlaylistToAdd('')
-        setSelectedPlaylist(playlistId)
-    };
+    // const addToPlaylist = async (playlistId, songId) => {
+    //     await dispatch(playlistStore.thunk_addToPlaylist({ playlistId, songId }))
+    //     setSongToAdd('')
+    //     setPlaylistToAdd('')
+    //     setSelectedPlaylist(playlistId)
+    // };
 
     const removeFromPlaylist = async (playlistId, songId) => {
         await dispatch(playlistStore.thunk_removeFromPlaylist({ playlistId, songId }))
@@ -94,24 +101,18 @@ function Home() {
 
     return (
         <>
-            {/* ----- Hidden Edit playlist details modal ----- */}
+            {/* ----- Upload song modal ----- */}
+            {uploadSong && < UploadSongModal genresArr={genresArr} setUploadSong={setUploadSong} />}  
+            {/* ----- edit song modal ----- */}
+            {editSong && < EditSongModal genresArr={genresArr} editSong={editSong} setEditSong={setEditSong} />} 
+            {/* ----- Create playlist details modal ----- */}
             {createPlaylist && < CreatePlaylistModal setCreatePlaylist={setCreatePlaylist} />}
-            {/* ----- Hidden Add song to playlist modal ----- */}
-            {songToAdd && <div className="addSongModal_background">
-                <div className="addSong_modal">
-                    <i onClick={() => setSongToAdd('')} class="fas fa-window-close"></i>
-                    <div className="addSong_header">Choose a playlist</div>
-                    <ul className="addSong_dropdown">
-                        {userPlaylistsArr && userPlaylistsArr.map(playlist => {
-                            return playlistToAdd == playlist.id ? <li id="addSong_selected" onClick={() => setPlaylistToAdd(playlist.id)} >{playlist.title}</li> : <li onClick={() => setPlaylistToAdd(playlist.id)} >{playlist.title}</li>
-                        })}
-                    </ul>
-                    <button onClick={() => addToPlaylist(playlistToAdd, songToAdd)} className="addSong_button">Add song</button>
-                </div>
-            </div>}
+            {/* ----- Add song to playlist modal ----- */}
+            {songToAdd && < AddToPlaylistModal songToAdd={songToAdd} setSongToAdd={setSongToAdd} setSelectedPlaylist={setSelectedPlaylist} />}
+            {/* ----- Edit playlist details modal ----- */}
+            {playlistToEdit && < EditPlaylistModal playlistToEdit={playlistToEdit} setPlaylistToEdit={setPlaylistToEdit} />}
+
             <div className="page_container">
-                {/* ----- Hidden Edit playlist details modal ----- */}
-                {playlistToEdit && < EditPlaylistModal playlistToEdit={playlistToEdit} setPlaylistToEdit={setPlaylistToEdit} />}
                 <div className="page_container"></div>
                 {/* ----- Navigation section of sidebar ----- */}
                 <div className="sidebar">
@@ -124,7 +125,7 @@ function Home() {
                     </div>
                     <div className="sideForm_container">
                         <ul>
-                            <li onClick={() => history.push(`/songs/upload/`)}>Upload Song</li>
+                            <li onClick={() => setUploadSong(true)}>Upload Song</li>
                             <li onClick={() => setCreatePlaylist(true)}>Create Playlist</li>
                             <li>Liked Songs</li>
                         </ul>
@@ -181,7 +182,7 @@ function Home() {
                                         </div>
                                     </div>
                                     {user.id == song.userId && <div className="edit_delete_container">
-                                        <div onClick={() => history.push(`/songs/${song.id}/edit`)}><i class="fas fa-edit"></i></div>
+                                        <div onClick={() => setEditSong(song.id)}><i class="fas fa-edit"></i></div>
                                         <div onClick={() => deleteSong(song.id, song.song_s3Name)}><i class="fas fa-trash-alt"></i></div>
                                     </div>}
                                 </li>

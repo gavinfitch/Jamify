@@ -1,0 +1,46 @@
+.form_inputField_song {
+    width: 100%;
+    padding: 6px 10px;
+    padding-top: 8px;
+    margin: 9px 0px;
+    color: rgb(190, 190, 190);
+    font-size: 16px;
+    font-weight: 500;
+    background-color: rgb(60, 60, 62);
+    border: none;
+    border-radius: 4px;
+}
+
+.form_inputField_song::placeholder {
+    color: rgb(190, 190, 190);
+}
+
+.form_inputField_song:focus {
+    outline: none;
+}
+
+.track_select {
+    margin-bottom: 11px;
+}
+
+.form_inputField_dropdown {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 10px;
+    padding-top: 8px;
+    margin: 8px 0px 20px 0px;
+    color: rgb(190, 190, 190);
+    font-size: 16px;
+    font-weight: 500;
+    background-color: rgb(60, 60, 62);
+    border: none;
+    border-radius: 4px;
+}
+
+.form_inputField_dropdown:focus {
+    outline: none;
+}
+
