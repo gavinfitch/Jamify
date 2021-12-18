@@ -50,6 +50,15 @@
     color: rgb(20, 20, 20);
 }
 
+.authForm_headerText {
+    font-size: 24px;
+    font-weight: 600;
+    color: white;
+    margin-top: 14%;
+    margin-bottom: 7%;
+    padding: 20px 0px;
+}
+
 .authForm_submitButton {
     color: black;
     font-size: 16px;
@@ -59,7 +68,7 @@
     border-radius: 20px;
     padding: 8px;
     padding-top: 12px;
-    margin-bottom: 15%;
+    margin: 10px 0px;
     width: 100%;
 }
 
@@ -72,7 +81,8 @@
     border-radius: 20px;
     padding: 8px;
     padding-top: 12px;
-    margin-bottom: 15%;
+    margin: 15px 0px;
+    margin-bottom: 18%;
     width: 100%;
 }
 

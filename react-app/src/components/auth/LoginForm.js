@@ -38,7 +38,7 @@ const LoginForm = () => {
         <div className="authForm_logo">
           <div className="authFormLogo_circle"><i id="authFormLogo_headphones" class="fas fa-headphones"></i></div>Jamify
         </div>
-        <div className="form_headerText">Log In</div>
+        <div className="authForm_headerText">Log In</div>
         <div>
           {errors.map((error, ind) => (
             <div key={ind}>{error}</div>
