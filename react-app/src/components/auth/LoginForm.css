@@ -1,0 +1,100 @@
+.authForm_background {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(to top, #7454ca, 38%, #008c82);
+    z-index: 1000;
+}
+
+.authForm_container {
+    background-color: black;
+    min-width: 375px;
+    max-height: 70vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0px 45px;
+    border-radius: 10px;
+    overflow: scroll;
+}
+
+.authForm_logo {
+    display: flex;
+    align-items: center;
+    font-size: 24px;
+    font-weight: 700;
+    margin-top: 60px;
+    color: white;
+}
+
+.authFormLogo_circle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #02c48a;
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    margin-bottom: 8px;
+    margin-right: 2px;
+}
+
+#authFormLogo_headphones {
+    font-size: 29px;
+    padding-bottom: 1px;
+    color: rgb(20, 20, 20);
+}
+
+.authForm_headerText {
+    font-size: 24px;
+    font-weight: 600;
+    color: white;
+    margin-top: 14%;
+    margin-bottom: 7%;
+    padding: 20px 0px;
+}
+
+.authForm_submitButton {
+    color: black;
+    font-size: 16px;
+    font-weight: 700;
+    background-color: #02c48a;
+    border: none;
+    border-radius: 20px;
+    padding: 8px;
+    padding-top: 12px;
+    margin: 10px 0px;
+    width: 100%;
+}
+
+.authForm_submitButton_black {
+    color: rgb(250, 250, 250);
+    font-size: 16px;
+    font-weight: 600;
+    background-color: black;
+    border: 1px solid rgb(250, 250, 250);
+    border-radius: 20px;
+    padding: 8px;
+    padding-top: 12px;
+    margin: 15px 0px;
+    margin-bottom: 18%;
+    width: 100%;
+}
+
+.authForm_redirectText {
+    font-size: 13.5px;
+    margin-bottom: 50%;
+}
+
+.authForm_redirectLink {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: white;
+    text-decoration: underline;
+    padding: 0px 4px;
+}

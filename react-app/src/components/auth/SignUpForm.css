@@ -1,0 +1,33 @@
+.signup_submitButton {
+    color: black;
+    font-size: 16px;
+    font-weight: 700;
+    background-color: #02c48a;
+    border: none;
+    border-radius: 20px;
+    padding: 8px;
+    padding-top: 12px;
+    margin: 10px 0px;
+    margin-bottom: 18%;
+    width: 100%;
+}
+
+.signup_fileInput_label {
+    padding: 2px 16px;
+    margin-top: 10px;
+    font-size: 12px;
+    color: rgb(190, 190, 190);
+    align-self: flex-start;
+}
+
+.signup_formInput_wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.signup_authForm_redirectText {
+    font-size: 13.5px;
+    margin-bottom: 30%;
+}
