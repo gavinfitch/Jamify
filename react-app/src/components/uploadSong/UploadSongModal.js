@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import './UploadSongForm.css';
+import './UploadSongModal.css';
 import S3 from 'react-aws-s3';
 import * as songStore from '../../store/song';
 
-const UploadSongForm = () => {
+const UploadSongModal = ({ genresArr, setUploadSong }) => {
     const [errors, setErrors] = useState([]);
     const [audioFile, setAudioFile] = useState('')
     const [audioFile_title, setAudioFile_title] = useState('')
     const [title, setTitle] = useState('');
     const [artist, setArtist] = useState('');
-    const [album, setAlbum] = useState('');
+    const [album, setAlbum] = useState(null);
     const [genre, setGenre] = useState('');
     const [albumCover, setAlbumCover] = useState('')
     const [albumCover_title, setAlbumCover_title] = useState('')
@@ -48,13 +48,22 @@ const UploadSongForm = () => {
         const song_s3Name = s3Song.key;
 
         let s3AlbumCover;
-        await ReactS3Client
-            .uploadFile(albumCover, albumCover_title.split(" ").join("-"))
-            .then(data => s3AlbumCover = data)
-            .catch(err => console.error(err))
+        let albumCover_URL = (null);
+        let albumCover_s3Name = (null);
 
-        const albumCover_URL = s3AlbumCover.location;
-        const albumCover_s3Name = s3AlbumCover.key;
+        if (albumCover) {
+            await ReactS3Client
+                .uploadFile(albumCover, albumCover_title.split(" ").join("-"))
+                .then(data => s3AlbumCover = data)
+                .catch(err => console.error(err))
+
+            albumCover_URL = s3AlbumCover.location;
+            albumCover_s3Name = s3AlbumCover.key;
+        } else {
+            albumCover_URL = "https://jamify.s3.us-west-2.amazonaws.com/utils/Music_note.png"
+        }
+
+        setUploadSong(false);
 
         return dispatch(songStore.thunk_uploadSong({
             userId,
@@ -74,71 +83,73 @@ const UploadSongForm = () => {
     }
 
     return (
-        <section>
-            <form onSubmit={handleSubmit}>
+        <div className="modal_background">
+            <form className="modal_container" onSubmit={handleSubmit}>
+                <div className="modal_logoClose_container">
+                    <div className="form_logo">
+                        <div className="formLogo_circle"><i id="formLogo_headphones" class="fas fa-headphones"></i></div>Jamify
+                    </div>
+                    <i onClick={() => setUploadSong('')} class="fas fa-window-close"></i>
+                </div>
+                <div className="form_headerText">Upload Song</div>
                 <div>
                     {errors.map((error, index) => (
                         <div key={index}>{error}</div>
                     ))}
                 </div>
-                {audioFile_title && <div>{audioFile_title}</div>}
-                <div>
+                {audioFile_title ? <div className="fileInput_label">{audioFile_title}</div> : <label className="fileInput_label" for="coverPhoto_input">Track select</label>}
+                <div className="formInput_wrapper track_select">
                     <input
                         type="file"
                         onChange={(e) => { setAudioFile(e.target.files[0]); setAudioFile_title(e.target.files[0].name) }}
                     // required
                     />
                 </div>
-                <div>
+                <div className="formInput_wrapper">
                     <input
+                        className="form_inputField_song"
                         type="text"
                         onChange={(e) => setTitle(e.target.value)}
                         placeholder="Title"
                     // required
                     />
                 </div>
-                <div>
+                <div className="formInput_wrapper">
                     <input
+                        className="form_inputField_song"
                         type="text"
                         onChange={(e) => setArtist(e.target.value)}
                         placeholder="Artist"
                     // required
                     />
                 </div>
-                <div>
+                <div className="formInput_wrapper">
                     <input
+                        className="form_inputField_song"
                         type="text"
                         onChange={(e) => setAlbum(e.target.value)}
                         placeholder="Album (optional)"
                     // required
                     />
                 </div>
-                <select onChange={(e) => setGenre(e.target.value)}>
-                    <option value="Ambient">Ambient</option>
-                    <option value="Blues">Blues</option>
-                    <option value="Country">Country</option>
-                    <option value="Classical">Classical</option>
-                    <option value="Electronic">Electronic</option>
-                    <option value="Metal">Metal</option>
-                    <option value="Punk">Punk</option>
-                    <option value="Post-Punk">Post-Punk</option>
-                    <option value="Jazz">Jazz</option>
-                    <option value="Rock">Rock</option>
-                    <option value="Rhythm and blues">Rhythm and blues</option>
-                    <option value="Shoegaze">Shoegaze</option>
-                    <option value="Soul">Soul</option>
+                <select className="form_inputField_dropdown" onChange={(e) => setGenre(e.target.value)}>
+                    <option selected disabled hidden>Genre</option>
+                    {genresArr && genresArr.map(genre => {
+                        return <option value={genre}>{genre}</option>
+                    })}
                 </select>
-                {albumCover_title && <div>{albumCover_title}</div>}
-                <div>
+                {albumCover_title ? <div className="fileInput_label">{albumCover_title}</div> : <label className="fileInput_label" for="coverPhoto_input">Upload album cover (optional)</label>}
+                <div className="formInput_wrapper">
                     <input
                         type="file"
                         onChange={(e) => { setAlbumCover(e.target.files[0]); setAlbumCover_title(e.target.files[0].name) }}
                     />
                 </div>
-                <button type='submit'>Upload</button>
+                <div className="dividerLine"></div>
+                <button className="form_submitButton" type='submit'>Upload</button>
             </form>
-        </section>
+        </div>
     )
 };
 
-export default UploadSongForm;
+export default UploadSongModal;

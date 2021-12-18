@@ -8,9 +8,9 @@ import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
 import User from './components/User';
 import Home from './components/Home'
-import UploadSongForm from './components/uploadSong/UploadSongForm'
-import EditSongForm from './components/editSong/EditSongForm'
-import CreatePlaylistForm from './components/createPlaylist/CreatePlaylistForm'
+// import UploadSongForm from './components/uploadSong/UploadSongForm'
+// import EditSongForm from './components/editSong/EditSongForm'
+// import CreatePlaylistForm from './components/createPlaylist/CreatePlaylistForm'
 import { authenticate } from './store/session';
 
 function App() {
@@ -47,15 +47,15 @@ function App() {
         <ProtectedRoute path='/' exact={true} >
           <Home />
         </ProtectedRoute>
-        <ProtectedRoute path='/songs/upload' exact={true} >
+        {/* <ProtectedRoute path='/songs/upload' exact={true} >
           <UploadSongForm />
-        </ProtectedRoute>
-        <ProtectedRoute path='/songs/:id/edit' exact={true} >
+        </ProtectedRoute> */}
+        {/* <ProtectedRoute path='/songs/:id/edit' exact={true} >
           <EditSongForm />
-        </ProtectedRoute>
-        <ProtectedRoute path='/playlists/create' exact={true} >
+        </ProtectedRoute> */}
+        {/* <ProtectedRoute path='/playlists/create' exact={true} >
           <CreatePlaylistForm />
-        </ProtectedRoute>
+        </ProtectedRoute> */}
       </Switch>
     </BrowserRouter>
   );

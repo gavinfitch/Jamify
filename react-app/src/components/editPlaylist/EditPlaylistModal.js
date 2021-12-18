@@ -6,15 +6,16 @@ import './EditPlaylistModal.css';
 import S3 from 'react-aws-s3';
 import * as playlistStore from '../../store/playlist';
 
-const EditPlaylistModal = ({playlistToEdit, setPlaylistToEdit}) => {
+const EditPlaylistModal = ({ playlistToEdit, setPlaylistToEdit }) => {
     const [errors, setErrors] = useState([]);
     const user = useSelector(state => state.sessionReducer.user);
+    const allPlaylists = useSelector((state) => state.playlistReducer.allPlaylists)
+    const currentPlaylist = allPlaylists?.filter((playlist) => playlist.id == playlistToEdit)[0]
 
     const dispatch = useDispatch()
     const history = useHistory()
 
-    // const [playlistToEdit, setPlaylistToEdit] = useState('');
-    const [title, setTitle] = useState('');
+    const [title, setTitle] = useState(currentPlaylist?.title);
     const [coverPhoto, setCoverPhoto] = useState('')
     const [coverPhoto_title, setCoverPhoto_title] = useState('')
 
@@ -31,18 +32,22 @@ const EditPlaylistModal = ({playlistToEdit, setPlaylistToEdit}) => {
     const ReactS3Client = new S3(config);
 
     const editPlaylist = async () => {
-        // e.preventDefault()
 
-        const userId = user.id;
+        setPlaylistToEdit('')
         let s3CoverPhoto;
 
-        await ReactS3Client
+        let coverPhoto_URL = '';
+        let coverPhoto_s3Name = ''
+
+        if (coverPhoto) {
+            await ReactS3Client
             .uploadFile(coverPhoto, coverPhoto_title.split(" ").join("-"))
             .then(data => s3CoverPhoto = data)
             .catch(err => console.error(err))
 
-        const coverPhoto_URL = s3CoverPhoto.location;
-        const coverPhoto_s3Name = s3CoverPhoto.key;
+            coverPhoto_URL = s3CoverPhoto.location;
+            coverPhoto_s3Name = s3CoverPhoto.key;
+        }
 
         return dispatch(playlistStore.thunk_editPlaylist({
             playlistToEdit,
@@ -57,27 +62,34 @@ const EditPlaylistModal = ({playlistToEdit, setPlaylistToEdit}) => {
     }
 
     return (
-        <div className="addSongModal_background">
-            <div className="addSong_modal">
-                <i onClick={() => setPlaylistToEdit('')} class="fas fa-window-close"></i>
-                <div className="addSong_header">Edit playlist details</div>
-                <div>
+        <div className="modal_background">
+            <div className="modal_container">
+                <div className="modal_logoClose_container">
+                    <div className="form_logo">
+                        <div className="formLogo_circle"><i id="formLogo_headphones" class="fas fa-headphones"></i></div>Jamify
+                    </div>
+                    <i onClick={() => setPlaylistToEdit('')} class="fas fa-window-close"></i>
+                </div>
+                <div className="form_headerText">Edit Playlist</div>
+                <div className="formInput_wrapper">
                     <input
+                        className="form_inputField"
                         type="text"
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
-                        placeholder="Title"
-                    // required
                     />
                 </div>
-                {coverPhoto_title && <div>{coverPhoto_title}</div>}
-                <div>
+                {currentPlaylist.coverPhoto_URL && !coverPhoto && <img className="form_image" src={currentPlaylist.coverPhoto_URL}></img>}
+                {coverPhoto_title ? <div className="fileInput_label">{coverPhoto_title}</div> : <label className="fileInput_label" for="coverPhoto_input">Select cover photo (optional)</label>}
+                <div className="formInput_wrapper">
                     <input
                         type="file"
+                        id="coverPhoto_input"
                         onChange={(e) => { setCoverPhoto(e.target.files[0]); setCoverPhoto_title(e.target.files[0].name) }}
                     />
                 </div>
-                <button onClick={() => editPlaylist(playlistToEdit)} className="addSong_button">Edit playlist</button>
+                <div className="dividerLine"></div>
+                <button onClick={() => editPlaylist(playlistToEdit)} className="form_submitButton">Save</button>
             </div>
         </div>
     )
