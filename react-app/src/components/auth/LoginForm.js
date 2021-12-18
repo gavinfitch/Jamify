@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect, Router, useHistory } from 'react-router-dom';
 import { login } from '../../store/session';
+import './LoginForm.css';
 
 const LoginForm = () => {
   const [errors, setErrors] = useState([]);
@@ -32,11 +33,12 @@ const LoginForm = () => {
   }
 
   return (
-    <div className="modal_background">
-      <form className="modal_container" onSubmit={onLogin}>
-        <div className="form_logo">
-          <div className="formLogo_circle"><i id="formLogo_headphones" class="fas fa-headphones"></i></div>Jamify
+    <div className="authForm_background">
+      <form className="authForm_container" onSubmit={onLogin}>
+        <div className="authForm_logo">
+          <div className="authFormLogo_circle"><i id="authFormLogo_headphones" class="fas fa-headphones"></i></div>Jamify
         </div>
+        <div className="form_headerText">Log In</div>
         <div>
           {errors.map((error, ind) => (
             <div key={ind}>{error}</div>
@@ -63,8 +65,9 @@ const LoginForm = () => {
           />
         </div>
         <div className="dividerLine"></div>
-        <button className="form_submitButton" type='submit'>Login</button>
-        <div>Don't have an account? <span onClick={() => history.push('/sign-up')}>SIGNUP</span></div>
+        <button className="authForm_submitButton" type='submit'>Login</button>
+        <button className="authForm_submitButton_black">Login as Guest</button>
+        <div className="authForm_redirectText">Don't have an account? <span className="authForm_redirectLink" onClick={() => history.push('/signup')}>SIGNUP</span></div>
       </form>
     </div>
   );
