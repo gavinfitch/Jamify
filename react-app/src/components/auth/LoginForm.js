@@ -6,7 +6,7 @@ import './LoginForm.css';
 
 const LoginForm = () => {
   const [errors, setErrors] = useState([]);
-  const [email, setEmail] = useState('');
+  const [credential, setCredential] = useState('');
   const [password, setPassword] = useState('');
   const user = useSelector(state => state.sessionReducer.user);
   const dispatch = useDispatch();
@@ -14,19 +14,27 @@ const LoginForm = () => {
 
   const onLogin = async (e) => {
     e.preventDefault();
-    const data = await dispatch(login(email, password));
+
+    const data = await dispatch(login(credential, password));
     if (data) {
       setErrors(data);
     }
   };
 
-  const updateEmail = (e) => {
-    setEmail(e.target.value);
+  const updateCredential = (e) => {
+    setCredential(e.target.value);
   };
 
   const updatePassword = (e) => {
     setPassword(e.target.value);
   };
+
+  const loginAsGuest = async () => {
+    setCredential("Guest")
+    setPassword("password")
+
+    const data = await dispatch(login(credential, password));
+  }
 
   if (user) {
     return <Redirect to='/' />;
@@ -50,8 +58,8 @@ const LoginForm = () => {
             name='email'
             type='text'
             placeholder='Email or username'
-            value={email}
-            onChange={updateEmail}
+            value={credential}
+            onChange={updateCredential}
           />
         </div>
         <div className="formInput_wrapper">
@@ -66,7 +74,7 @@ const LoginForm = () => {
         </div>
         <div className="dividerLine"></div>
         <button className="authForm_submitButton" type='submit'>Login</button>
-        <button className="authForm_submitButton_black">Login as Guest</button>
+        <button onClick={() => loginAsGuest()} className="authForm_submitButton_black">Login as Guest</button>
         <div className="authForm_redirectText">Don't have an account? <span className="authForm_redirectLink" onClick={() => history.push('/signup')}>SIGNUP</span></div>
       </form>
     </div>
