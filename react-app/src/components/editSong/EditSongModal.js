@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from "react-router"
 import { useHistory } from 'react-router-dom';
-import './EditSongForm.css';
+import './EditSongModal.css';
 import S3 from 'react-aws-s3';
 import * as songStore from '../../store/song';
 

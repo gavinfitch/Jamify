@@ -22,7 +22,7 @@ def upload_song():
         genre=request.json["genre"],
         albumCover_URL=request.json["albumCover_URL"],
         albumCover_s3Name=request.json["albumCover_s3Name"]
-    )
+    )     
 
     db.session.add(new_song)
     db.session.commit()

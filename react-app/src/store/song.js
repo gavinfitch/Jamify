@@ -7,6 +7,11 @@ const allSongs = (songs) => ({
 
 export const thunk_uploadSong = ({ userId, title, song_URL, song_s3Name, album, artist, genre, albumCover_URL, albumCover_s3Name }) =>
     async (dispatch) => {
+
+        if (!album) {
+            album = title;
+        }
+
         const res = await fetch("/api/songs/upload", {
             method: 'POST',
             headers: {

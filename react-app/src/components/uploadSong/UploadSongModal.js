@@ -11,7 +11,7 @@ const UploadSongModal = ({ genresArr, setUploadSong }) => {
     const [audioFile_title, setAudioFile_title] = useState('')
     const [title, setTitle] = useState('');
     const [artist, setArtist] = useState('');
-    const [album, setAlbum] = useState('');
+    const [album, setAlbum] = useState(null);
     const [genre, setGenre] = useState('');
     const [albumCover, setAlbumCover] = useState('')
     const [albumCover_title, setAlbumCover_title] = useState('')
@@ -48,13 +48,20 @@ const UploadSongModal = ({ genresArr, setUploadSong }) => {
         const song_s3Name = s3Song.key;
 
         let s3AlbumCover;
-        await ReactS3Client
-            .uploadFile(albumCover, albumCover_title.split(" ").join("-"))
-            .then(data => s3AlbumCover = data)
-            .catch(err => console.error(err))
+        let albumCover_URL = (null);
+        let albumCover_s3Name = (null);
 
-        const albumCover_URL = s3AlbumCover.location;
-        const albumCover_s3Name = s3AlbumCover.key;
+        if (albumCover) {
+            await ReactS3Client
+                .uploadFile(albumCover, albumCover_title.split(" ").join("-"))
+                .then(data => s3AlbumCover = data)
+                .catch(err => console.error(err))
+
+            albumCover_URL = s3AlbumCover.location;
+            albumCover_s3Name = s3AlbumCover.key;
+        } else {
+            albumCover_URL = "https://jamify.s3.us-west-2.amazonaws.com/utils/Music_note.png"
+        }
 
         setUploadSong(false);
 
