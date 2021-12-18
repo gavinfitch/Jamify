@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { Redirect, useHistory } from 'react-router-dom';
+import S3 from 'react-aws-s3';
 import { signUp } from '../../store/session';
 import './SignUpForm.css';
 
@@ -17,10 +18,39 @@ const SignUpForm = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
+  const s3envKey = process.env.REACT_APP_AWS_KEY;
+  const s3envSecretKey = process.env.REACT_APP_AWS_SECRET_KEY;
+
+  const config = {
+    bucketName: 'jamify',
+    region: 'us-west-2',
+    accessKeyId: s3envKey,
+    secretAccessKey: s3envSecretKey,
+  }
+
+  const ReactS3Client = new S3(config);
+
   const onSignUp = async (e) => {
     e.preventDefault();
     if (password === repeatPassword) {
-      const data = await dispatch(signUp(name, username, email, password));
+
+      let s3userPhoto;
+      let photo_URL = (null);
+      let photo_s3Name = (null);
+
+      if (userPhoto) {
+        await ReactS3Client
+          .uploadFile(userPhoto, userPhoto_title.split(" ").join("-"))
+          .then(data => s3userPhoto = data)
+          .catch(err => console.error(err))
+
+        photo_URL = s3userPhoto.location;
+        photo_s3Name = s3userPhoto.key;
+      } else {
+        photo_URL = "https://jamify.s3.us-west-2.amazonaws.com/utils/default_user_profile_image.png"
+      }
+
+      const data = await dispatch(signUp(name, username, email, password, photo_URL, photo_s3Name));
       if (data) {
         setErrors(data)
       }
@@ -116,11 +146,11 @@ const SignUpForm = () => {
         </div>
         {userPhoto_title ? <div className="signup_fileInput_label">{userPhoto_title}</div> : <label className="signup_fileInput_label" for="coverPhoto_input">Select profile photo (optional)</label>}
         <div className="signup_formInput_wrapper">
-                    <input
-                        type="file"
-                        onChange={(e) => { setUserPhoto(e.target.files[0]); setUserPhoto_title(e.target.files[0].name) }}
-                    />
-                </div>
+          <input
+            type="file"
+            onChange={(e) => { setUserPhoto(e.target.files[0]); setUserPhoto_title(e.target.files[0].name) }}
+          />
+        </div>
         <div className="dividerLine"></div>
         <button className="signup_submitButton" type='submit'>Sign Up</button>
         <div className="signup_authForm_redirectText">Already have an account? <span className="authForm_redirectLink" onClick={() => history.push('/login')}>LOGIN</span></div>
