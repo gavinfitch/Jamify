@@ -16,8 +16,6 @@ const UploadSongModal = ({ genresArr, setUploadSong }) => {
     const [albumCover, setAlbumCover] = useState('')
     const [albumCover_title, setAlbumCover_title] = useState('')
 
-    // const genresArr = ["Ambient", "Blues", "Country", "Dance", "Electronic", "Experimental", "Folk", "Funk", "Hip-Hop", "Indie-Rock", "Jazz", "Metal", "Pop", "Punk", "R&B", "Rock", "Shoegaze", "Soul"]
-
     const user = useSelector(state => state.sessionReducer.user);
 
     const dispatch = useDispatch()
