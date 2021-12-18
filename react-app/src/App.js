@@ -10,7 +10,7 @@ import User from './components/User';
 import Home from './components/Home'
 import UploadSongForm from './components/uploadSong/UploadSongForm'
 import EditSongForm from './components/editSong/EditSongForm'
-import CreatePlaylistForm from './components/createPlaylist/CreatePlaylistForm'
+// import CreatePlaylistForm from './components/createPlaylist/CreatePlaylistForm'
 import { authenticate } from './store/session';
 
 function App() {
@@ -53,9 +53,9 @@ function App() {
         <ProtectedRoute path='/songs/:id/edit' exact={true} >
           <EditSongForm />
         </ProtectedRoute>
-        <ProtectedRoute path='/playlists/create' exact={true} >
+        {/* <ProtectedRoute path='/playlists/create' exact={true} >
           <CreatePlaylistForm />
-        </ProtectedRoute>
+        </ProtectedRoute> */}
       </Switch>
     </BrowserRouter>
   );
