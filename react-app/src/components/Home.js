@@ -26,6 +26,7 @@ function Home() {
 
     const [selectedSong, setSelectedSong] = useState('');
     const [selectedPlaylist, setSelectedPlaylist] = useState('');
+    const [likesSelected, setLikesSelected] = useState(false);
     const [songToAdd, setSongToAdd] = useState('');
     const [playlistToAdd, setPlaylistToAdd] = useState('');
     const [playlistToEdit, setPlaylistToEdit] = useState('');
@@ -43,6 +44,8 @@ function Home() {
     if (allSongs) {
         if (selectedPlaylist) {
             allSongsArr = userPlaylists.filter((playlist) => playlist.id == selectedPlaylist)[0]?.songs
+        } else if (likesSelected) {
+            allSongsArr = allSongs.filter((song) => user.likes.map(like => like.songId).includes(song.id));
         } else {
             allSongsArr = Object.values(allSongs)
         }
@@ -126,7 +129,7 @@ function Home() {
                 <div className="sidebar">
                     <div className="sideNav_container">
                         <ul>
-                            <li onClick={() => { history.push(`/`); setSelectedPlaylist('') }}>Home</li>
+                            <li onClick={() => { history.push(`/`); setSelectedPlaylist(''); setLikesSelected(false) }}>Home</li>
                             <li>Search</li>
                             <li>Your Library</li>
                         </ul>
@@ -135,7 +138,7 @@ function Home() {
                         <ul>
                             <li onClick={() => setUploadSong(true)}>Upload Song</li>
                             <li onClick={() => setCreatePlaylist(true)}>Create Playlist</li>
-                            <li>Liked Songs</li>
+                            <li onClick={() => { setLikesSelected(true); setSelectedPlaylist('') }}>Liked Songs</li>
                         </ul>
                     </div>
                     {/* ----- Playlist section of sidebar ----- */}
