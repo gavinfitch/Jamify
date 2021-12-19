@@ -10,7 +10,7 @@ const AddToPlaylistModal = ({ songToAdd, setSongToAdd, setSelectedPlaylist }) =>
     const [errors, setErrors] = useState([]);
     const user = useSelector(state => state.sessionReducer.user);
     const allPlaylists = useSelector((state) => state.playlistReducer.allPlaylists)
-    const userPlaylists = allPlaylists?.filter((playlist) => playlist.userId = user.id)
+    const userPlaylists = allPlaylists?.filter((playlist) => playlist.userId == user.id)
 
     let userPlaylistsArr;
     if (userPlaylists) {

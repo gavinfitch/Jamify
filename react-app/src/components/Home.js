@@ -15,9 +15,10 @@ import './Home.css';
 
 function Home() {
     const user = useSelector((state) => state.sessionReducer.user);
+    const userId = user.id;
     const allSongs = useSelector((state) => state.songReducer.allSongs)
     const allPlaylists = useSelector((state) => state.playlistReducer.allPlaylists)
-    const userPlaylists = allPlaylists?.filter((playlist) => playlist.userId = user.id)
+    const userPlaylists = allPlaylists?.filter((playlist) => playlist.userId == user.id)
 
     const dispatch = useDispatch();
     const history = useHistory();
@@ -40,7 +41,7 @@ function Home() {
     let allSongsArr;
     if (allSongs) {
         if (selectedPlaylist) {
-            allSongsArr = userPlaylists.filter((playlist) => playlist.id == selectedPlaylist)[0].songs
+            allSongsArr = userPlaylists.filter((playlist) => playlist.id == selectedPlaylist)[0]?.songs
         } else {
             allSongsArr = Object.values(allSongs)
         }
@@ -70,6 +71,11 @@ function Home() {
             .catch(err => console.error(err))
 
         await dispatch(songStore.thunk_deleteSong({ songId }))
+    };
+
+    // Like post function
+    const likeSong = async (songId) => {
+        await dispatch(songStore.thunk_likeSong({ songId, userId }))
     };
 
     // const addToPlaylist = async (playlistId, songId) => {
@@ -102,9 +108,9 @@ function Home() {
     return (
         <>
             {/* ----- Upload song modal ----- */}
-            {uploadSong && < UploadSongModal genresArr={genresArr} setUploadSong={setUploadSong} />}  
+            {uploadSong && < UploadSongModal genresArr={genresArr} setUploadSong={setUploadSong} />}
             {/* ----- edit song modal ----- */}
-            {editSong && < EditSongModal genresArr={genresArr} editSong={editSong} setEditSong={setEditSong} />} 
+            {editSong && < EditSongModal genresArr={genresArr} editSong={editSong} setEditSong={setEditSong} />}
             {/* ----- Create playlist details modal ----- */}
             {createPlaylist && < CreatePlaylistModal setCreatePlaylist={setCreatePlaylist} />}
             {/* ----- Add song to playlist modal ----- */}
@@ -192,7 +198,7 @@ function Home() {
                                     <div className="likeAndAdd_container">
                                         {!selectedPlaylist && <div onClick={() => setSongToAdd(song.id)}><i class="fas fa-plus"></i></div>}
                                         {selectedPlaylist && <div onClick={() => removeFromPlaylist(selectedPlaylist, song.id)}><i class="fas fa-minus"></i></div>}
-                                        <div><i class="fas fa-heart"></i></div>
+                                        <div onClick={() => likeSong(song.id)}><i class="fas fa-heart"></i></div>
                                     </div>
                                 </li>
                                 <li>{song.genre}</li>

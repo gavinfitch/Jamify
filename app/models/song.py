@@ -23,6 +23,7 @@ class Song(db.Model):
 
     # Relationships
     user = db.relationship("User", back_populates="songs")
+    likes = db.relationship("Like", back_populates="song", cascade="all, delete")
 
     playlists = db.relationship(
         "Playlist", 
