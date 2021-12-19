@@ -14,9 +14,9 @@ class Library_Song(db.Model):
 
     # Relationships
     userId = db.Column(db.Integer, db.ForeignKey("users.id"))
-    user = db.relationship("User", back_populates="library_songs")
+    user = db.relationship("User", back_populates="library")
     songId = db.Column(db.Integer, db.ForeignKey("songs.id"))
-    song = db.relationship("Song", back_populates="library_songs")
+    song = db.relationship("Song", back_populates="library")
 
     def to_dict(self):
         return {

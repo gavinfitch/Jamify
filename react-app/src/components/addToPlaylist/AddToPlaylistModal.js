@@ -30,10 +30,19 @@ const AddToPlaylistModal = ({ songToAdd, setSongToAdd, setSelectedPlaylist }) =>
 
 
     const addToPlaylist = async (playlistId, songId) => {
-        await dispatch(playlistStore.thunk_addToPlaylist({ playlistId, songId }))
-        setSongToAdd('')
-        setPlaylistToAdd('')
-        setSelectedPlaylist(playlistId)
+        const userId = user.id;
+
+        if (librarySelected) {
+            await dispatch(playlistStore.thunk_addToLibrary({ userId, songId }));
+            setLibrarySelected(false);
+            setSongToAdd('')
+            setPlaylistToAdd('')
+        } else {
+            await dispatch(playlistStore.thunk_addToPlaylist({ playlistId, songId }))
+            setSongToAdd('')
+            setPlaylistToAdd('')
+            setSelectedPlaylist(playlistId)
+        }
     };
 
     return (

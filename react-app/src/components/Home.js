@@ -26,6 +26,7 @@ function Home() {
 
     const [selectedSong, setSelectedSong] = useState('');
     const [selectedPlaylist, setSelectedPlaylist] = useState('');
+    const [librarySelected, setLibrarySelected] = useState(false);
     const [likesSelected, setLikesSelected] = useState(false);
     const [songToAdd, setSongToAdd] = useState('');
     const [playlistToAdd, setPlaylistToAdd] = useState('');
@@ -44,6 +45,8 @@ function Home() {
     if (allSongs) {
         if (selectedPlaylist) {
             allSongsArr = userPlaylists.filter((playlist) => playlist.id == selectedPlaylist)[0]?.songs
+        } else if (librarySelected) {
+            allSongsArr = allSongs.filter((song) => user.library.map(library_song => library_song.songId).includes(song.id));
         } else if (likesSelected) {
             allSongsArr = allSongs.filter((song) => user.likes.map(like => like.songId).includes(song.id));
         } else {
@@ -129,16 +132,16 @@ function Home() {
                 <div className="sidebar">
                     <div className="sideNav_container">
                         <ul>
-                            <li onClick={() => { history.push(`/`); setSelectedPlaylist(''); setLikesSelected(false) }}>Home</li>
+                            <li onClick={() => { history.push(`/`); setSelectedPlaylist(''); setLibrarySelected(false); setLikesSelected(false) }}>Home</li>
                             <li>Search</li>
-                            <li>Your Library</li>
+                            <li onClick={() => {setLibrarySelected(true); setLikesSelected(false); setSelectedPlaylist('')}}>Your Library</li>
                         </ul>
                     </div>
                     <div className="sideForm_container">
                         <ul>
                             <li onClick={() => setUploadSong(true)}>Upload Song</li>
                             <li onClick={() => setCreatePlaylist(true)}>Create Playlist</li>
-                            <li onClick={() => { setLikesSelected(true); setSelectedPlaylist('') }}>Liked Songs</li>
+                            <li onClick={() => { setLikesSelected(true); setSelectedPlaylist(''); setLibrarySelected(false) }}>Liked Songs</li>
                         </ul>
                     </div>
                     {/* ----- Playlist section of sidebar ----- */}

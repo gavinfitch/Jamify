@@ -1,5 +1,5 @@
 from flask import Blueprint, request
-from app.models import db, Song, Playlist, playlist_song, playlist_songs
+from app.models import db, Song, Playlist, playlist_song, playlist_songs, Library_Song
 from sqlalchemy import insert
 
 
@@ -77,6 +77,17 @@ def removesong_playlist(id):
     song = Song.query.filter(Song.id == request.json["songId"]).first()
     playlist.songs.remove(song)
 
+    db.session.commit()
+
+    playlists = Playlist.query.all()
+    return {'playlists': [playlist.to_dict() for playlist in playlists]}
+
+# Add song to library
+@playlist_routes.route("/addtolibrary", methods=['POST'])
+def addtolibrary():
+
+    new_like = Library_Song(userId=request.json["userId"], songId=request.json["songId"])
+    db.session.add(new_like)
     db.session.commit()
 
     playlists = Playlist.query.all()

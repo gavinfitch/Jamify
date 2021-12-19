@@ -37,7 +37,7 @@ export const thunk_editPlaylist = ({ playlistToEdit, title, coverPhoto_URL, cove
             body: JSON.stringify({
                 playlistToEdit,
                 title,
-                coverPhoto_URL, 
+                coverPhoto_URL,
                 coverPhoto_s3Name
             })
         });
@@ -58,6 +58,26 @@ export const thunk_addToPlaylist = ({ playlistId, songId }) =>
             },
             body: JSON.stringify({
                 playlistId,
+                songId
+            })
+        });
+
+        if (res.ok) {
+            const playlists = await res.json();
+            dispatch(allPlaylists(playlists));
+            return playlists;
+        }
+    };
+
+export const thunk_addToLibrary = ({ userId, songId }) =>
+    async (dispatch) => {
+        const res = await fetch(`/api/playlists/addtolibrary`, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                userId,
                 songId
             })
         });
