@@ -22,6 +22,7 @@ class User(db.Model, UserMixin):
     songs = db.relationship("Song", back_populates="user")
     playlists = db.relationship("Playlist", back_populates="user")
     likes = db.relationship("Like", back_populates="user")
+    library = db.relationship("Library_Song", back_populates="user")
 
     @property
     def password(self):
@@ -44,5 +45,6 @@ class User(db.Model, UserMixin):
             'photo_s3Name': self.photo_s3Name,
             'songs': [song.to_dict() for song in self.songs],
             'playlists': [playlist.to_dict() for playlist in self.playlists],
-            'likes': [like.to_dict() for like in self.likes]
+            'likes': [like.to_dict() for like in self.likes],
+            'library': [library_song.to_dict() for library_song in self.library]
         }
