@@ -226,6 +226,10 @@ li {
     align-items: center;
 }
 
+#likedSong {
+    color: rgb(255, 75, 75);
+}
+
 /* Add song to playlist modal */
 /* .addSongModal_background {
     position: fixed;

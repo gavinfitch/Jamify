@@ -9,6 +9,7 @@ import EditSongModal from './editSong/EditSongModal'
 import CreatePlaylistModal from './createPlaylist/CreatePlaylistModal'
 import EditPlaylistModal from './editPlaylist/EditPlaylistModal'
 import AddToPlaylistModal from './addToPlaylist/AddToPlaylistModal'
+import { authenticate } from '../store/session';
 import * as songStore from '../store/song';
 import * as playlistStore from '../store/playlist';
 import './Home.css';
@@ -75,7 +76,8 @@ function Home() {
 
     // Like post function
     const likeSong = async (songId) => {
-        await dispatch(songStore.thunk_likeSong({ songId, userId }))
+        await dispatch(songStore.thunk_likeSong({ songId, userId }));
+        await dispatch(authenticate())
     };
 
     // const addToPlaylist = async (playlistId, songId) => {
@@ -198,7 +200,7 @@ function Home() {
                                     <div className="likeAndAdd_container">
                                         {!selectedPlaylist && <div onClick={() => setSongToAdd(song.id)}><i class="fas fa-plus"></i></div>}
                                         {selectedPlaylist && <div onClick={() => removeFromPlaylist(selectedPlaylist, song.id)}><i class="fas fa-minus"></i></div>}
-                                        <div onClick={() => likeSong(song.id)}><i class="fas fa-heart"></i></div>
+                                        {user.likes.map(like => like.songId).includes(song.id) ? <div onClick={() => likeSong(song.id)}><i id="likedSong" class="fas fa-heart"></i></div> : <div onClick={() => likeSong(song.id)}><i class="fas fa-heart"></i></div>}
                                     </div>
                                 </li>
                                 <li>{song.genre}</li>
