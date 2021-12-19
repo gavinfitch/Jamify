@@ -90,7 +90,7 @@ function Home() {
         await dispatch(playlistStore.thunk_removeFromPlaylist({ playlistId, songId }))
     };
 
-    const removeFromLibrary = async ( songId, userId) => {
+    const removeFromLibrary = async (songId, userId) => {
         await dispatch(playlistStore.thunk_removeFromLibrary({ songId, userId }))
         await dispatch(authenticate())
     };
@@ -132,7 +132,7 @@ function Home() {
                         <ul>
                             <li onClick={() => { history.push(`/`); setSelectedPlaylist(''); setLibrarySelected(false); setLikesSelected(false) }}>Home</li>
                             <li>Search</li>
-                            <li onClick={() => {setLibrarySelected(true); setLikesSelected(false); setSelectedPlaylist('')}}>Your Library</li>
+                            <li onClick={() => { setLibrarySelected(true); setLikesSelected(false); setSelectedPlaylist('') }}>Your Library</li>
                         </ul>
                     </div>
                     <div className="sideForm_container">
@@ -147,7 +147,7 @@ function Home() {
                         <ul>
                             {userPlaylistsArr && userPlaylistsArr.map((playlist) => {
                                 return <li className="sideBar_playlist_container">
-                                    <div onClick={() => {setSelectedPlaylist(playlist.id); setLibrarySelected(false); setLikesSelected(false); }}>{playlist.title}</div>
+                                    <div onClick={() => { setSelectedPlaylist(playlist.id); setLibrarySelected(false); setLikesSelected(false); }}>{playlist.title}</div>
                                     <div className="edit_delete_container">
                                         <div onClick={() => setPlaylistToEdit(playlist.id)}><i class="fas fa-edit"></i></div>
                                         <div onClick={() => deletePlaylist(playlist.id, playlist.coverPhoto_s3Name)}><i class="fas fa-trash-alt"></i></div>
@@ -202,7 +202,7 @@ function Home() {
                                 <li className="playlistDate_container">
                                     {dateAdded}
                                     <div className="likeAndAdd_container">
-                                        {!selectedPlaylist && !librarySelected &&  <div onClick={() => setSongToAdd(song.id)}><i class="fas fa-plus"></i></div>}
+                                        {!selectedPlaylist && !librarySelected && <div onClick={() => setSongToAdd(song.id)}><i class="fas fa-plus"></i></div>}
                                         {selectedPlaylist && <div onClick={() => removeFromPlaylist(selectedPlaylist, song.id)}><i class="fas fa-minus"></i></div>}
                                         {librarySelected && <div onClick={() => removeFromLibrary(song.id, userId)}><i class="fas fa-minus"></i></div>}
                                         {user.likes.map(like => like.songId).includes(song.id) ? <div onClick={() => likeSong(song.id)}><i id="likedSong" class="fas fa-heart"></i></div> : <div onClick={() => likeSong(song.id)}><i class="fas fa-heart"></i></div>}
