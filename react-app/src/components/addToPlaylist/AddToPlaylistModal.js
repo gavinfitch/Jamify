@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 // import { useParams } from "react-router"
 import { useHistory } from 'react-router-dom';
+import { authenticate } from '../../store/session';
 import '../editPlaylist/EditPlaylistModal.css';
 import S3 from 'react-aws-s3';
 import * as playlistStore from '../../store/playlist';
@@ -34,6 +35,7 @@ const AddToPlaylistModal = ({ songToAdd, setSongToAdd, setSelectedPlaylist }) =>
 
         if (librarySelected) {
             await dispatch(playlistStore.thunk_addToLibrary({ userId, songId }));
+            await dispatch(authenticate());
             setLibrarySelected(false);
             setSongToAdd('')
             setPlaylistToAdd('')

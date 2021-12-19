@@ -89,6 +89,26 @@ export const thunk_addToLibrary = ({ userId, songId }) =>
         }
     };
 
+export const thunk_removeFromLibrary = ({ songId, userId }) =>
+    async (dispatch) => {
+        const res = await fetch(`/api/playlists/removefromlibrary`, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                songId,
+                userId
+            })
+        });
+
+        if (res.ok) {
+            const playlists = await res.json();
+            dispatch(allPlaylists(playlists));
+            return playlists;
+        }
+    };
+
 export const thunk_removeFromPlaylist = ({ playlistId, songId }) =>
     async (dispatch) => {
         const res = await fetch(`/api/playlists/${playlistId}/removesong`, {
