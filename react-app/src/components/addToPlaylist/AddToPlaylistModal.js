@@ -8,6 +8,7 @@ import * as playlistStore from '../../store/playlist';
 
 const AddToPlaylistModal = ({ songToAdd, setSongToAdd, setSelectedPlaylist }) => {
     const [errors, setErrors] = useState([]);
+    const [librarySelected, setLibrarySelected] = useState(false);
     const user = useSelector(state => state.sessionReducer.user);
     const allPlaylists = useSelector((state) => state.playlistReducer.allPlaylists)
     const userPlaylists = allPlaylists?.filter((playlist) => playlist.userId == user.id)
@@ -46,8 +47,9 @@ const AddToPlaylistModal = ({ songToAdd, setSongToAdd, setSelectedPlaylist }) =>
                 </div>
                 <div className="form_headerText">Choose Playlist</div>
                 <ul className="addSong_dropdown">
+                    {librarySelected == true ? <li id="addSong_selected" onClick={() => { setLibrarySelected(true); setPlaylistToAdd('') }} >Your Library</li> : <li onClick={() => { setLibrarySelected(true); setPlaylistToAdd('') }} >Your Library</li>}
                     {userPlaylistsArr && userPlaylistsArr.map(playlist => {
-                        return playlistToAdd == playlist.id ? <li id="addSong_selected" onClick={() => setPlaylistToAdd(playlist.id)} >{playlist.title}</li> : <li onClick={() => setPlaylistToAdd(playlist.id)} >{playlist.title}</li>
+                        return playlistToAdd == playlist.id ? <li id="addSong_selected" onClick={() => { setPlaylistToAdd(playlist.id); setLibrarySelected(false) }} >{playlist.title}</li> : <li onClick={() => { setPlaylistToAdd(playlist.id); setLibrarySelected(false) }} >{playlist.title}</li>
                     })}
                 </ul>
                 <div className="dividerLine"></div>
