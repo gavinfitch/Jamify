@@ -9,21 +9,25 @@ import EditSongModal from './editSong/EditSongModal'
 import CreatePlaylistModal from './createPlaylist/CreatePlaylistModal'
 import EditPlaylistModal from './editPlaylist/EditPlaylistModal'
 import AddToPlaylistModal from './addToPlaylist/AddToPlaylistModal'
+import { authenticate } from '../store/session';
 import * as songStore from '../store/song';
 import * as playlistStore from '../store/playlist';
 import './Home.css';
 
 function Home() {
     const user = useSelector((state) => state.sessionReducer.user);
+    const userId = user.id;
     const allSongs = useSelector((state) => state.songReducer.allSongs)
     const allPlaylists = useSelector((state) => state.playlistReducer.allPlaylists)
-    const userPlaylists = allPlaylists?.filter((playlist) => playlist.userId = user.id)
+    const userPlaylists = allPlaylists?.filter((playlist) => playlist.userId == user.id)
 
     const dispatch = useDispatch();
     const history = useHistory();
 
     const [selectedSong, setSelectedSong] = useState('');
     const [selectedPlaylist, setSelectedPlaylist] = useState('');
+    const [librarySelected, setLibrarySelected] = useState(false);
+    const [likesSelected, setLikesSelected] = useState(false);
     const [songToAdd, setSongToAdd] = useState('');
     const [playlistToAdd, setPlaylistToAdd] = useState('');
     const [playlistToEdit, setPlaylistToEdit] = useState('');
@@ -40,7 +44,11 @@ function Home() {
     let allSongsArr;
     if (allSongs) {
         if (selectedPlaylist) {
-            allSongsArr = userPlaylists.filter((playlist) => playlist.id == selectedPlaylist)[0].songs
+            allSongsArr = userPlaylists.filter((playlist) => playlist.id == selectedPlaylist)[0]?.songs
+        } else if (librarySelected) {
+            allSongsArr = allSongs.filter((song) => user.library.map(library_song => library_song.songId).includes(song.id));
+        } else if (likesSelected) {
+            allSongsArr = allSongs.filter((song) => user.likes.map(like => like.songId).includes(song.id));
         } else {
             allSongsArr = Object.values(allSongs)
         }
@@ -72,15 +80,19 @@ function Home() {
         await dispatch(songStore.thunk_deleteSong({ songId }))
     };
 
-    // const addToPlaylist = async (playlistId, songId) => {
-    //     await dispatch(playlistStore.thunk_addToPlaylist({ playlistId, songId }))
-    //     setSongToAdd('')
-    //     setPlaylistToAdd('')
-    //     setSelectedPlaylist(playlistId)
-    // };
+    // Like post function
+    const likeSong = async (songId) => {
+        await dispatch(songStore.thunk_likeSong({ songId, userId }));
+        await dispatch(authenticate())
+    };
 
     const removeFromPlaylist = async (playlistId, songId) => {
         await dispatch(playlistStore.thunk_removeFromPlaylist({ playlistId, songId }))
+    };
+
+    const removeFromLibrary = async ( songId, userId) => {
+        await dispatch(playlistStore.thunk_removeFromLibrary({ songId, userId }))
+        await dispatch(authenticate())
     };
 
     const deletePlaylist = async (playlistId, coverPhoto_s3Name) => {
@@ -102,9 +114,9 @@ function Home() {
     return (
         <>
             {/* ----- Upload song modal ----- */}
-            {uploadSong && < UploadSongModal genresArr={genresArr} setUploadSong={setUploadSong} />}  
+            {uploadSong && < UploadSongModal genresArr={genresArr} setUploadSong={setUploadSong} />}
             {/* ----- edit song modal ----- */}
-            {editSong && < EditSongModal genresArr={genresArr} editSong={editSong} setEditSong={setEditSong} />} 
+            {editSong && < EditSongModal genresArr={genresArr} editSong={editSong} setEditSong={setEditSong} />}
             {/* ----- Create playlist details modal ----- */}
             {createPlaylist && < CreatePlaylistModal setCreatePlaylist={setCreatePlaylist} />}
             {/* ----- Add song to playlist modal ----- */}
@@ -118,16 +130,16 @@ function Home() {
                 <div className="sidebar">
                     <div className="sideNav_container">
                         <ul>
-                            <li onClick={() => { history.push(`/`); setSelectedPlaylist('') }}>Home</li>
+                            <li onClick={() => { history.push(`/`); setSelectedPlaylist(''); setLibrarySelected(false); setLikesSelected(false) }}>Home</li>
                             <li>Search</li>
-                            <li>Your Library</li>
+                            <li onClick={() => {setLibrarySelected(true); setLikesSelected(false); setSelectedPlaylist('')}}>Your Library</li>
                         </ul>
                     </div>
                     <div className="sideForm_container">
                         <ul>
                             <li onClick={() => setUploadSong(true)}>Upload Song</li>
                             <li onClick={() => setCreatePlaylist(true)}>Create Playlist</li>
-                            <li>Liked Songs</li>
+                            <li onClick={() => { setLikesSelected(true); setSelectedPlaylist(''); setLibrarySelected(false) }}>Liked Songs</li>
                         </ul>
                     </div>
                     {/* ----- Playlist section of sidebar ----- */}
@@ -135,7 +147,7 @@ function Home() {
                         <ul>
                             {userPlaylistsArr && userPlaylistsArr.map((playlist) => {
                                 return <li className="sideBar_playlist_container">
-                                    <div onClick={() => setSelectedPlaylist(playlist.id)}>{playlist.title}</div>
+                                    <div onClick={() => {setSelectedPlaylist(playlist.id); setLibrarySelected(false); setLikesSelected(false); }}>{playlist.title}</div>
                                     <div className="edit_delete_container">
                                         <div onClick={() => setPlaylistToEdit(playlist.id)}><i class="fas fa-edit"></i></div>
                                         <div onClick={() => deletePlaylist(playlist.id, playlist.coverPhoto_s3Name)}><i class="fas fa-trash-alt"></i></div>
@@ -190,9 +202,10 @@ function Home() {
                                 <li className="playlistDate_container">
                                     {dateAdded}
                                     <div className="likeAndAdd_container">
-                                        {!selectedPlaylist && <div onClick={() => setSongToAdd(song.id)}><i class="fas fa-plus"></i></div>}
+                                        {!selectedPlaylist && !librarySelected &&  <div onClick={() => setSongToAdd(song.id)}><i class="fas fa-plus"></i></div>}
                                         {selectedPlaylist && <div onClick={() => removeFromPlaylist(selectedPlaylist, song.id)}><i class="fas fa-minus"></i></div>}
-                                        <div><i class="fas fa-heart"></i></div>
+                                        {librarySelected && <div onClick={() => removeFromLibrary(song.id, userId)}><i class="fas fa-minus"></i></div>}
+                                        {user.likes.map(like => like.songId).includes(song.id) ? <div onClick={() => likeSong(song.id)}><i id="likedSong" class="fas fa-heart"></i></div> : <div onClick={() => likeSong(song.id)}><i class="fas fa-heart"></i></div>}
                                     </div>
                                 </li>
                                 <li>{song.genre}</li>

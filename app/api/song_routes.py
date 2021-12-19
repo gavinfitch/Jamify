@@ -1,5 +1,5 @@
 from flask import Blueprint, request
-from app.models import db, Song
+from app.models import db, Song, Like
 
 song_routes = Blueprint('songs', __name__)
 
@@ -58,3 +58,24 @@ def edit_song(id):
 
     songs = Song.query.all()
     return {'songs': [song.to_dict() for song in songs]}
+
+# Like Post
+@song_routes.route("/<int:id>/like", methods=["POST"])
+def like_song(id):
+
+    userId = request.json["userId"]
+    songId = request.json["songId"]
+
+    like = Like.query.filter(Like.userId == userId, Like.songId == songId).first()
+
+    if like:
+        db.session.delete(like)
+        db.session.commit()
+    else:
+        new_like = Like(userId=userId, songId=songId)
+        db.session.add(new_like)
+        db.session.commit()
+
+    songs = Song.query.all()
+    return {'songs': [song.to_dict() for song in songs]}
+        

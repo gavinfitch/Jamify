@@ -81,6 +81,27 @@ export const thunk_editSong = ({ songId, title, album, artist, genre, albumCover
         }
     };
 
+export const thunk_likeSong =
+    ({ userId, songId }) =>
+        async (dispatch) => {
+            const res = await fetch(`/api/songs/${songId}/like`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    userId,
+                    songId
+                }),
+            });
+            
+            if (res.ok) {
+                const songs = await res.json();
+                dispatch(allSongs(songs));
+                return songs;
+            }
+        };
+
 export const thunk_getAllSongs = () =>
     async (dispatch) => {
         const res = await fetch(`/api/songs/`)
