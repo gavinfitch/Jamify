@@ -42,49 +42,62 @@ const EditSongForm = ({ genresArr, editSong, setEditSong }) => {
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        const userId = user.id;
-        const songId = editSong;
+        const validationErrors = [];
 
-        let albumCover_URL = '';
-        let albumCover_s3Name = '';
-
-        if (albumCover) {
-            let s3AlbumCover;
-
-            await ReactS3Client
-                .uploadFile(albumCover, albumCover_title.split(" ").join("-"))
-                .then(data => s3AlbumCover = data)
-                .catch(err => console.error(err))
-
-            albumCover_URL = s3AlbumCover.location;
-            albumCover_s3Name = s3AlbumCover.key;
+        if (!title) {
+            validationErrors.push("Please provide title");
+        }
+        if (!artist) {
+            validationErrors.push("Please provide artist name");
+        }
+        if (!genre) {
+            validationErrors.push("Please select genre");
         }
 
-        setEditSong('')
-        
-        return dispatch(songStore.thunk_editSong({
-            songId,
-            title,
-            album,
-            artist,
-            genre,
-            albumCover_URL,
-            albumCover_s3Name
-        }))
-            .catch(async (res) => {
-                const data = await res.json();
-                if (data && data.errors) setErrors(data.errors)
-            }).then((res) => res && history.push("/"));
+        setErrors(validationErrors);
+
+        if (!validationErrors.length) {
+            const userId = user.id;
+            const songId = editSong;
+
+            let albumCover_URL = '';
+            let albumCover_s3Name = '';
+
+            if (albumCover) {
+                let s3AlbumCover;
+
+                await ReactS3Client
+                    .uploadFile(albumCover, albumCover_title.split(" ").join("-"))
+                    .then(data => s3AlbumCover = data)
+                    .catch(err => console.error(err))
+
+                albumCover_URL = s3AlbumCover.location;
+                albumCover_s3Name = s3AlbumCover.key;
+            }
+
+            setEditSong('')
+
+            return dispatch(songStore.thunk_editSong({
+                songId,
+                title,
+                album,
+                artist,
+                genre,
+                albumCover_URL,
+                albumCover_s3Name
+            }))
+                .catch(async (res) => {
+                    const data = await res.json();
+                    if (data && data.errors) setErrors(data.errors)
+                }).then((res) => res && history.push("/"));
+        } else {
+            history.push('/')
+        }
     }
 
     return (
         <div className="modal_background">
             <form className="modal_container" onSubmit={handleSubmit}>
-                <div>
-                    {errors.map((error, index) => (
-                        <div key={index}>{error}</div>
-                    ))}
-                </div>
                 <div className="modal_logoClose_container">
                     <div className="form_logo">
                         <div className="formLogo_circle"><i id="formLogo_headphones" class="fas fa-headphones"></i></div>Jamify
@@ -92,13 +105,18 @@ const EditSongForm = ({ genresArr, editSong, setEditSong }) => {
                     <i onClick={() => setEditSong('')} class="fas fa-window-close"></i>
                 </div>
                 <div className="form_headerText">Edit Song</div>
+                {errors && <div className="error-container">
+                    {errors.map((error, ind) => (
+                        <div className="error-message" key={ind}>{error}</div>
+                    ))}
+                </div>}
                 <div className="formInput_wrapper">
                     <input
                         className="form_inputField_song"
                         type="text"
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
-                    // placeholder="Title"
+                        placeholder="Title"
                     // required
                     />
                 </div>
@@ -108,7 +126,7 @@ const EditSongForm = ({ genresArr, editSong, setEditSong }) => {
                         type="text"
                         value={artist}
                         onChange={(e) => setArtist(e.target.value)}
-                    // placeholder="Artist"
+                        placeholder="Artist"
                     // required
                     />
                 </div>
@@ -118,7 +136,7 @@ const EditSongForm = ({ genresArr, editSong, setEditSong }) => {
                         type="text"
                         value={album}
                         onChange={(e) => setAlbum(e.target.value)}
-                    // placeholder="Album (optional)"
+                        placeholder="Album (optional)"
                     // required
                     />
                 </div>

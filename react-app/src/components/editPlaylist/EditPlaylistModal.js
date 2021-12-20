@@ -33,32 +33,47 @@ const EditPlaylistModal = ({ playlistToEdit, setPlaylistToEdit }) => {
 
     const editPlaylist = async () => {
 
-        setPlaylistToEdit('')
-        let s3CoverPhoto;
+        const validationErrors = [];
 
-        let coverPhoto_URL = '';
-        let coverPhoto_s3Name = ''
-
-        if (coverPhoto) {
-            await ReactS3Client
-            .uploadFile(coverPhoto, coverPhoto_title.split(" ").join("-"))
-            .then(data => s3CoverPhoto = data)
-            .catch(err => console.error(err))
-
-            coverPhoto_URL = s3CoverPhoto.location;
-            coverPhoto_s3Name = s3CoverPhoto.key;
+        if (!title) {
+            validationErrors.push("Please provide title");
+        }
+        if (user.playlists.map(playlist => playlist.title).includes(title) && user.playlists.filter(playlist => playlist.id == playlistToEdit)[0].title != title) {
+            validationErrors.push("Playlist already exists");
         }
 
-        return dispatch(playlistStore.thunk_editPlaylist({
-            playlistToEdit,
-            title,
-            coverPhoto_URL,
-            coverPhoto_s3Name
-        }))
-            .catch(async (res) => {
-                const data = await res.json();
-                if (data && data.errors) setErrors(data.errors)
-            }).then((res) => res && history.push("/"));
+        setErrors(validationErrors);
+
+        if (!validationErrors.length) {
+            setPlaylistToEdit('')
+            let s3CoverPhoto;
+
+            let coverPhoto_URL = '';
+            let coverPhoto_s3Name = ''
+
+            if (coverPhoto) {
+                await ReactS3Client
+                    .uploadFile(coverPhoto, coverPhoto_title.split(" ").join("-"))
+                    .then(data => s3CoverPhoto = data)
+                    .catch(err => console.error(err))
+
+                coverPhoto_URL = s3CoverPhoto.location;
+                coverPhoto_s3Name = s3CoverPhoto.key;
+            }
+
+            return dispatch(playlistStore.thunk_editPlaylist({
+                playlistToEdit,
+                title,
+                coverPhoto_URL,
+                coverPhoto_s3Name
+            }))
+                .catch(async (res) => {
+                    const data = await res.json();
+                    if (data && data.errors) setErrors(data.errors)
+                }).then((res) => res && history.push("/"));
+        } else {
+            history.push('/')
+        }
     }
 
     return (
@@ -71,12 +86,18 @@ const EditPlaylistModal = ({ playlistToEdit, setPlaylistToEdit }) => {
                     <i onClick={() => setPlaylistToEdit('')} class="fas fa-window-close"></i>
                 </div>
                 <div className="form_headerText">Edit Playlist</div>
+                {errors && <div className="error-container">
+                    {errors.map((error, ind) => (
+                        <div className="error-message" key={ind}>{error}</div>
+                    ))}
+                </div>}
                 <div className="formInput_wrapper">
                     <input
                         className="form_inputField"
                         type="text"
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
+                        placeholder="Title"
                     />
                 </div>
                 {currentPlaylist.coverPhoto_URL && !coverPhoto && <img className="form_image" src={currentPlaylist.coverPhoto_URL}></img>}

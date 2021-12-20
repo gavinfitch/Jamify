@@ -36,50 +36,71 @@ const UploadSongModal = ({ genresArr, setUploadSong }) => {
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        const userId = user.id;
+        const validationErrors = [];
 
-        let s3Song;
-        await ReactS3Client
-            .uploadFile(audioFile, audioFile_title.split(" ").join("-"))
-            .then(data => s3Song = data)
-            .catch(err => console.error(err))
-
-        const song_URL = s3Song.location;
-        const song_s3Name = s3Song.key;
-
-        let s3AlbumCover;
-        let albumCover_URL = (null);
-        let albumCover_s3Name = (null);
-
-        if (albumCover) {
-            await ReactS3Client
-                .uploadFile(albumCover, albumCover_title.split(" ").join("-"))
-                .then(data => s3AlbumCover = data)
-                .catch(err => console.error(err))
-
-            albumCover_URL = s3AlbumCover.location;
-            albumCover_s3Name = s3AlbumCover.key;
-        } else {
-            albumCover_URL = "https://jamify.s3.us-west-2.amazonaws.com/utils/Music_note.png"
+        if (!audioFile) {
+            validationErrors.push("Please provide valid audio file");
+        }
+        if (!title) {
+            validationErrors.push("Please provide title");
+        }
+        if (!artist) {
+            validationErrors.push("Please provide artist name");
+        }
+        if (!genre) {
+            validationErrors.push("Please select genre");
         }
 
-        setUploadSong(false);
+        setErrors(validationErrors);
 
-        return dispatch(songStore.thunk_uploadSong({
-            userId,
-            title,
-            song_URL,
-            song_s3Name,
-            album,
-            artist,
-            genre,
-            albumCover_URL,
-            albumCover_s3Name
-        }))
-            .catch(async (res) => {
-                const data = await res.json();
-                if (data && data.errors) setErrors(data.errors)
-            }).then((res) => res && history.push("/"));
+        if (!validationErrors.length) {
+            const userId = user.id;
+
+            let s3Song;
+            await ReactS3Client
+                .uploadFile(audioFile, audioFile_title.split(" ").join("-"))
+                .then(data => s3Song = data)
+                .catch(err => console.error(err))
+
+            const song_URL = s3Song.location;
+            const song_s3Name = s3Song.key;
+
+            let s3AlbumCover;
+            let albumCover_URL = (null);
+            let albumCover_s3Name = (null);
+
+            if (albumCover) {
+                await ReactS3Client
+                    .uploadFile(albumCover, albumCover_title.split(" ").join("-"))
+                    .then(data => s3AlbumCover = data)
+                    .catch(err => console.error(err))
+
+                albumCover_URL = s3AlbumCover.location;
+                albumCover_s3Name = s3AlbumCover.key;
+            } else {
+                albumCover_URL = "https://jamify.s3.us-west-2.amazonaws.com/utils/Music_note.png"
+            }
+
+            setUploadSong(false);
+
+            return dispatch(songStore.thunk_uploadSong({
+                userId,
+                title,
+                song_URL,
+                song_s3Name,
+                album,
+                artist,
+                genre,
+                albumCover_URL,
+                albumCover_s3Name
+            }))
+                .catch(async (res) => {
+                    const data = await res.json();
+                    if (data && data.errors) setErrors(data.errors)
+                }).then((res) => res && history.push("/"));
+        } else {
+            history.push('/')
+        }
     }
 
     return (
@@ -92,11 +113,11 @@ const UploadSongModal = ({ genresArr, setUploadSong }) => {
                     <i onClick={() => setUploadSong('')} class="fas fa-window-close"></i>
                 </div>
                 <div className="form_headerText">Upload Song</div>
-                <div>
-                    {errors.map((error, index) => (
-                        <div key={index}>{error}</div>
+                {errors && <div className="error-container">
+                    {errors.map((error, ind) => (
+                        <div className="error-message" key={ind}>{error}</div>
                     ))}
-                </div>
+                </div>}
                 {audioFile_title ? <div className="fileInput_label">{audioFile_title}</div> : <label className="fileInput_label" for="coverPhoto_input">Track select</label>}
                 <div className="formInput_wrapper track_select">
                     <input
