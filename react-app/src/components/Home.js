@@ -194,7 +194,7 @@ function Home() {
                             <div className="bannerLogo_circle"><i class="fas fa-headphones"></i></div>Jamify
                         </div>
                         <button className="profileButton">
-                            <div className="profileButton_thumbnail"></div>
+                            <img src={user.photo_URL} className="profileButton_thumbnail" />
                             <div className="profileButton_username">{user?.username}</div>
                             <i class="fas fa-caret-down"></i>
                         </button>

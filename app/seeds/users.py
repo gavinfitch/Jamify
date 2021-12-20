@@ -6,7 +6,7 @@ def seed_users():
     guest = User(
         full_name='Guest User', username='Guest', email='guest@user.com', password='password')
     gavin = User(
-        full_name='Gavin Fitch', username='gavinfitch', email='gavin@gavin.com', password='password')
+        full_name='Gavin Fitch', username='gavinfitch', email='gavin@gavin.com', password='password', photo_URL='https://jamify.s3.us-west-2.amazonaws.com/utils/Hornby_ferry.jpg')
     vini = User(
         full_name='Vini Reilly', username='vinireilly', email='vini@vini.com', password='password')
     michelle = User(

@@ -122,7 +122,7 @@ li {
 .banner_logo {
     display: flex;
     align-items: center;
-    font-size: 36px;
+    font-size: 32px;
     font-weight: 800;
 }
 
@@ -132,8 +132,8 @@ li {
     align-items: center;
     /* background-color: #55ca55; */
     background-color: #02c48a;
-    width: 40px;
-    height: 40px;
+    width: 48px;
+    height: 48px;
     border-radius: 100%;
     margin-bottom: 10px;
     margin-right: 2px;
@@ -141,7 +141,9 @@ li {
 }
 
 .fa-headphones {
-    font-size: 26px;
+    padding-left: 1px;
+    padding-bottom: 1px;
+    font-size: 32px;
     color: rgb(20, 20, 20);
 }
 
@@ -176,7 +178,7 @@ li {
 
 .banner_mainText {
     padding: 10px 20px 10px 20px;
-    font-size: 48px;
+    font-size: 44px;
     font-weight: 800;
 }
 
