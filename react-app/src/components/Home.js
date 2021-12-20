@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, createRef } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from 'react-router-dom';
 import AudioPlayer from 'react-h5-audio-player';
@@ -39,6 +39,8 @@ function Home() {
     const [coverPhoto, setCoverPhoto] = useState('')
     const [coverPhoto_title, setCoverPhoto_title] = useState('')
 
+    const player = createRef()
+
     const genresArr = ["Ambient", "Blues", "Country", "Dance", "Electronic", "Experimental", "Folk", "Funk", "Hip-Hop", "Indie-Rock", "Jazz", "Metal", "Pop", "Punk", "R&B", "Rock", "Shoegaze", "Soul"]
 
     let allSongsArr;
@@ -70,6 +72,30 @@ function Home() {
     }
 
     const ReactS3Client = new S3(config);
+
+    const playNextSong = () => {
+
+        for (let i = 0; i < allSongsArr.length; i++) {
+            if (allSongsArr[i].id == selectedSong.id) {
+                if (allSongsArr[i + 1]) {
+                    setSelectedSong(allSongsArr[i + 1]);
+                    return
+                }
+            }
+        }
+    }
+
+    const playPreviousSong = () => {
+
+        for (let i = 0; i < allSongsArr.length; i++) {
+            if (allSongsArr[i].id == selectedSong.id) {
+                if (allSongsArr[i - 1]) {
+                    setSelectedSong(allSongsArr[i - 1]);
+                    return
+                }
+            }
+        }
+    }
 
     const deleteSong = async (songId, song_s3Name) => {
         await ReactS3Client
@@ -222,8 +248,12 @@ function Home() {
                 showSkipControls={true}
                 showJumpControls={false}
                 customAdditionalControls={[]}
+                ref={player}
+                onEnded={e => playNextSong()}
+                onClickPrevious={e => playPreviousSong()}
+                onClickNext={e => playNextSong()}
                 src={selectedSong.song_URL}
-            // onPlay={e => console.log("onPlay")}
+            // onPlay={e => console.log(player)}
             // other props here
             />
         </>
