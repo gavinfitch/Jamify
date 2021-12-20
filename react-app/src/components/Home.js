@@ -97,10 +97,10 @@ function Home() {
 
     const deletePlaylist = async (playlistId, coverPhoto_s3Name) => {
         setSelectedPlaylist('')
-        await ReactS3Client
-            .deleteFile(coverPhoto_s3Name)
-            .then(response => console.log(response))
-            .catch(err => console.error(err))
+        // await ReactS3Client
+        //     .deleteFile(coverPhoto_s3Name)
+        //     .then(response => console.log(response))
+        //     .catch(err => console.error(err))
         await dispatch(playlistStore.thunk_deletePlaylist({ playlistId }))
     };
 

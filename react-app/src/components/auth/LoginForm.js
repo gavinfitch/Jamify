@@ -67,11 +67,11 @@ const LoginForm = () => {
           <div className="authFormLogo_circle"><i id="authFormLogo_headphones" class="fas fa-headphones"></i></div>Jamify
         </div>
         <div className="authForm_headerText">Log In</div>
-        <div className="error-container">
+        {errors &&<div className="error-container">
           {errors.map((error, ind) => (
             <div className="error-message" key={ind}>{error}</div>
           ))}
-        </div>
+        </div>}
         <div className="formInput_wrapper">
           <input
             className="form_inputField_song"

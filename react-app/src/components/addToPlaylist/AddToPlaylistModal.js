@@ -33,17 +33,29 @@ const AddToPlaylistModal = ({ songToAdd, setSongToAdd, setSelectedPlaylist }) =>
     const addToPlaylist = async (playlistId, songId) => {
         const userId = user.id;
 
-        if (librarySelected) {
-            await dispatch(playlistStore.thunk_addToLibrary({ userId, songId }));
-            await dispatch(authenticate());
-            setLibrarySelected(false);
-            setSongToAdd('')
-            setPlaylistToAdd('')
+        const validationErrors = [];
+
+        if (!librarySelected && !playlistToAdd) {
+            validationErrors.push("Please select a playlist");
+        }
+
+        setErrors(validationErrors);
+
+        if (!validationErrors.length) {
+            if (librarySelected) {
+                await dispatch(playlistStore.thunk_addToLibrary({ userId, songId }));
+                await dispatch(authenticate());
+                setLibrarySelected(false);
+                setSongToAdd('')
+                setPlaylistToAdd('')
+            } else {
+                await dispatch(playlistStore.thunk_addToPlaylist({ playlistId, songId }))
+                setSongToAdd('')
+                setPlaylistToAdd('')
+                setSelectedPlaylist(playlistId)
+            }
         } else {
-            await dispatch(playlistStore.thunk_addToPlaylist({ playlistId, songId }))
-            setSongToAdd('')
-            setPlaylistToAdd('')
-            setSelectedPlaylist(playlistId)
+            history.push('/')
         }
     };
 
@@ -57,6 +69,11 @@ const AddToPlaylistModal = ({ songToAdd, setSongToAdd, setSelectedPlaylist }) =>
                     <i onClick={() => { setPlaylistToAdd(''); setSongToAdd('') }} class="fas fa-window-close"></i>
                 </div>
                 <div className="form_headerText">Choose Playlist</div>
+                {errors && <div className="error-container">
+                    {errors.map((error, ind) => (
+                        <div className="error-message" key={ind}>{error}</div>
+                    ))}
+                </div>}
                 <ul className="addSong_dropdown">
                     {librarySelected == true ? <li id="addSong_selected" onClick={() => { setLibrarySelected(true); setPlaylistToAdd('') }} >Your Library</li> : <li onClick={() => { setLibrarySelected(true); setPlaylistToAdd('') }} >Your Library</li>}
                     {userPlaylistsArr && userPlaylistsArr.map(playlist => {
