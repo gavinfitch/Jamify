@@ -28,29 +28,51 @@ li {
     height: 100vh;
 }
 
+.sidebar * {
+    font-size: 14px;
+    font-weight: 700;
+}
+
 .sideNav_container {
     padding-left: 15px;
-    margin: 85px 30px 30px 30px;
+    margin: 50px 30px 40px 30px;
 }
 
 .sideNav_container > ul > li {
-    padding: 4px 0px;
+    padding: 10px 0px;
+    display: flex;
+    align-items: flex-end;
 }
 
 .sideForm_container {
     border-bottom: 1px solid rgb(75, 75, 75);
     padding-left: 15px;
     padding-bottom: 50px;
-    margin: 0px 30px 50px 30px;
+    margin: 0px 30px 60px 30px;
 }
 
 .sideForm_container > ul > li {
-    padding: 4px 0px;
+    padding: 10px 0px;
+    display: flex;
+    align-items: flex-end;
+}
+
+.sideBar_icon {
+    margin-right: 12px;
+    margin-bottom: 4px;
+    font-size: 16px;
+}
+
+.sideForm_container > ul > li > .fa-plus {
+    font-size: 16px;
+}
+
+.sideForm_container > ul > li > .fa-heart {
+    font-size: 16px;
 }
 
 .playlist_container {
     padding: 0px 10px 0px 10px;
-    
     margin: 0px 30px 0px 30px;
 }
 
@@ -62,6 +84,22 @@ li {
     display: flex;
     justify-content: space-between;
 }
+
+.sideBar_playlistTitle {
+    font-size: 13.5px;
+    font-weight: 500;
+    padding: 5px 0px;
+}
+
+.sideBar_edit_delete_container {
+    display: flex;
+    align-self: center;
+}
+
+.sideBar_edit_delete_container > div > i {
+    font-size: 12px;
+}
+
 
 /* Banner */
 .banner {

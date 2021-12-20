@@ -73,8 +73,8 @@ function Home() {
 
     const ReactS3Client = new S3(config);
 
+    // Play next song in current playlist
     const playNextSong = () => {
-
         for (let i = 0; i < allSongsArr.length; i++) {
             if (allSongsArr[i].id == selectedSong.id) {
                 if (allSongsArr[i + 1]) {
@@ -85,8 +85,8 @@ function Home() {
         }
     }
 
+    // Play previous song in current playlist
     const playPreviousSong = () => {
-
         for (let i = 0; i < allSongsArr.length; i++) {
             if (allSongsArr[i].id == selectedSong.id) {
                 if (allSongsArr[i - 1]) {
@@ -97,6 +97,7 @@ function Home() {
         }
     }
 
+    // Delete song
     const deleteSong = async (songId, song_s3Name) => {
         await ReactS3Client
             .deleteFile(song_s3Name)
@@ -106,21 +107,24 @@ function Home() {
         await dispatch(songStore.thunk_deleteSong({ songId }))
     };
 
-    // Like post function
+    // Like song
     const likeSong = async (songId) => {
         await dispatch(songStore.thunk_likeSong({ songId, userId }));
         await dispatch(authenticate())
     };
 
+    // Remove song from playlist
     const removeFromPlaylist = async (playlistId, songId) => {
         await dispatch(playlistStore.thunk_removeFromPlaylist({ playlistId, songId }))
     };
 
+    // Remove song from library
     const removeFromLibrary = async (songId, userId) => {
         await dispatch(playlistStore.thunk_removeFromLibrary({ songId, userId }))
         await dispatch(authenticate())
     };
 
+    // Delete playlist
     const deletePlaylist = async (playlistId, coverPhoto_s3Name) => {
         setSelectedPlaylist('')
         // await ReactS3Client
@@ -156,16 +160,16 @@ function Home() {
                 <div className="sidebar">
                     <div className="sideNav_container">
                         <ul>
-                            <li onClick={() => { history.push(`/`); setSelectedPlaylist(''); setLibrarySelected(false); setLikesSelected(false) }}>Home</li>
-                            <li>Search</li>
-                            <li onClick={() => { setLibrarySelected(true); setLikesSelected(false); setSelectedPlaylist('') }}>Your Library</li>
+                            <li onClick={() => { history.push(`/`); setSelectedPlaylist(''); setLibrarySelected(false); setLikesSelected(false) }}><i class="fas fa-home sideBar_icon"></i>Home</li>
+                            <li><i class="fas fa-search sideBar_icon"></i>Search</li>
+                            <li onClick={() => { setLibrarySelected(true); setLikesSelected(false); setSelectedPlaylist('') }}><i class="fas fa-book sideBar_icon"></i>Your Library</li>
                         </ul>
                     </div>
                     <div className="sideForm_container">
                         <ul>
-                            <li onClick={() => setUploadSong(true)}>Upload Song</li>
-                            <li onClick={() => setCreatePlaylist(true)}>Create Playlist</li>
-                            <li onClick={() => { setLikesSelected(true); setSelectedPlaylist(''); setLibrarySelected(false) }}>Liked Songs</li>
+                            <li onClick={() => setUploadSong(true)}><i class="fas fa-cloud-upload-alt sideBar_icon"></i>Upload Song</li>
+                            <li onClick={() => setCreatePlaylist(true)}><i class="fas fa-plus sideBar_icon"></i>Create Playlist</li>
+                            <li onClick={() => { setLikesSelected(true); setSelectedPlaylist(''); setLibrarySelected(false) }}><i class="fas fa-heart sideBar_icon"></i>Liked Songs</li>
                         </ul>
                     </div>
                     {/* ----- Playlist section of sidebar ----- */}
@@ -173,8 +177,8 @@ function Home() {
                         <ul>
                             {userPlaylistsArr && userPlaylistsArr.map((playlist) => {
                                 return <li className="sideBar_playlist_container">
-                                    <div onClick={() => { setSelectedPlaylist(playlist.id); setLibrarySelected(false); setLikesSelected(false); }}>{playlist.title}</div>
-                                    <div className="edit_delete_container">
+                                    <div className="sideBar_playlistTitle" onClick={() => { setSelectedPlaylist(playlist.id); setLibrarySelected(false); setLikesSelected(false); }}>{playlist.title}</div>
+                                    <div className="sideBar_edit_delete_container">
                                         <div onClick={() => setPlaylistToEdit(playlist.id)}><i class="fas fa-edit"></i></div>
                                         <div onClick={() => deletePlaylist(playlist.id, playlist.coverPhoto_s3Name)}><i class="fas fa-trash-alt"></i></div>
                                     </div>
