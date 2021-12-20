@@ -4,6 +4,7 @@ import { Redirect, useHistory } from 'react-router-dom';
 import S3 from 'react-aws-s3';
 import { signUp } from '../../store/session';
 import './SignUpForm.css';
+import isEmail from 'validator/lib/isEmail'
 
 const SignUpForm = () => {
   const [errors, setErrors] = useState([]);
@@ -32,7 +33,32 @@ const SignUpForm = () => {
 
   const onSignUp = async (e) => {
     e.preventDefault();
-    if (password === repeatPassword) {
+
+    const validationErrors = [];
+    
+    if (!name) {
+      validationErrors.push("Please provide name");
+    }
+    if (!username) {
+      validationErrors.push("Please provide username");
+    }
+    if (!isEmail(email)) {
+      validationErrors.push("Please provide a valid email");
+    }
+    if (!password) {
+      validationErrors.push("Please provide a valid password");
+    }
+    if (!repeatPassword) {
+      validationErrors.push("Please confirm password");
+    }
+    if (repeatPassword !== password) {
+      validationErrors.push("Passwords must match");
+    }
+
+    setErrors(validationErrors);
+
+
+    if (!validationErrors.length) {
 
       let s3userPhoto;
       let photo_URL = (null);
@@ -54,6 +80,8 @@ const SignUpForm = () => {
       if (data) {
         setErrors(data)
       }
+    } else {
+      history.push("/signup")
     }
   };
 
@@ -88,9 +116,9 @@ const SignUpForm = () => {
           <div className="authFormLogo_circle"><i id="authFormLogo_headphones" class="fas fa-headphones"></i></div>Jamify
         </div>
         <div className="authForm_headerText">Sign Up</div>
-        <div>
+        <div className="error-container">
           {errors.map((error, ind) => (
-            <div key={ind}>{error}</div>
+            <div className="error-message" key={ind}>{error}</div>
           ))}
         </div>
         <div className="formInput_wrapper">
@@ -141,7 +169,7 @@ const SignUpForm = () => {
             onChange={updateRepeatPassword}
             placeholder='Confirm password'
             value={repeatPassword}
-            required={true}
+            // required={true}
           ></input>
         </div>
         {userPhoto_title ? <div className="signup_fileInput_label">{userPhoto_title}</div> : <label className="signup_fileInput_label" for="coverPhoto_input">Select profile photo (optional)</label>}

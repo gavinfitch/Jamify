@@ -15,10 +15,30 @@ const LoginForm = () => {
   const onLogin = async (e) => {
     e.preventDefault();
 
-    const data = await dispatch(login(credential, password));
-    if (data) {
-      setErrors(data);
+    const validationErrors = [];
+
+    if (!credential) {
+      validationErrors.push("Please provide email or username");
     }
+    if (!password) {
+      validationErrors.push("Please provide password");
+    }
+
+    setErrors(validationErrors);
+
+    if (!validationErrors.length) {
+      const data = await dispatch(login(credential, password));
+      if (data) {
+        setErrors(data);
+      }
+    } else {
+      history.push("/login")
+    }
+
+    // const data = await dispatch(login(credential, password));
+    // if (data) {
+    //   setErrors(data);
+    // }
   };
 
   const updateCredential = (e) => {
@@ -47,9 +67,9 @@ const LoginForm = () => {
           <div className="authFormLogo_circle"><i id="authFormLogo_headphones" class="fas fa-headphones"></i></div>Jamify
         </div>
         <div className="authForm_headerText">Log In</div>
-        <div>
+        <div className="error-container">
           {errors.map((error, ind) => (
-            <div key={ind}>{error}</div>
+            <div className="error-message" key={ind}>{error}</div>
           ))}
         </div>
         <div className="formInput_wrapper">
