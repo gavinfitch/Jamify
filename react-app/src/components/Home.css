@@ -165,7 +165,7 @@ li {
     height: fit-content;
     width: fit-content;
     padding: 3px 12px 3px 3px;
-    margin: 20px;
+    margin: 20px 20px 20px 0px;
 }
 
 .profileButton_thumbnail {
