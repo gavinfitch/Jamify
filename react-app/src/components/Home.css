@@ -115,8 +115,9 @@ li {
 
 .logo_profileButton_container {
     display: flex;
+    /* align-items: center; */
     justify-content: space-between;
-    padding: 25px 20px 25px 20px;
+    padding: 20px;
 }
 
 .banner_logo {
@@ -153,27 +154,27 @@ li {
     align-items: center;
     background-color: rgba(0, 0, 0, 0.70);
     border: none;
-    border-radius: 50px;
+    border-radius: 100px;
     height: fit-content;
-    width: 105px;
-    padding: 2px 6px 2px 2px;
+    width: fit-content;
+    padding: 3px 12px 3px 3px;
 }
 
 .profileButton_thumbnail {
-    background-color: cornsilk;
-    width: 14px;
-    height: 14px;
+    width: 30px;
+    height: 30px;
     border-radius: 100%;
+    object-fit: cover;
 }
 
 .profileButton_username {
-    font-size: 7px;
+    font-size: 13.5px;
     font-weight: 700;
-    
+    padding: 0px 20px;
 }
 
 .fa-caret-down {
-    font-size: 9px;
+    font-size: 18px;
 }
 
 .banner_mainText {
