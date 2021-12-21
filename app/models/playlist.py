@@ -34,3 +34,14 @@ class Playlist(db.Model):
             'coverPhoto_s3Name': self.coverPhoto_s3Name,
             'songs': [song.to_dict() for song in self.songs],
         }
+
+    def to_dict2(self):
+        return {
+            'id': self.id,
+            'userId': self.userId,
+            'user': self.user.to_dict(),
+            'title': self.title,
+            'coverPhoto_URL': self.coverPhoto_URL,
+            'coverPhoto_s3Name': self.coverPhoto_s3Name,
+            'songs': [song.to_dict() for song in self.songs],
+        }

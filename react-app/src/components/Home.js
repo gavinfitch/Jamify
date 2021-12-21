@@ -34,6 +34,7 @@ function Home() {
     const [createPlaylist, setCreatePlaylist] = useState(false);
     const [uploadSong, setUploadSong] = useState(false)
     const [editSong, setEditSong] = useState('')
+    const [currentPage, setCurrentPage] = useState('Home')
 
     const [title, setTitle] = useState('');
     const [coverPhoto, setCoverPhoto] = useState('')
@@ -44,9 +45,12 @@ function Home() {
     const genresArr = ["Ambient", "Blues", "Country", "Dance", "Electronic", "Experimental", "Folk", "Funk", "Hip-Hop", "Indie-Rock", "Jazz", "Metal", "Pop", "Punk", "R&B", "Rock", "Shoegaze", "Soul"]
 
     let allSongsArr;
+    let selectedPlaylistDetails;
+
     if (allSongs) {
         if (selectedPlaylist) {
-            allSongsArr = userPlaylists.filter((playlist) => playlist.id == selectedPlaylist)[0]?.songs
+            allSongsArr = userPlaylists.filter((playlist) => playlist?.id == selectedPlaylist)[0]?.songs
+            selectedPlaylistDetails = allPlaylists?.filter(playlist => playlist?.id == selectedPlaylist)[0]
         } else if (librarySelected) {
             allSongsArr = allSongs.filter((song) => user.library.map(library_song => library_song.songId).includes(song.id));
         } else if (likesSelected) {
@@ -127,6 +131,7 @@ function Home() {
     // Delete playlist
     const deletePlaylist = async (playlistId, coverPhoto_s3Name) => {
         setSelectedPlaylist('')
+        setCurrentPage('Home')
         // await ReactS3Client
         //     .deleteFile(coverPhoto_s3Name)
         //     .then(response => console.log(response))
@@ -160,16 +165,16 @@ function Home() {
                 <div className="sidebar">
                     <div className="sideNav_container">
                         <ul>
-                            <li onClick={() => { history.push(`/`); setSelectedPlaylist(''); setLibrarySelected(false); setLikesSelected(false) }}><i class="fas fa-home sideBar_icon"></i>Home</li>
+                            <li onClick={() => { history.push(`/`); setSelectedPlaylist(''); setLibrarySelected(false); setLikesSelected(false); setCurrentPage('Home') }}><i class="fas fa-home sideBar_icon"></i>Home</li>
                             <li><i class="fas fa-search sideBar_icon"></i>Search</li>
-                            <li onClick={() => { setLibrarySelected(true); setLikesSelected(false); setSelectedPlaylist('') }}><i class="fas fa-book sideBar_icon"></i>Your Library</li>
+                            <li onClick={() => { setLibrarySelected(true); setLikesSelected(false); setSelectedPlaylist(''); setCurrentPage('YourLibrary') }}><i class="fas fa-book sideBar_icon"></i>Your Library</li>
                         </ul>
                     </div>
                     <div className="sideForm_container">
                         <ul>
                             <li onClick={() => setUploadSong(true)}><i class="fas fa-cloud-upload-alt sideBar_icon"></i>Upload Song</li>
                             <li onClick={() => setCreatePlaylist(true)}><i class="fas fa-plus sideBar_icon"></i>Create Playlist</li>
-                            <li onClick={() => { setLikesSelected(true); setSelectedPlaylist(''); setLibrarySelected(false) }}><i class="fas fa-heart sideBar_icon"></i>Liked Songs</li>
+                            <li onClick={() => { setLikesSelected(true); setSelectedPlaylist(''); setLibrarySelected(false); setCurrentPage('LikedSongs') }}><i class="fas fa-heart sideBar_icon"></i>Liked Songs</li>
                         </ul>
                     </div>
                     {/* ----- Playlist section of sidebar ----- */}
@@ -177,7 +182,7 @@ function Home() {
                         <ul>
                             {userPlaylistsArr && userPlaylistsArr.map((playlist) => {
                                 return <li className="sideBar_playlist_container">
-                                    <div className="sideBar_playlistTitle" onClick={() => { setSelectedPlaylist(playlist.id); setLibrarySelected(false); setLikesSelected(false); }}>{playlist.title}</div>
+                                    <div className="sideBar_playlistTitle" onClick={() => { setSelectedPlaylist(playlist.id); setLibrarySelected(false); setLikesSelected(false); setCurrentPage('Playlist') }}>{playlist.title}</div>
                                     <div className="sideBar_edit_delete_container">
                                         <div onClick={() => setPlaylistToEdit(playlist.id)}><i class="fas fa-edit"></i></div>
                                         <div onClick={() => deletePlaylist(playlist.id, playlist.coverPhoto_s3Name)}><i class="fas fa-trash-alt"></i></div>
@@ -188,34 +193,61 @@ function Home() {
                     </div>
                 </div>
                 {/* ----- Banner ----- */}
-                <div className="banner">
-                    <div className="logo_profileButton_container">
+                <div className="banner_home">
+                    {currentPage == 'Home' && <div className="logo_welcomeMessage_container">
                         <div className="banner_logo">
                             <div className="bannerLogo_circle"><i class="fas fa-headphones"></i></div>Jamify
                         </div>
-                        <button className="profileButton">
-                            <div className="profileButton_thumbnail"></div>
-                            <div className="profileButton_username">{user?.username}</div>
-                            <i class="fas fa-caret-down"></i>
-                        </button>
-                    </div>
-                    <div className="banner_mainText">Welcome, {user?.username}</div>
+                        <div className="banner_mainText">Welcome, {user?.username}</div>
+                    </div>}
+
+                    {currentPage == 'Playlist' && <div className="banner_playlistDetails">
+                        {selectedPlaylistDetails.coverPhoto_URL ? <img className="banner_playlistImage" src={selectedPlaylistDetails.coverPhoto_URL}></img> : <img className="banner_playlistImage" src="https://jamify.s3.us-west-2.amazonaws.com/utils/Music_note.png"></img>}
+                        <ul className="playlistDetails_list">
+                            <li id="playlistDetails_playlist">PLAYLIST</li>
+                            <li id="playlistDetails_title">{selectedPlaylistDetails?.title}</li>
+                            <li id="playlistDetails_username">{user.username}<span> • {selectedPlaylistDetails?.songs.length} songs</span></li>
+                        </ul>
+                    </div>}
+
+                    {currentPage == 'YourLibrary' && <div className="banner_playlistDetails">
+                        <div className="banner_yourLibraryImage"><div className="yourLibraryImage_book"><i class="fas fa-book"></i></div></div>
+                        <ul className="playlistDetails_list">
+                            <li id="playlistDetails_title">Your Library</li>
+                            <li id="playlistDetails_username">{user.username}<span> • {allSongsArr.length} songs</span></li>
+                        </ul>
+                    </div>}
+
+                    {currentPage == 'LikedSongs' && <div className="banner_playlistDetails">
+                        <div className="banner_likedSongsImage"><div className="likedSongsImage_heart"><i class="fas fa-heart"></i></div></div>
+                        <ul className="playlistDetails_list">
+                            <li id="playlistDetails_playlist">PLAYLIST</li>
+                            <li id="playlistDetails_title">Liked Songs</li>
+                            <li id="playlistDetails_username">{user.username}<span> • {allSongsArr.length} songs</span></li>
+                        </ul>
+                    </div>}
+
+                    <button className="profileButton">
+                        <img src={user.photo_URL} className="profileButton_thumbnail" />
+                        <div className="profileButton_username">{user?.username}</div>
+                        <i class="fas fa-caret-down"></i>
+                    </button>
                     {/* ----- Song feed (playlist) ----- */}
                     <div className="song_container">
                         <ul className="playlist_header">
-                            <li>#</li>
-                            <li>TITLE</li>
-                            <li>ALBUM</li>
-                            <li>DATE ADDED</li>
-                            <li>GENRE</li>
+                            <li id="index_header">#</li>
+                            <li id="title_header">TITLE</li>
+                            <li id="album_header">ALBUM</li>
+                            <li id="dateAdded_header">DATE ADDED</li>
+                            <li id="genre_header">GENRE</li>
                         </ul>
                         {allSongsArr && allSongsArr.map((song, index) => {
 
                             const splitDate = song.created_at.split(" ")
                             const dateAdded = `${splitDate[2]} ${splitDate[1]}, ${splitDate[3]}`
                             return <ul className="playlist_row">
-                                <li>{index + 1}</li>
-                                <li className="titleAndButtons_container">
+                                <li className="index_column">{index + 1}</li>
+                                <li className="titleAndButtons_container" id="titleAndButtons_container_phone">
                                     <div className="playlistTitle_container">
                                         <img onClick={() => setSelectedSong(song)} className="albumCover_thumbnail" src={song.albumCover_URL}></img>
                                         <div>
@@ -226,10 +258,24 @@ function Home() {
                                     {user.id == song.userId && <div className="edit_delete_container">
                                         <div onClick={() => setEditSong(song.id)}><i class="fas fa-edit"></i></div>
                                         <div onClick={() => deleteSong(song.id, song.song_s3Name)}><i class="fas fa-trash-alt"></i></div>
+                                        <div id="likeAndAdd_container_title">
+                                            {!selectedPlaylist && !librarySelected && <div onClick={() => setSongToAdd(song.id)}><i class="fas fa-plus"></i></div>}
+                                            {selectedPlaylist && <div onClick={() => removeFromPlaylist(selectedPlaylist, song.id)}><i class="fas fa-minus"></i></div>}
+                                            {librarySelected && <div onClick={() => removeFromLibrary(song.id, userId)}><i class="fas fa-minus"></i></div>}
+                                            {user.likes.map(like => like.songId).includes(song.id) ? <div onClick={() => likeSong(song.id)}><i id="likedSong" class="fas fa-heart"></i></div> : <div onClick={() => likeSong(song.id)}><i class="fas fa-heart"></i></div>}
+                                        </div>
                                     </div>}
                                 </li>
-                                <li>{song.album}</li>
-                                <li className="playlistDate_container">
+                                <li className="album_column">
+                                    {song.album}
+                                    <div id="likeAndAdd_container_hidden">
+                                        {!selectedPlaylist && !librarySelected && <div onClick={() => setSongToAdd(song.id)}><i class="fas fa-plus"></i></div>}
+                                        {selectedPlaylist && <div onClick={() => removeFromPlaylist(selectedPlaylist, song.id)}><i class="fas fa-minus"></i></div>}
+                                        {librarySelected && <div onClick={() => removeFromLibrary(song.id, userId)}><i class="fas fa-minus"></i></div>}
+                                        {user.likes.map(like => like.songId).includes(song.id) ? <div onClick={() => likeSong(song.id)}><i id="likedSong" class="fas fa-heart"></i></div> : <div onClick={() => likeSong(song.id)}><i class="fas fa-heart"></i></div>}
+                                    </div>
+                                </li>
+                                <li id="dateAdded_column" className="playlistDate_container">
                                     {dateAdded}
                                     <div className="likeAndAdd_container">
                                         {!selectedPlaylist && !librarySelected && <div onClick={() => setSongToAdd(song.id)}><i class="fas fa-plus"></i></div>}
@@ -238,7 +284,7 @@ function Home() {
                                         {user.likes.map(like => like.songId).includes(song.id) ? <div onClick={() => likeSong(song.id)}><i id="likedSong" class="fas fa-heart"></i></div> : <div onClick={() => likeSong(song.id)}><i class="fas fa-heart"></i></div>}
                                     </div>
                                 </li>
-                                <li>{song.genre}</li>
+                                <li className="genre_column">{song.genre}</li>
                             </ul>
                         })}
                     </div>
