@@ -305,11 +305,11 @@ function Home() {
             </div>
             {/* ----- Audio player ----- */}
             {selectedSong && <div id="audioPlayer_songInfo" className="playlistTitle_container">
-                <div className="audioPlayer_thumbnail_wrapper">
-                    <img className="albumCover_thumbnail" src={selectedSong.albumCover_URL}></img>
-                    <div>
-                        <div className="playlist_songTitle">{selectedSong.title}</div>
-                        <div>{selectedSong.artist}</div>
+                <div id="audioPlayer_thumbnail_wrapper" className="audioPlayer_thumbnail_wrapper">
+                    <img id="audioPlayer_thumbnail" className="albumCover_thumbnail" src={selectedSong.albumCover_URL}></img>
+                    <div className="audioPlayer_songTitle_artist">
+                        <div id="audioPlayer_songTitle" className="playlist_songTitle">{selectedSong.title}</div>
+                        <div id="audioPlayer_artist">{selectedSong.artist}</div>
                     </div>
                 </div>
                 {user.likes.map(like => like.songId).includes(selectedSong.id) ? <div onClick={() => likeSong(selectedSong.id)}><i id="likedSong" class="fas fa-heart"></i></div> : <div onClick={() => likeSong(selectedSong.id)}><i class="fas fa-heart"></i></div>}
