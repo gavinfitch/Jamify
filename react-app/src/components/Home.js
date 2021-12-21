@@ -167,14 +167,14 @@ function Home() {
                         <ul>
                             <li onClick={() => { history.push(`/`); setSelectedPlaylist(''); setLibrarySelected(false); setLikesSelected(false); setCurrentPage('Home') }}><i class="fas fa-home sideBar_icon"></i>Home</li>
                             <li><i class="fas fa-search sideBar_icon"></i>Search</li>
-                            <li onClick={() => { setLibrarySelected(true); setLikesSelected(false); setSelectedPlaylist('') }}><i class="fas fa-book sideBar_icon"></i>Your Library</li>
+                            <li onClick={() => { setLibrarySelected(true); setLikesSelected(false); setSelectedPlaylist(''); setCurrentPage('YourLibrary') }}><i class="fas fa-book sideBar_icon"></i>Your Library</li>
                         </ul>
                     </div>
                     <div className="sideForm_container">
                         <ul>
                             <li onClick={() => setUploadSong(true)}><i class="fas fa-cloud-upload-alt sideBar_icon"></i>Upload Song</li>
                             <li onClick={() => setCreatePlaylist(true)}><i class="fas fa-plus sideBar_icon"></i>Create Playlist</li>
-                            <li onClick={() => { setLikesSelected(true); setSelectedPlaylist(''); setLibrarySelected(false) }}><i class="fas fa-heart sideBar_icon"></i>Liked Songs</li>
+                            <li onClick={() => { setLikesSelected(true); setSelectedPlaylist(''); setLibrarySelected(false); setCurrentPage('LikedSongs') }}><i class="fas fa-heart sideBar_icon"></i>Liked Songs</li>
                         </ul>
                     </div>
                     {/* ----- Playlist section of sidebar ----- */}
@@ -207,6 +207,23 @@ function Home() {
                             <li id="playlistDetails_playlist">PLAYLIST</li>
                             <li id="playlistDetails_title">{selectedPlaylistDetails?.title}</li>
                             <li id="playlistDetails_username">{user.username}<span> • {selectedPlaylistDetails?.songs.length} songs</span></li>
+                        </ul>
+                    </div>}
+
+                    {currentPage == 'YourLibrary' && <div className="banner_playlistDetails">
+                        <div className="banner_yourLibraryImage"><div className="yourLibraryImage_book"><i class="fas fa-book"></i></div></div>
+                        <ul className="playlistDetails_list">
+                            <li id="playlistDetails_title">Your Library</li>
+                            <li id="playlistDetails_username">{user.username}<span> • {allSongsArr.length} songs</span></li>
+                        </ul>
+                    </div>}
+
+                    {currentPage == 'LikedSongs' && <div className="banner_playlistDetails">
+                        <div className="banner_likedSongsImage"><div className="likedSongsImage_heart"><i class="fas fa-heart"></i></div></div>
+                        <ul className="playlistDetails_list">
+                            <li id="playlistDetails_playlist">PLAYLIST</li>
+                            <li id="playlistDetails_title">Liked Songs</li>
+                            <li id="playlistDetails_username">{user.username}<span> • {allSongsArr.length} songs</span></li>
                         </ul>
                     </div>}
 

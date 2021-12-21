@@ -243,6 +243,40 @@ li {
     padding-top: 20px;
 }
 
+/* Liked Songs banner */
+.banner_likedSongsImage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 204px;
+    height: 204px;
+    margin-right: 25px;
+    /* object-fit: cover; */
+    background-color: rgb(0, 0, 0, 0.85);
+}
+
+.likedSongsImage_heart > i {
+    color: rgb(255, 75, 75);
+    font-size: 100px;
+}
+
+/* Your Library banner */
+.banner_yourLibraryImage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 204px;
+    height: 204px;
+    margin-right: 25px;
+    /* object-fit: cover; */
+    background-color: rgb(0, 0, 0, 0.85);
+}
+
+.yourLibraryImage_book > i {
+    color: white;
+    font-size: 100px;
+}
+
 /* Song Container */
 .song_container {
     position: absolute;
