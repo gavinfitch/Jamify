@@ -9,7 +9,7 @@ playlist_routes = Blueprint('playlists', __name__)
 @playlist_routes.route('/')
 def all_playlists():
     playlists = Playlist.query.all()
-    return {'playlists': [playlist.to_dict() for playlist in playlists]}
+    return {'playlists': [playlist.to_dict2() for playlist in playlists]}
 
 # Create playlist
 @playlist_routes.route('/create', methods=['POST'])

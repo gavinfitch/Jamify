@@ -34,6 +34,7 @@ function Home() {
     const [createPlaylist, setCreatePlaylist] = useState(false);
     const [uploadSong, setUploadSong] = useState(false)
     const [editSong, setEditSong] = useState('')
+    const [currentPage, setCurrentPage] = useState('Home')
 
     const [title, setTitle] = useState('');
     const [coverPhoto, setCoverPhoto] = useState('')
@@ -44,9 +45,13 @@ function Home() {
     const genresArr = ["Ambient", "Blues", "Country", "Dance", "Electronic", "Experimental", "Folk", "Funk", "Hip-Hop", "Indie-Rock", "Jazz", "Metal", "Pop", "Punk", "R&B", "Rock", "Shoegaze", "Soul"]
 
     let allSongsArr;
+    let selectedPlaylistDetails;
+
     if (allSongs) {
         if (selectedPlaylist) {
             allSongsArr = userPlaylists.filter((playlist) => playlist.id == selectedPlaylist)[0]?.songs
+            selectedPlaylistDetails = allPlaylists.filter(playlist => playlist.id == selectedPlaylist)[0]
+            console.log(selectedPlaylistDetails.userId)
         } else if (librarySelected) {
             allSongsArr = allSongs.filter((song) => user.library.map(library_song => library_song.songId).includes(song.id));
         } else if (likesSelected) {
@@ -160,7 +165,7 @@ function Home() {
                 <div className="sidebar">
                     <div className="sideNav_container">
                         <ul>
-                            <li onClick={() => { history.push(`/`); setSelectedPlaylist(''); setLibrarySelected(false); setLikesSelected(false) }}><i class="fas fa-home sideBar_icon"></i>Home</li>
+                            <li onClick={() => { history.push(`/`); setSelectedPlaylist(''); setLibrarySelected(false); setLikesSelected(false); setCurrentPage('Home') }}><i class="fas fa-home sideBar_icon"></i>Home</li>
                             <li><i class="fas fa-search sideBar_icon"></i>Search</li>
                             <li onClick={() => { setLibrarySelected(true); setLikesSelected(false); setSelectedPlaylist('') }}><i class="fas fa-book sideBar_icon"></i>Your Library</li>
                         </ul>
@@ -177,7 +182,7 @@ function Home() {
                         <ul>
                             {userPlaylistsArr && userPlaylistsArr.map((playlist) => {
                                 return <li className="sideBar_playlist_container">
-                                    <div className="sideBar_playlistTitle" onClick={() => { setSelectedPlaylist(playlist.id); setLibrarySelected(false); setLikesSelected(false); }}>{playlist.title}</div>
+                                    <div className="sideBar_playlistTitle" onClick={() => { setSelectedPlaylist(playlist.id); setLibrarySelected(false); setLikesSelected(false); setCurrentPage('Playlist') }}>{playlist.title}</div>
                                     <div className="sideBar_edit_delete_container">
                                         <div onClick={() => setPlaylistToEdit(playlist.id)}><i class="fas fa-edit"></i></div>
                                         <div onClick={() => deletePlaylist(playlist.id, playlist.coverPhoto_s3Name)}><i class="fas fa-trash-alt"></i></div>
@@ -188,18 +193,28 @@ function Home() {
                     </div>
                 </div>
                 {/* ----- Banner ----- */}
-                <div className="banner">
-                    <div className="logo_profileButton_container">
+                <div className="banner_home">
+                    {currentPage == 'Home' && <div className="logo_welcomeMessage_container">
                         <div className="banner_logo">
                             <div className="bannerLogo_circle"><i class="fas fa-headphones"></i></div>Jamify
                         </div>
-                        <button className="profileButton">
-                            <img src={user.photo_URL} className="profileButton_thumbnail" />
-                            <div className="profileButton_username">{user?.username}</div>
-                            <i class="fas fa-caret-down"></i>
-                        </button>
-                    </div>
-                    <div className="banner_mainText">Welcome, {user?.username}</div>
+                        <div className="banner_mainText">Welcome, {user?.username}</div>
+                    </div>}
+
+                    {currentPage == 'Playlist' && <div className="banner_playlistDetails">
+                            <img className="banner_playlistImage" src={selectedPlaylistDetails.coverPhoto_URL}></img>
+                            <ul className="playlistDetails_list">
+                                <li id="playlistDetails_playlist">PLAYLIST</li>
+                                <li id="playlistDetails_title">{selectedPlaylistDetails.title}</li>
+                                <li id="playlistDetails_username">{selectedPlaylistDetails.user.username}<span> • {selectedPlaylistDetails.songs.length} songs</span></li>
+                            </ul>
+                        </div>}           
+
+                    <button className="profileButton">
+                        <img src={user.photo_URL} className="profileButton_thumbnail" />
+                        <div className="profileButton_username">{user?.username}</div>
+                        <i class="fas fa-caret-down"></i>
+                    </button>
                     {/* ----- Song feed (playlist) ----- */}
                     <div className="song_container">
                         <ul className="playlist_header">

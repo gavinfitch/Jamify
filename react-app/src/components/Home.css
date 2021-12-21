@@ -101,23 +101,27 @@ li {
 }
 
 
-/* Banner */
-.banner {
+/* Home Banner */
+.banner_home {
     position: relative;
+    display: flex;
+    justify-content: space-between;
     background: linear-gradient(to right, #7454ca, #008c82);
     width: 100vw;
     height: 100vh;
+    overflow: scroll;
 }
 
-.banner * {
+.banner_home * {
     color: white;
 }
 
-.logo_profileButton_container {
+.logo_welcomeMessage_container {
     display: flex;
-    /* align-items: center; */
+    flex-direction: column;
     justify-content: space-between;
     padding: 20px;
+    height: 200px;
 }
 
 .banner_logo {
@@ -149,28 +153,33 @@ li {
 }
 
 .profileButton {
+    /* position: absolute;
+    top: 20px;
+    right: 20px; */
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: rgba(0, 0, 0, 0.70);
+    background-color: rgba(0, 0, 0, 0.85);
     border: none;
     border-radius: 100px;
     height: fit-content;
     width: fit-content;
     padding: 3px 12px 3px 3px;
+    margin: 20px;
 }
 
 .profileButton_thumbnail {
-    width: 30px;
-    height: 30px;
+    width: 29px;
+    height: 29px;
     border-radius: 100%;
     object-fit: cover;
 }
 
 .profileButton_username {
-    font-size: 13.5px;
-    font-weight: 700;
-    padding: 0px 20px;
+    font-size: 13px;
+    font-weight: 800;
+    padding: 0px 21px;
+    padding-top: 1px;
 }
 
 .fa-caret-down {
@@ -178,15 +187,65 @@ li {
 }
 
 .banner_mainText {
-    padding: 10px 20px 10px 20px;
-    font-size: 44px;
+    /* padding: 10px 20px 10px 20px; */
+    font-size: 54px;
     font-weight: 800;
+    min-width: 494px;
+}
+
+/* Playlist Banner */
+
+.banner_playlistDetails {
+    display: flex;
+    flex-direction: row;
+    /* align-items: flex-end; */
+    /* justify-content: space-between; */
+    padding: 20px;
+    /* height: 185px; */
+    height: fit-content;
+}
+
+.banner_playlistImage {
+    width: 204px;
+    height: 204px;
+    margin-right: 25px;
+    object-fit: cover;
+}
+
+.playlistDetails_list {
+    align-self: flex-end;
+}
+
+#playlistDetails_playlist {
+    font-weight: 800;
+    font-size: 13.5px;
+}
+
+#playlistDetails_title {
+    font-weight: 800;
+    font-size: 54px;
+}
+
+#playlistDetails_username {
+    font-weight: 700;
+    font-size: 13.5px;
+}
+
+#playlistDetails_username * {
+    font-weight: 700;
+    font-size: 12.5px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.playlistDetails_list > li {
+    padding-top: 20px;
 }
 
 /* Song Container */
 .song_container {
     position: absolute;
-    top: 20vh;
+    /* top: 198px; */
+    top: 245px;
     background: linear-gradient(to top, black 50%, rgba(0, 0, 0, 0.5));
     width: 100%;
     height: 80vh;
