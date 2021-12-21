@@ -49,9 +49,8 @@ function Home() {
 
     if (allSongs) {
         if (selectedPlaylist) {
-            allSongsArr = userPlaylists.filter((playlist) => playlist.id == selectedPlaylist)[0]?.songs
-            selectedPlaylistDetails = allPlaylists.filter(playlist => playlist.id == selectedPlaylist)[0]
-            console.log(selectedPlaylistDetails.userId)
+            allSongsArr = userPlaylists.filter((playlist) => playlist?.id == selectedPlaylist)[0]?.songs
+            selectedPlaylistDetails = allPlaylists?.filter(playlist => playlist?.id == selectedPlaylist)[0]
         } else if (librarySelected) {
             allSongsArr = allSongs.filter((song) => user.library.map(library_song => library_song.songId).includes(song.id));
         } else if (likesSelected) {
@@ -132,6 +131,7 @@ function Home() {
     // Delete playlist
     const deletePlaylist = async (playlistId, coverPhoto_s3Name) => {
         setSelectedPlaylist('')
+        setCurrentPage('Home')
         // await ReactS3Client
         //     .deleteFile(coverPhoto_s3Name)
         //     .then(response => console.log(response))
@@ -202,13 +202,13 @@ function Home() {
                     </div>}
 
                     {currentPage == 'Playlist' && <div className="banner_playlistDetails">
-                            <img className="banner_playlistImage" src={selectedPlaylistDetails.coverPhoto_URL}></img>
-                            <ul className="playlistDetails_list">
-                                <li id="playlistDetails_playlist">PLAYLIST</li>
-                                <li id="playlistDetails_title">{selectedPlaylistDetails.title}</li>
-                                <li id="playlistDetails_username">{selectedPlaylistDetails.user.username}<span> • {selectedPlaylistDetails.songs.length} songs</span></li>
-                            </ul>
-                        </div>}           
+                        {selectedPlaylistDetails.coverPhoto_URL ? <img className="banner_playlistImage" src={selectedPlaylistDetails.coverPhoto_URL}></img> : <img className="banner_playlistImage" src="https://jamify.s3.us-west-2.amazonaws.com/utils/Music_note.png"></img>}
+                        <ul className="playlistDetails_list">
+                            <li id="playlistDetails_playlist">PLAYLIST</li>
+                            <li id="playlistDetails_title">{selectedPlaylistDetails?.title}</li>
+                            <li id="playlistDetails_username">{user.username}<span> • {selectedPlaylistDetails?.songs.length} songs</span></li>
+                        </ul>
+                    </div>}
 
                     <button className="profileButton">
                         <img src={user.photo_URL} className="profileButton_thumbnail" />

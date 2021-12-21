@@ -177,7 +177,7 @@ li {
 
 .profileButton_username {
     font-size: 13px;
-    font-weight: 800;
+    font-weight: 700;
     padding: 0px 21px;
     padding-top: 1px;
 }
@@ -190,7 +190,8 @@ li {
     /* padding: 10px 20px 10px 20px; */
     font-size: 54px;
     font-weight: 800;
-    min-width: 494px;
+    /* min-width: 494px; */
+    min-width: max-content;
 }
 
 /* Playlist Banner */
@@ -203,6 +204,7 @@ li {
     padding: 20px;
     /* height: 185px; */
     height: fit-content;
+    min-width: max-content;
 }
 
 .banner_playlistImage {
