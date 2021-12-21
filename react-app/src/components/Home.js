@@ -235,19 +235,19 @@ function Home() {
                     {/* ----- Song feed (playlist) ----- */}
                     <div className="song_container">
                         <ul className="playlist_header">
-                            <li>#</li>
-                            <li>TITLE</li>
-                            <li>ALBUM</li>
-                            <li>DATE ADDED</li>
-                            <li>GENRE</li>
+                            <li id="index_header">#</li>
+                            <li id="title_header">TITLE</li>
+                            <li id="album_header">ALBUM</li>
+                            <li id="dateAdded_header">DATE ADDED</li>
+                            <li id="genre_header">GENRE</li>
                         </ul>
                         {allSongsArr && allSongsArr.map((song, index) => {
 
                             const splitDate = song.created_at.split(" ")
                             const dateAdded = `${splitDate[2]} ${splitDate[1]}, ${splitDate[3]}`
                             return <ul className="playlist_row">
-                                <li>{index + 1}</li>
-                                <li className="titleAndButtons_container">
+                                <li className="index_column">{index + 1}</li>
+                                <li className="titleAndButtons_container" id="titleAndButtons_container_phone">
                                     <div className="playlistTitle_container">
                                         <img onClick={() => setSelectedSong(song)} className="albumCover_thumbnail" src={song.albumCover_URL}></img>
                                         <div>
@@ -258,10 +258,24 @@ function Home() {
                                     {user.id == song.userId && <div className="edit_delete_container">
                                         <div onClick={() => setEditSong(song.id)}><i class="fas fa-edit"></i></div>
                                         <div onClick={() => deleteSong(song.id, song.song_s3Name)}><i class="fas fa-trash-alt"></i></div>
+                                        <div id="likeAndAdd_container_title">
+                                            {!selectedPlaylist && !librarySelected && <div onClick={() => setSongToAdd(song.id)}><i class="fas fa-plus"></i></div>}
+                                            {selectedPlaylist && <div onClick={() => removeFromPlaylist(selectedPlaylist, song.id)}><i class="fas fa-minus"></i></div>}
+                                            {librarySelected && <div onClick={() => removeFromLibrary(song.id, userId)}><i class="fas fa-minus"></i></div>}
+                                            {user.likes.map(like => like.songId).includes(song.id) ? <div onClick={() => likeSong(song.id)}><i id="likedSong" class="fas fa-heart"></i></div> : <div onClick={() => likeSong(song.id)}><i class="fas fa-heart"></i></div>}
+                                        </div>
                                     </div>}
                                 </li>
-                                <li>{song.album}</li>
-                                <li className="playlistDate_container">
+                                <li className="album_column">
+                                    {song.album}
+                                    <div id="likeAndAdd_container_hidden">
+                                        {!selectedPlaylist && !librarySelected && <div onClick={() => setSongToAdd(song.id)}><i class="fas fa-plus"></i></div>}
+                                        {selectedPlaylist && <div onClick={() => removeFromPlaylist(selectedPlaylist, song.id)}><i class="fas fa-minus"></i></div>}
+                                        {librarySelected && <div onClick={() => removeFromLibrary(song.id, userId)}><i class="fas fa-minus"></i></div>}
+                                        {user.likes.map(like => like.songId).includes(song.id) ? <div onClick={() => likeSong(song.id)}><i id="likedSong" class="fas fa-heart"></i></div> : <div onClick={() => likeSong(song.id)}><i class="fas fa-heart"></i></div>}
+                                    </div>
+                                </li>
+                                <li id="dateAdded_column" className="playlistDate_container">
                                     {dateAdded}
                                     <div className="likeAndAdd_container">
                                         {!selectedPlaylist && !librarySelected && <div onClick={() => setSongToAdd(song.id)}><i class="fas fa-plus"></i></div>}
@@ -270,7 +284,7 @@ function Home() {
                                         {user.likes.map(like => like.songId).includes(song.id) ? <div onClick={() => likeSong(song.id)}><i id="likedSong" class="fas fa-heart"></i></div> : <div onClick={() => likeSong(song.id)}><i class="fas fa-heart"></i></div>}
                                     </div>
                                 </li>
-                                <li>{song.genre}</li>
+                                <li className="genre_column">{song.genre}</li>
                             </ul>
                         })}
                     </div>
