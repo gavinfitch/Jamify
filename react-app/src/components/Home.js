@@ -9,7 +9,7 @@ import EditSongModal from './editSong/EditSongModal'
 import CreatePlaylistModal from './createPlaylist/CreatePlaylistModal'
 import EditPlaylistModal from './editPlaylist/EditPlaylistModal'
 import AddToPlaylistModal from './addToPlaylist/AddToPlaylistModal'
-import { authenticate } from '../store/session';
+import { authenticate, logout } from '../store/session';
 import * as songStore from '../store/song';
 import * as playlistStore from '../store/playlist';
 import './Home.css';
@@ -35,6 +35,7 @@ function Home() {
     const [uploadSong, setUploadSong] = useState(false)
     const [editSong, setEditSong] = useState('')
     const [currentPage, setCurrentPage] = useState('Home')
+    const [profileButtonDropdown, setProfileButtonDropdown] = useState(false)
 
     const [title, setTitle] = useState('');
     const [coverPhoto, setCoverPhoto] = useState('')
@@ -139,6 +140,10 @@ function Home() {
         await dispatch(playlistStore.thunk_deletePlaylist({ playlistId }))
     };
 
+    const onLogout = async (e) => {
+        await dispatch(logout());
+    };
+
     useEffect(() => {
         // Get all songs
         dispatch(songStore.thunk_getAllSongs());
@@ -193,12 +198,15 @@ function Home() {
                     </div>
                 </div>
                 {/* ----- Banner ----- */}
+
                 <div className="banner_home">
                     {currentPage == 'Home' && <div className="logo_welcomeMessage_container">
                         <div className="banner_logo">
                             <div className="bannerLogo_circle"><i class="fas fa-headphones"></i></div>Jamify
                         </div>
-                        <div className="banner_mainText">Welcome, {user?.username}</div>
+                        <div id="mainText_row" className="banner_mainText">Welcome, {user?.username}</div>
+                        <div id="banner_mainText_columnTop" className="banner_mainText_column">Welcome,</div>
+                        <div id="banner_mainText_columnBottom" className="banner_mainText_column">{user?.username}</div>
                     </div>}
 
                     {currentPage == 'Playlist' && <div className="banner_playlistDetails">
@@ -227,10 +235,14 @@ function Home() {
                         </ul>
                     </div>}
 
-                    <button className="profileButton">
+                    <button onClick={() => setProfileButtonDropdown(!profileButtonDropdown)} className="profileButton">
                         <img src={user.photo_URL} className="profileButton_thumbnail" />
                         <div className="profileButton_username">{user?.username}</div>
-                        <i class="fas fa-caret-down"></i>
+                        {profileButtonDropdown ? <i class="fas fa-caret-up"></i> : <i class="fas fa-caret-down"></i>}
+                        {profileButtonDropdown && <ul className="profileButton_dropdown">
+                            <i class="fas fa-caret-up dropdownCaret"></i>
+                            <li onClick={onLogout}>Log Out</li>
+                        </ul>}
                     </button>
                     {/* ----- Song feed (playlist) ----- */}
                     <div className="song_container">
@@ -289,8 +301,19 @@ function Home() {
                         })}
                     </div>
                 </div>
+
             </div>
             {/* ----- Audio player ----- */}
+            {selectedSong && <div id="audioPlayer_songInfo" className="playlistTitle_container">
+                <div className="audioPlayer_thumbnail_wrapper">
+                    <img className="albumCover_thumbnail" src={selectedSong.albumCover_URL}></img>
+                    <div>
+                        <div className="playlist_songTitle">{selectedSong.title}</div>
+                        <div>{selectedSong.artist}</div>
+                    </div>
+                </div>
+                {user.likes.map(like => like.songId).includes(selectedSong.id) ? <div onClick={() => likeSong(selectedSong.id)}><i id="likedSong" class="fas fa-heart"></i></div> : <div onClick={() => likeSong(selectedSong.id)}><i class="fas fa-heart"></i></div>}
+            </div>}
             <AudioPlayer
                 className="audioPlayer"
                 // autoPlay
