@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom';
 import './EditSongModal.css';
 import S3 from 'react-aws-s3';
 import * as songStore from '../../store/song';
+import * as playlistStore from '../../store/playlist';
 
 const EditSongForm = ({ genresArr, editSong, setEditSong }) => {
     const [errors, setErrors] = useState([]);
@@ -89,7 +90,7 @@ const EditSongForm = ({ genresArr, editSong, setEditSong }) => {
                 .catch(async (res) => {
                     const data = await res.json();
                     if (data && data.errors) setErrors(data.errors)
-                }).then((res) => res && history.push("/"));
+                }).then((res) => { dispatch(playlistStore.thunk_getAllPlaylists()); res && history.push("/") });
         } else {
             history.push('/')
         }
