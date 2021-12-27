@@ -700,7 +700,7 @@ li {
     padding-bottom: 1px;
 }
 
-.fa-edit, .fa-trash-alt, .fa-plus, .fa-minus, .fa-heart, .fa-random {
+.fa-edit, .fa-trash-alt, .fa-plus, .fa-minus, .fa-heart, .fa-random, .fa-sync-alt {
     padding: 0px 3px;
     font-size: 12.5px;
 }
@@ -740,12 +740,32 @@ li {
     font-size: 16px;
 }
 
-#shuffle_selected {
+#loop_container {
+    margin-left: 10px;
+    display: none;
+}
+
+/* ----- Loop button ----- */
+.rhap_repeat-button {
+    position: fixed;
+    bottom: 50px;
+    left: 20px;
+}
+
+.rhap_repeat-button * {
+    font-size: 18px;
+}
+
+#shuffle_selected, #loop_selected {
     color: #02c48a;
 }
 
 .rhap_container {
     padding: 12px 36px;
+}
+
+.rhap_container.rhap_container.rhap_loop--on > .rhap_main > .rhap_controls-section > .rhap_additional-controls > .rhap_repeat-button * {
+    color: #02c48a;
 }
 
 .audioPlayer * {
@@ -774,7 +794,7 @@ li {
     display: flex;
     align-items: center;
     bottom: 40px;
-    left: 30px;
+    left: 62px;
     z-index: 2000;
 }
 

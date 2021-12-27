@@ -95,7 +95,7 @@ function Home() {
             }
 
             let randInt = currentSongIndex;
-            while (randInt == currentSongIndex) {
+            while (allSongsArr.length > 1 && randInt == currentSongIndex) {
                 randInt = randomIntFromInterval(0, allSongsArr.length - 1);
             }
 
@@ -124,7 +124,7 @@ function Home() {
             }
 
             let randInt = currentSongIndex;
-            while (randInt == currentSongIndex) {
+            while (allSongsArr.length > 1 && randInt == currentSongIndex) {
                 randInt = randomIntFromInterval(0, allSongsArr.length - 1);
             }
 
@@ -363,7 +363,7 @@ function Home() {
                 layout="stacked-reverse"
                 showSkipControls={true}
                 showJumpControls={false}
-                customAdditionalControls={[]}
+                // customAdditionalControls={[LOOP]}
                 ref={player}
                 onEnded={e => playNextSong()}
                 onClickPrevious={e => playPreviousSong()}
