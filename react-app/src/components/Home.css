@@ -700,7 +700,7 @@ li {
     padding-bottom: 1px;
 }
 
-.fa-edit, .fa-trash-alt, .fa-plus, .fa-minus, .fa-heart {
+.fa-edit, .fa-trash-alt, .fa-plus, .fa-minus, .fa-heart, .fa-random {
     padding: 0px 3px;
     font-size: 12.5px;
 }
@@ -727,6 +727,21 @@ li {
     bottom: 0px;
     background-color: rgb(18, 18, 18);
     z-index: 1000;
+}
+
+#shuffle_container {
+    position: fixed;
+    bottom: 49px;
+    right: 160px;
+    z-index: 1001;
+}
+
+.shuffle_icon {
+    font-size: 16px;
+}
+
+#shuffle_selected {
+    color: #02c48a;
 }
 
 .rhap_container {

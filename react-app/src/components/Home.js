@@ -28,6 +28,7 @@ function Home() {
     const [selectedPlaylist, setSelectedPlaylist] = useState('');
     const [librarySelected, setLibrarySelected] = useState(false);
     const [likesSelected, setLikesSelected] = useState(false);
+    const [shuffleSelected, setShuffleSelected] = useState(false);
     const [songToAdd, setSongToAdd] = useState('');
     const [playlistToAdd, setPlaylistToAdd] = useState('');
     const [playlistToEdit, setPlaylistToEdit] = useState('');
@@ -78,13 +79,35 @@ function Home() {
 
     const ReactS3Client = new S3(config);
 
+
+    function randomIntFromInterval(min, max) {
+        return Math.floor(Math.random() * (max - min + 1) + min)
+    }
+
     // Play next song in current playlist
     const playNextSong = () => {
-        for (let i = 0; i < allSongsArr.length; i++) {
-            if (allSongsArr[i].id == selectedSong.id) {
-                if (allSongsArr[i + 1]) {
-                    setSelectedSong(allSongsArr[i + 1]);
-                    return
+        if (shuffleSelected) {
+            let currentSongIndex;
+            for (let i = 0; i < allSongsArr.length; i++) {
+                if (selectedSong == allSongsArr[i]) {
+                    currentSongIndex = i;
+                }
+            }
+
+            let randInt = currentSongIndex;
+            while (randInt == currentSongIndex) {
+                randInt = randomIntFromInterval(0, allSongsArr.length - 1);
+            }
+
+            setSelectedSong(allSongsArr[randInt])
+            return
+        } else {
+            for (let i = 0; i < allSongsArr.length; i++) {
+                if (allSongsArr[i].id == selectedSong.id) {
+                    if (allSongsArr[i + 1]) {
+                        setSelectedSong(allSongsArr[i + 1]);
+                        return
+                    }
                 }
             }
         }
@@ -92,11 +115,28 @@ function Home() {
 
     // Play previous song in current playlist
     const playPreviousSong = () => {
-        for (let i = 0; i < allSongsArr.length; i++) {
-            if (allSongsArr[i].id == selectedSong.id) {
-                if (allSongsArr[i - 1]) {
-                    setSelectedSong(allSongsArr[i - 1]);
-                    return
+        if (shuffleSelected) {
+            let currentSongIndex;
+            for (let i = 0; i < allSongsArr.length; i++) {
+                if (selectedSong == allSongsArr[i]) {
+                    currentSongIndex = i;
+                }
+            }
+
+            let randInt = currentSongIndex;
+            while (randInt == currentSongIndex) {
+                randInt = randomIntFromInterval(0, allSongsArr.length - 1);
+            }
+
+            setSelectedSong(allSongsArr[randInt])
+            return
+        } else {
+            for (let i = 0; i < allSongsArr.length; i++) {
+                if (allSongsArr[i].id == selectedSong.id) {
+                    if (allSongsArr[i - 1]) {
+                        setSelectedSong(allSongsArr[i - 1]);
+                        return
+                    }
                 }
             }
         }
@@ -314,6 +354,9 @@ function Home() {
                 </div>
                 {user.likes.map(like => like.songId).includes(selectedSong.id) ? <div onClick={() => likeSong(selectedSong.id)}><i id="likedSong" class="fas fa-heart"></i></div> : <div onClick={() => likeSong(selectedSong.id)}><i class="fas fa-heart"></i></div>}
             </div>}
+            <div id="shuffle_container" onClick={() => setShuffleSelected(!shuffleSelected)}>
+                {shuffleSelected ? <i id="shuffle_selected" class="fas fa-random shuffle_icon"></i> : <i class="fas fa-random shuffle_icon"></i>}
+            </div>
             <AudioPlayer
                 className="audioPlayer"
                 // autoPlay
