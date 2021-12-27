@@ -331,6 +331,43 @@ li {
     font-size: 100px;
 }
 
+/* ----- Search ----- */
+
+.search_container {
+    position: fixed;
+    right: 50px;
+    margin-top: 10px;
+    display: flex;
+}
+.magnifyingGlass_container {
+    background-color: white;
+    height: 25px;
+    margin: 0px;
+    padding: 0px;
+    display: flex;
+    align-items: center;
+    padding: 0px 5px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.search_box {
+    color: black;
+    height: 25px;
+    border: none;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.search_box:focus {
+    outline: none;
+}
+
+.fa-search {
+    color: black;
+    margin-bottom: 1px;
+}
+
 /* Song Container */
 .song_container {
     position: absolute;
@@ -834,10 +871,4 @@ li {
 .audioPlayer_songTitle_artist * {
     margin: 0px;
     padding: 0px;
-}
-
-/* ----- Search ----- */
-
-.search_box {
-    color: black;
 }

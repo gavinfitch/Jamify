@@ -75,10 +75,22 @@ function Home() {
 
         } else if (librarySelected) {
             allSongsArr = allSongs.filter((song) => user.library.map(library_song => library_song.songId).includes(song.id));
+
+            if (searchTerm.length > 0) {
+                allSongsArr = searchFilter(allSongsArr, searchTerm)
+            }
         } else if (likesSelected) {
             allSongsArr = allSongs.filter((song) => user.likes.map(like => like.songId).includes(song.id));
+
+            if (searchTerm.length > 0) {
+                allSongsArr = searchFilter(allSongsArr, searchTerm)
+            }
         } else {
             allSongsArr = Object.values(allSongs)
+
+            if (searchTerm.length > 0) {
+                allSongsArr = searchFilter(allSongsArr, searchTerm)
+            }
         }
     }
 
@@ -305,17 +317,20 @@ function Home() {
                         </ul>}
                     </button>
                     {/* ----- Song feed (playlist) ----- */}
-                    <div className="search_container">
-                        <input
-                            className="search_box"
-                            type="text"
-                            placeholder="Search playlist..."
-                            onChange={(e) => {
-                                setSearchTerm(e.target.value);
-                            }}
-                        ></input>
-                    </div>
                     <div className="song_container">
+                        <div className="search_container">
+                            <div className="magnifyingGlass_container">
+                                <i className="fas fa-search"></i>
+                            </div>
+                            <input
+                                className="search_box"
+                                type="text"
+                                placeholder="Search playlist..."
+                                onChange={(e) => {
+                                    setSearchTerm(e.target.value);
+                                }}
+                            ></input>
+                        </div>
                         <ul className="playlist_header">
                             <li id="index_header">#</li>
                             <li id="title_header">TITLE</li>
