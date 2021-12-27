@@ -835,3 +835,9 @@ li {
     margin: 0px;
     padding: 0px;
 }
+
+/* ----- Search ----- */
+
+.search_box {
+    color: black;
+}

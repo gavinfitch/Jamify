@@ -29,6 +29,7 @@ function Home() {
     const [librarySelected, setLibrarySelected] = useState(false);
     const [likesSelected, setLikesSelected] = useState(false);
     const [shuffleSelected, setShuffleSelected] = useState(false);
+    const [searchTerm, setSearchTerm] = useState('');
     const [songToAdd, setSongToAdd] = useState('');
     const [playlistToAdd, setPlaylistToAdd] = useState('');
     const [playlistToEdit, setPlaylistToEdit] = useState('');
@@ -49,10 +50,29 @@ function Home() {
     let allSongsArr;
     let selectedPlaylistDetails;
 
+    const searchFilter = (arr, keyword) => {
+        return arr.filter(song => {
+            if (song.title.toLowerCase().includes(keyword.toLocaleLowerCase())) {
+                return song;
+            } else if (song.artist.toLowerCase().includes(keyword.toLocaleLowerCase())) {
+                return song;
+            } else if (song.album.toLowerCase().includes(keyword.toLocaleLowerCase())) {
+                return song;
+            } else if (song.genre.toLowerCase().includes(keyword.toLocaleLowerCase())) {
+                return song;
+            }
+        })
+    }
+
     if (allSongs) {
         if (selectedPlaylist) {
             allSongsArr = userPlaylists.filter((playlist) => playlist?.id == selectedPlaylist)[0]?.songs
             selectedPlaylistDetails = allPlaylists?.filter(playlist => playlist?.id == selectedPlaylist)[0]
+
+            if (searchTerm.length > 0) {
+                allSongsArr = searchFilter(allSongsArr, searchTerm)
+            }
+
         } else if (librarySelected) {
             allSongsArr = allSongs.filter((song) => user.library.map(library_song => library_song.songId).includes(song.id));
         } else if (likesSelected) {
@@ -285,6 +305,16 @@ function Home() {
                         </ul>}
                     </button>
                     {/* ----- Song feed (playlist) ----- */}
+                    <div className="search_container">
+                        <input
+                            className="search_box"
+                            type="text"
+                            placeholder="Search playlist..."
+                            onChange={(e) => {
+                                setSearchTerm(e.target.value);
+                            }}
+                        ></input>
+                    </div>
                     <div className="song_container">
                         <ul className="playlist_header">
                             <li id="index_header">#</li>
