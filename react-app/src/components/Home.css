@@ -67,7 +67,8 @@ li {
     font-size: 16px;
 }
 
-.sideForm_container > ul > li > .fa-heart {
+.sideNav_container > ul > li > .fa-heart {
+    padding: 0px;
     font-size: 16px;
 }
 

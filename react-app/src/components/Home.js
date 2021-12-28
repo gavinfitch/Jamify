@@ -244,14 +244,14 @@ function Home() {
                         <ul>
                             <li onClick={() => { history.push(`/`); setSelectedPlaylist(''); setLibrarySelected(false); setLikesSelected(false); setSearchTerm(''); setCurrentPage('Home') }}><i class="fas fa-home sideBar_icon"></i>Home</li>
                             {/* <li><i class="fas fa-search sideBar_icon"></i>Search</li> */}
+                            <li onClick={() => { setLikesSelected(true); setSelectedPlaylist(''); setLibrarySelected(false); setSearchTerm(''); setCurrentPage('LikedSongs') }}><i class="fas fa-heart sideBar_icon"></i>Liked Songs</li>
                             <li onClick={() => { setLibrarySelected(true); setLikesSelected(false); setSelectedPlaylist(''); setSearchTerm(''); setCurrentPage('YourLibrary') }}><i class="fas fa-book sideBar_icon"></i>Your Library</li>
                         </ul>
                     </div>
                     <div className="sideForm_container">
                         <ul>
-                            <li onClick={() => setUploadSong(true)}><i class="fas fa-cloud-upload-alt sideBar_icon"></i>Upload Song</li>
                             <li onClick={() => setCreatePlaylist(true)}><i class="fas fa-plus sideBar_icon"></i>Create Playlist</li>
-                            <li onClick={() => { setLikesSelected(true); setSelectedPlaylist(''); setLibrarySelected(false); setSearchTerm(''); setCurrentPage('LikedSongs') }}><i class="fas fa-heart sideBar_icon"></i>Liked Songs</li>
+                            <li onClick={() => setUploadSong(true)}><i class="fas fa-cloud-upload-alt sideBar_icon"></i>Upload Song</li>
                         </ul>
                     </div>
                     {/* ----- Playlist section of sidebar ----- */}
