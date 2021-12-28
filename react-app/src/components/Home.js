@@ -318,6 +318,7 @@ function Home() {
                     </button>
                     {/* ----- Song feed (playlist) ----- */}
                     <div className="song_container">
+                        {currentPage == "Home" && <p id="browseSongs_text">Browse all songs</p>}
                         <div className="search_container">
                             <div className="magnifyingGlass_container">
                                 <i className="fas fa-search"></i>
@@ -325,7 +326,7 @@ function Home() {
                             <input
                                 className="search_box"
                                 type="text"
-                                placeholder="Search playlist..."
+                                placeholder="Search songs..."
                                 value={searchTerm}
                                 onChange={(e) => {
                                     setSearchTerm(e.target.value);

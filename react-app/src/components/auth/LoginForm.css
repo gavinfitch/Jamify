@@ -30,7 +30,7 @@
 .authForm_logo {
     display: flex;
     align-items: center;
-    font-size: 24px;
+    font-size: 26px;
     font-weight: 700;
     margin-top: 60px;
     color: white;
@@ -45,11 +45,11 @@
     height: 40px;
     border-radius: 100%;
     margin-bottom: 8px;
-    margin-right: 2px;
+    margin-right: 3px;
 }
 
 #authFormLogo_headphones {
-    font-size: 29px;
+    font-size: 28px;
     padding-bottom: 1px;
     color: rgb(20, 20, 20);
 }
