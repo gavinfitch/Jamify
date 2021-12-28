@@ -346,6 +346,7 @@ function Home() {
                             const dateAdded = `${splitDate[2]} ${splitDate[1]}, ${splitDate[3]}`
                             return <ul className="playlist_row">
                                 <li className="index_column">{index + 1}</li>
+                                {/* <li className="index_column">100</li> */}
                                 <li className="titleAndButtons_container" id="titleAndButtons_container_phone">
                                     <div className="playlistTitle_container">
                                         <img onClick={() => setSelectedSong(song)} className="albumCover_thumbnail" src={song.albumCover_URL}></img>
