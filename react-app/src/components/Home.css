@@ -423,7 +423,7 @@ li {
 .playlist_header {
     display: grid;
     /* grid-template-columns: 1.5% 32% 35% 27% 6%; */
-    grid-template-columns: 22px 32% 35% 26% 6%;
+    grid-template-columns: 22px 32% 36% 24% 6%;
     margin: 100px 50px 0px 50px;
     padding: 2px 10px;
     border-bottom: 2px solid rgb(75, 75, 75);
@@ -438,7 +438,7 @@ li {
 .playlist_row {
     display: grid;
     /* grid-template-columns: 1.5% 32% 35% 27% 6%; */
-    grid-template-columns: 22px 32% 35% 26% 6%;
+    grid-template-columns: 22px 32% 36% 24% 6%;
     align-items: center;
     margin: 20px 50px;
     padding: 2px 10px;
@@ -483,11 +483,11 @@ li {
     } */
 
     .playlist_header {
-        grid-template-columns: 22px 38% 32% 21% 6%;
+        grid-template-columns: 22px 38% 33% 20% 6%;
     }
 
     .playlist_row {
-        grid-template-columns: 22px 38% 32% 21% 6%;
+        grid-template-columns: 22px 38% 33% 20% 6%;
     }
 
   }
@@ -521,11 +521,11 @@ li {
 
   @media screen and (max-width: 1175px) {
     .playlist_header {
-        grid-template-columns: 52% 50%;
+        grid-template-columns: 54% 48%;
     }
 
     .playlist_row {
-        grid-template-columns: 52% 50%;
+        grid-template-columns: 54% 48%;
     }
 
     #dateAdded_header {
