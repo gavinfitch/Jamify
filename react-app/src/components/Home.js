@@ -243,7 +243,7 @@ function Home() {
                     <div className="sideNav_container">
                         <ul>
                             <li onClick={() => { history.push(`/`); setSelectedPlaylist(''); setLibrarySelected(false); setLikesSelected(false); setCurrentPage('Home') }}><i class="fas fa-home sideBar_icon"></i>Home</li>
-                            <li><i class="fas fa-search sideBar_icon"></i>Search</li>
+                            {/* <li><i class="fas fa-search sideBar_icon"></i>Search</li> */}
                             <li onClick={() => { setLibrarySelected(true); setLikesSelected(false); setSelectedPlaylist(''); setCurrentPage('YourLibrary') }}><i class="fas fa-book sideBar_icon"></i>Your Library</li>
                         </ul>
                     </div>

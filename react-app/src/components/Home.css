@@ -334,16 +334,16 @@ li {
 /* ----- Search ----- */
 
 .search_container {
-    position: fixed;
-    right: 50px;
-    margin-top: 10px;
+    position: absolute;
+    top: 25px;
+    right: 20px;
     display: flex;
 }
 .magnifyingGlass_container {
-    background-color: white;
-    height: 25px;
+    background-color: rgba(255, 255, 255, 0.15);
+    /* height: 25px; */
+    height: 34px;
     margin: 0px;
-    padding: 0px;
     display: flex;
     align-items: center;
     padding: 0px 5px;
@@ -352,20 +352,27 @@ li {
 }
 
 .search_box {
-    color: black;
-    height: 25px;
+    color: white;
+    background-color: rgba(255, 255, 255, 0.15);
+    height: 34px;
     border: none;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
+    padding: 8px;
 }
 
 .search_box:focus {
     outline: none;
 }
 
+.search_box::placeholder {
+    color: white;
+}
+
 .fa-search {
-    color: black;
+    color: white;
     margin-bottom: 1px;
+    padding: 8px;
 }
 
 /* Song Container */
@@ -385,7 +392,7 @@ li {
 .playlist_header {
     display: grid;
     grid-template-columns: 1.5% 32% 35% 27% 6%;
-    margin: 50px 50px 0px 50px;
+    margin: 100px 50px 0px 50px;
     padding: 2px 10px;
     border-bottom: 2px solid rgb(75, 75, 75);
 }
