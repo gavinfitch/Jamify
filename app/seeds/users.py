@@ -4,17 +4,17 @@ from app.models import db, User
 # Adds a demo user, you can add other users here if you want
 def seed_users():
     guest = User(
-        full_name='Guest User', username='Guest', email='guest@user.com', password='password')
+        full_name='Guest User', username='Guest', email='guest@user.com', password='password', photo_URL="https://friendstagram.s3.us-west-2.amazonaws.com/utils/british-bulldog-brown-white-portrait-studio-underbite.jpg")
     gavin = User(
         full_name='Gavin Fitch', username='gavinfitch', email='gavin@gavin.com', password='password', photo_URL='https://jamify.s3.us-west-2.amazonaws.com/utils/Hornby_ferry.jpg')
     vini = User(
-        full_name='Vini Reilly', username='vinireilly', email='vini@vini.com', password='password')
+        full_name='Vini Reilly', username='vinireilly', email='vini@vini.com', password='password', photo_URL="https://jamify.s3.us-west-2.amazonaws.com/utils/default_user_profile_image.png")
     michelle = User(
-        full_name='Michelle Stone', username='michellestone', email='michelle@michelle.com', password='password')
+        full_name='Michelle Stone', username='michellestone', email='michelle@michelle.com', password='password', photo_URL="https://jamify.s3.us-west-2.amazonaws.com/utils/default_user_profile_image.png")
     rafa = User(
-        full_name='Rafa Thechi', username='rafathechi', email='rafa@rafa.com', password='password')
+        full_name='Rafa Thechi', username='rafathechi', email='rafa@rafa.com', password='password', photo_URL="https://jamify.s3.us-west-2.amazonaws.com/utils/default_user_profile_image.png")
     ace = User(
-        full_name='Ace Kieffer', username='acekieffer', email='ace@ace.com', password='password')
+        full_name='Ace Kieffer', username='acekieffer', email='ace@ace.com', password='password', photo_URL="https://jamify.s3.us-west-2.amazonaws.com/utils/default_user_profile_image.png")
 
     db.session.add(guest)
     db.session.add(gavin)
