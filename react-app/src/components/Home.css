@@ -341,7 +341,6 @@ li {
 }
 .magnifyingGlass_container {
     background-color: rgba(255, 255, 255, 0.15);
-    /* height: 25px; */
     height: 34px;
     margin: 0px;
     display: flex;
@@ -352,13 +351,13 @@ li {
 }
 
 .search_box {
-    color: white;
+    color: rgba(255, 255, 255, 0.80);
     background-color: rgba(255, 255, 255, 0.15);
     height: 34px;
     border: none;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
-    padding: 8px;
+    padding: 8px 10px;
 }
 
 .search_box:focus {
@@ -366,13 +365,14 @@ li {
 }
 
 .search_box::placeholder {
-    color: white;
+    color: rgba(255, 255, 255, 0.80);
 }
 
 .fa-search {
-    color: white;
+    color: rgba(255, 255, 255, 0.80);
     margin-bottom: 1px;
     padding: 8px;
+    padding-right: 0px;
 }
 
 /* Song Container */

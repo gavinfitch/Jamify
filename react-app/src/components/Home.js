@@ -242,16 +242,16 @@ function Home() {
                 <div className="sidebar">
                     <div className="sideNav_container">
                         <ul>
-                            <li onClick={() => { history.push(`/`); setSelectedPlaylist(''); setLibrarySelected(false); setLikesSelected(false); setCurrentPage('Home') }}><i class="fas fa-home sideBar_icon"></i>Home</li>
+                            <li onClick={() => { history.push(`/`); setSelectedPlaylist(''); setLibrarySelected(false); setLikesSelected(false); setSearchTerm(''); setCurrentPage('Home') }}><i class="fas fa-home sideBar_icon"></i>Home</li>
                             {/* <li><i class="fas fa-search sideBar_icon"></i>Search</li> */}
-                            <li onClick={() => { setLibrarySelected(true); setLikesSelected(false); setSelectedPlaylist(''); setCurrentPage('YourLibrary') }}><i class="fas fa-book sideBar_icon"></i>Your Library</li>
+                            <li onClick={() => { setLibrarySelected(true); setLikesSelected(false); setSelectedPlaylist(''); setSearchTerm(''); setCurrentPage('YourLibrary') }}><i class="fas fa-book sideBar_icon"></i>Your Library</li>
                         </ul>
                     </div>
                     <div className="sideForm_container">
                         <ul>
                             <li onClick={() => setUploadSong(true)}><i class="fas fa-cloud-upload-alt sideBar_icon"></i>Upload Song</li>
                             <li onClick={() => setCreatePlaylist(true)}><i class="fas fa-plus sideBar_icon"></i>Create Playlist</li>
-                            <li onClick={() => { setLikesSelected(true); setSelectedPlaylist(''); setLibrarySelected(false); setCurrentPage('LikedSongs') }}><i class="fas fa-heart sideBar_icon"></i>Liked Songs</li>
+                            <li onClick={() => { setLikesSelected(true); setSelectedPlaylist(''); setLibrarySelected(false); setSearchTerm(''); setCurrentPage('LikedSongs') }}><i class="fas fa-heart sideBar_icon"></i>Liked Songs</li>
                         </ul>
                     </div>
                     {/* ----- Playlist section of sidebar ----- */}
@@ -259,7 +259,7 @@ function Home() {
                         <ul>
                             {userPlaylistsArr && userPlaylistsArr.map((playlist) => {
                                 return <li className="sideBar_playlist_container">
-                                    <div className="sideBar_playlistTitle" onClick={() => { setSelectedPlaylist(playlist.id); setLibrarySelected(false); setLikesSelected(false); setCurrentPage('Playlist') }}>{playlist.title}</div>
+                                    <div className="sideBar_playlistTitle" onClick={() => { setSelectedPlaylist(playlist.id); setLibrarySelected(false); setLikesSelected(false); setSearchTerm(''); setCurrentPage('Playlist') }}>{playlist.title}</div>
                                     <div className="sideBar_edit_delete_container">
                                         <div onClick={() => setPlaylistToEdit(playlist.id)}><i class="fas fa-edit"></i></div>
                                         <div onClick={() => deletePlaylist(playlist.id, playlist.coverPhoto_s3Name)}><i class="fas fa-trash-alt"></i></div>
@@ -326,6 +326,7 @@ function Home() {
                                 className="search_box"
                                 type="text"
                                 placeholder="Search playlist..."
+                                value={searchTerm}
                                 onChange={(e) => {
                                     setSearchTerm(e.target.value);
                                 }}
