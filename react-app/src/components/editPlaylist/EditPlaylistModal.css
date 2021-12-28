@@ -9,19 +9,25 @@
     height: 100vh;
     /* background-color: #2a1d5588; */
     background-color: #160e3088;
+    background-color: #25185088;
     z-index: 1000;
+    overflow: scroll;
 }
 
 .modal_container {
-    background-color: black;
-    min-width: 375px;
-    max-height: 70vh;
+    background-color: rgb(8, 8, 8);
+    width: 420px;
+    min-width: 420px;
+    height: fit-content;
+    max-height: 95vh;
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin: 10vh;
+    margin-bottom: 125px;
     padding: 0px 45px;
     border-radius: 10px;
-    overflow: scroll;
+    /* overflow: scroll; */
 }
 
 .modal_logoClose_container {
@@ -51,7 +57,7 @@
     height: 26px;
     border-radius: 100%;
     margin-bottom: 8px;
-    margin-right: 1px;
+    margin-right: 3px;
 }
 
 #formLogo_headphones {
