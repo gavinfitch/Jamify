@@ -353,7 +353,8 @@ function Home() {
                                     <div onClick={() => setSelectedSong(song)} className="playlistTitle_container">
                                         <img className="albumCover_thumbnail" src={song.albumCover_URL}></img>
                                         <div>
-                                            <div className="playlist_songTitle">{song.title}</div>
+                                            {selectedSong != song && <div className="playlist_songTitle">{song.title}</div>}
+                                            {selectedSong == song && <div className="playlist_songTitle_selected">{song.title}</div>}
                                             <div>{song.artist}</div>
                                         </div>
                                     </div>

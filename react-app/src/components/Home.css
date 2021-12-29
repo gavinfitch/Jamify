@@ -940,6 +940,17 @@ svg * {
 .playlist_songTitle {
     color: rgb(250, 250, 250);
     padding-bottom: 1px;
+    transition: all 0.15s linear;
+}
+
+.playlist_songTitle_selected {
+    color: #02c48a;
+    padding-bottom: 1px;
+    transition: all 0.15s linear;
+}
+
+.playlistTitle_container:hover > div > .playlist_songTitle {
+    color: #02c48a;
 }
 
 .fa-edit, .fa-trash-alt, .fa-plus, .fa-minus, .fa-heart, .fa-random {

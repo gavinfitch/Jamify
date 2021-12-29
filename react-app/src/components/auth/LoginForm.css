@@ -78,7 +78,8 @@
 }
 
 .authForm_submitButton:hover {
-    color: rgb(245, 245, 245);
+    /* color: rgb(245, 245, 245); */
+    color: rgb(242, 242, 242);
     cursor: pointer;
 }
 
