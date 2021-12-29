@@ -29,6 +29,7 @@ function Home() {
     const [librarySelected, setLibrarySelected] = useState(false);
     const [likesSelected, setLikesSelected] = useState(false);
     const [shuffleSelected, setShuffleSelected] = useState(false);
+    const [searchTerm, setSearchTerm] = useState('');
     const [songToAdd, setSongToAdd] = useState('');
     const [playlistToAdd, setPlaylistToAdd] = useState('');
     const [playlistToEdit, setPlaylistToEdit] = useState('');
@@ -49,16 +50,47 @@ function Home() {
     let allSongsArr;
     let selectedPlaylistDetails;
 
+    const searchFilter = (arr, keyword) => {
+        return arr.filter(song => {
+            if (song.title.toLowerCase().includes(keyword.toLocaleLowerCase())) {
+                return song;
+            } else if (song.artist.toLowerCase().includes(keyword.toLocaleLowerCase())) {
+                return song;
+            } else if (song.album.toLowerCase().includes(keyword.toLocaleLowerCase())) {
+                return song;
+            } else if (song.genre.toLowerCase().includes(keyword.toLocaleLowerCase())) {
+                return song;
+            }
+        })
+    }
+
     if (allSongs) {
         if (selectedPlaylist) {
             allSongsArr = userPlaylists.filter((playlist) => playlist?.id == selectedPlaylist)[0]?.songs
             selectedPlaylistDetails = allPlaylists?.filter(playlist => playlist?.id == selectedPlaylist)[0]
+
+            if (searchTerm.length > 0) {
+                allSongsArr = searchFilter(allSongsArr, searchTerm)
+            }
+
         } else if (librarySelected) {
             allSongsArr = allSongs.filter((song) => user.library.map(library_song => library_song.songId).includes(song.id));
+
+            if (searchTerm.length > 0) {
+                allSongsArr = searchFilter(allSongsArr, searchTerm)
+            }
         } else if (likesSelected) {
             allSongsArr = allSongs.filter((song) => user.likes.map(like => like.songId).includes(song.id));
+
+            if (searchTerm.length > 0) {
+                allSongsArr = searchFilter(allSongsArr, searchTerm)
+            }
         } else {
             allSongsArr = Object.values(allSongs)
+
+            if (searchTerm.length > 0) {
+                allSongsArr = searchFilter(allSongsArr, searchTerm)
+            }
         }
     }
 
@@ -210,16 +242,16 @@ function Home() {
                 <div className="sidebar">
                     <div className="sideNav_container">
                         <ul>
-                            <li onClick={() => { history.push(`/`); setSelectedPlaylist(''); setLibrarySelected(false); setLikesSelected(false); setCurrentPage('Home') }}><i class="fas fa-home sideBar_icon"></i>Home</li>
-                            <li><i class="fas fa-search sideBar_icon"></i>Search</li>
-                            <li onClick={() => { setLibrarySelected(true); setLikesSelected(false); setSelectedPlaylist(''); setCurrentPage('YourLibrary') }}><i class="fas fa-book sideBar_icon"></i>Your Library</li>
+                            <li onClick={() => { history.push(`/`); setSelectedPlaylist(''); setLibrarySelected(false); setLikesSelected(false); setSearchTerm(''); setCurrentPage('Home') }}><i class="fas fa-home sideBar_icon"></i>Home</li>
+                            {/* <li><i class="fas fa-search sideBar_icon"></i>Search</li> */}
+                            <li onClick={() => { setLikesSelected(true); setSelectedPlaylist(''); setLibrarySelected(false); setSearchTerm(''); setCurrentPage('LikedSongs') }}><i class="fas fa-heart sideBar_icon"></i>Liked Songs</li>
+                            <li onClick={() => { setLibrarySelected(true); setLikesSelected(false); setSelectedPlaylist(''); setSearchTerm(''); setCurrentPage('YourLibrary') }}><i class="fas fa-book sideBar_icon"></i>Your Library</li>
                         </ul>
                     </div>
                     <div className="sideForm_container">
                         <ul>
-                            <li onClick={() => setUploadSong(true)}><i class="fas fa-cloud-upload-alt sideBar_icon"></i>Upload Song</li>
                             <li onClick={() => setCreatePlaylist(true)}><i class="fas fa-plus sideBar_icon"></i>Create Playlist</li>
-                            <li onClick={() => { setLikesSelected(true); setSelectedPlaylist(''); setLibrarySelected(false); setCurrentPage('LikedSongs') }}><i class="fas fa-heart sideBar_icon"></i>Liked Songs</li>
+                            <li onClick={() => setUploadSong(true)}><i class="fas fa-cloud-upload-alt sideBar_icon"></i>Upload Song</li>
                         </ul>
                     </div>
                     {/* ----- Playlist section of sidebar ----- */}
@@ -227,7 +259,7 @@ function Home() {
                         <ul>
                             {userPlaylistsArr && userPlaylistsArr.map((playlist) => {
                                 return <li className="sideBar_playlist_container">
-                                    <div className="sideBar_playlistTitle" onClick={() => { setSelectedPlaylist(playlist.id); setLibrarySelected(false); setLikesSelected(false); setCurrentPage('Playlist') }}>{playlist.title}</div>
+                                    <div className="sideBar_playlistTitle" onClick={() => { setSelectedPlaylist(playlist.id); setLibrarySelected(false); setLikesSelected(false); setSearchTerm(''); setCurrentPage('Playlist') }}>{playlist.title}</div>
                                     <div className="sideBar_edit_delete_container">
                                         <div onClick={() => setPlaylistToEdit(playlist.id)}><i class="fas fa-edit"></i></div>
                                         <div onClick={() => deletePlaylist(playlist.id, playlist.coverPhoto_s3Name)}><i class="fas fa-trash-alt"></i></div>
@@ -286,6 +318,21 @@ function Home() {
                     </button>
                     {/* ----- Song feed (playlist) ----- */}
                     <div className="song_container">
+                        {currentPage == "Home" && <p id="browseSongs_text">Browse all songs</p>}
+                        <div className="search_container">
+                            <div className="magnifyingGlass_container">
+                                <i className="fas fa-search"></i>
+                            </div>
+                            <input
+                                className="search_box"
+                                type="text"
+                                placeholder="Search songs..."
+                                value={searchTerm}
+                                onChange={(e) => {
+                                    setSearchTerm(e.target.value);
+                                }}
+                            ></input>
+                        </div>
                         <ul className="playlist_header">
                             <li id="index_header">#</li>
                             <li id="title_header">TITLE</li>
@@ -299,9 +346,10 @@ function Home() {
                             const dateAdded = `${splitDate[2]} ${splitDate[1]}, ${splitDate[3]}`
                             return <ul className="playlist_row">
                                 <li className="index_column">{index + 1}</li>
+                                {/* <li className="index_column">100</li> */}
                                 <li className="titleAndButtons_container" id="titleAndButtons_container_phone">
-                                    <div className="playlistTitle_container">
-                                        <img onClick={() => setSelectedSong(song)} className="albumCover_thumbnail" src={song.albumCover_URL}></img>
+                                    <div onClick={() => setSelectedSong(song)} className="playlistTitle_container">
+                                        <img className="albumCover_thumbnail" src={song.albumCover_URL}></img>
                                         <div>
                                             <div className="playlist_songTitle">{song.title}</div>
                                             <div>{song.artist}</div>

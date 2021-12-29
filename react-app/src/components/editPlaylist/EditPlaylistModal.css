@@ -7,20 +7,27 @@
     left: 0px;
     width: 100vw;
     height: 100vh;
-    background-color: #02c48a75;
+    /* background-color: #2a1d5588; */
+    /* background-color: #160e3088; */
+    background-color: #25185088;
     z-index: 1000;
+    overflow: scroll;
 }
 
 .modal_container {
-    background-color: black;
-    min-width: 375px;
-    max-height: 70vh;
+    background-color: rgb(5, 5, 5);
+    width: 420px;
+    min-width: 420px;
+    height: fit-content;
+    max-height: 95vh;
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin: 10vh;
+    margin-bottom: 125px;
     padding: 0px 45px;
     border-radius: 10px;
-    overflow: scroll;
+    /* overflow: scroll; */
 }
 
 .modal_logoClose_container {
@@ -38,7 +45,7 @@
     align-items: center;
     font-size: 19px;
     font-weight: 800;
-    color: white;
+    color: rgb(250, 250, 250);
 }
 
 .formLogo_circle {
@@ -46,30 +53,36 @@
     justify-content: center;
     align-items: center;
     background-color: #02c48a;
-    width: 26px;
-    height: 26px;
+    width: 27px;
+    height: 27px;
     border-radius: 100%;
     margin-bottom: 8px;
-    margin-right: 1px;
+    margin-right: 3px;
 }
 
 #formLogo_headphones {
     font-size: 19px;
-    color: rgb(20, 20, 20);
+    padding-bottom: 2px;
+    color: rgb(5, 5, 5);
 }
 
 .fa-window-close {
     position: relative;
     top: 12px;
     right: -30px;
-    color: white;
+    color: rgb(250, 250, 250);
     font-size: 17px;
+}
+
+.fa-window-close:hover {
+    color: rgba(250, 250, 250, 0.75);
+    cursor: pointer;
 }
 
 .form_headerText {
     font-size: 24px;
     font-weight: 600;
-    color: white;
+    color: rgb(250, 250, 250);
     margin-top: 5vh;
     margin-bottom: 12%;
     padding: 20px 0px;
@@ -129,6 +142,7 @@
 .addSong_dropdown > li:hover {
     color: rgb(250, 250, 250);
     background-color: rgb(150, 150, 150);
+    cursor: pointer;
 }
 
 #addSong_selected {
@@ -147,17 +161,18 @@ input[type=file]::file-selector-button {
     width: 100%;
     height: fit-content;
     background-color: black;
-    color: rgb(238, 238, 238);
-    border: solid 1px white;
+    background-color: rgb(5, 5, 5);
+    color: rgb(250, 250, 250);
+    border: solid 1px rgb(250, 250, 250);
     border-radius: 20px;
     padding: 8px;
     transition: all 0.15s linear;
 }
 
 input[type=file]::file-selector-button:hover {
-    background-color: white;
-    color: black;
-    border: solid 1px black;
+    background-color: rgb(250, 250, 250);
+    color: rgb(5, 5, 5);
+    border: solid 1px rgb(250, 250, 250);
     cursor: pointer;
 }
 
@@ -176,7 +191,7 @@ input[type=file]::file-selector-button:hover {
 }
 
 .form_submitButton {
-    color: black;
+    color: rgb(5, 5, 5);
     font-size: 16px;
     font-weight: 700;
     background-color: #02c48a;
@@ -186,4 +201,10 @@ input[type=file]::file-selector-button:hover {
     padding-top: 12px;
     margin-bottom: 50%;
     width: 100%;
+    transition: all 0.15s linear;
+}
+
+.form_submitButton:hover {
+    color: rgb(245, 245, 245);
+    cursor: pointer;
 }

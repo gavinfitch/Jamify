@@ -21,6 +21,14 @@ li {
     display: flex;
 }
 
+i {
+    transition: all 0.15s linear;
+}
+
+svg * {
+    transition: all 0.15s linear;
+}
+
 /* ----- Sidebar ----- */
 .sidebar {
     background-color: black;
@@ -39,9 +47,16 @@ li {
 }
 
 .sideNav_container > ul > li {
+    width: fit-content;
     padding: 10px 0px;
     display: flex;
     align-items: flex-end;
+    transition: all 0.15s linear;
+}
+
+.sideNav_container > ul > li:hover {
+    color: rgb(250, 250, 250);
+    cursor: pointer;
 }
 
 .sideForm_container {
@@ -52,22 +67,41 @@ li {
 }
 
 .sideForm_container > ul > li {
+    width: fit-content;
     padding: 10px 0px;
     display: flex;
     align-items: flex-end;
+    transition: all 0.15s linear;
+}
+
+.sideForm_container > ul > li:hover {
+    color: rgb(250, 250, 250);
+    cursor: pointer;
 }
 
 .sideBar_icon {
     margin-right: 12px;
     margin-bottom: 4px;
     font-size: 16px;
+    transition: all 0.15s linear;
+}
+
+.sideNav_container > ul > li:hover > i {
+    color: rgb(250, 250, 250);
+    cursor: pointer;
+}
+
+.sideForm_container > ul > li:hover > i {
+    color: rgb(250, 250, 250);
+    cursor: pointer;
 }
 
 .sideForm_container > ul > li > .fa-plus {
     font-size: 16px;
 }
 
-.sideForm_container > ul > li > .fa-heart {
+.sideNav_container > ul > li > .fa-heart {
+    padding: 0px;
     font-size: 16px;
 }
 
@@ -80,6 +114,11 @@ li {
     padding: 4px 0px;
 }
 
+.sideBar_playlistTitle:hover {
+    color: rgb(250, 250, 250);
+    cursor: pointer;
+}
+
 .sideBar_playlist_container {
     display: flex;
     justify-content: space-between;
@@ -89,6 +128,12 @@ li {
     font-size: 13.5px;
     font-weight: 500;
     padding: 5px 0px;
+    transition: all 0.15s linear;
+}
+
+.sideBar_playlistTitle:hover {
+    color: rgb(250, 250, 250);
+    cursor: pointer;
 }
 
 .sideBar_edit_delete_container {
@@ -109,11 +154,12 @@ li {
     background: linear-gradient(to right, #7454ca, #008c82);
     width: 100vw;
     height: 100vh;
-    overflow: scroll;
+    overflow-y: scroll;
 }
 
 .banner_home * {
-    color: white;
+    /* color: white; */
+    color: rgb(250, 250, 250);
 }
 
 .logo_welcomeMessage_container {
@@ -141,7 +187,7 @@ li {
     height: 48px;
     border-radius: 100%;
     margin-bottom: 10px;
-    margin-right: 2px;
+    margin-right: 3px;
     /* border: 2px solid rgb(20, 20, 20); */
 }
 
@@ -149,7 +195,9 @@ li {
     padding-left: 1px;
     padding-bottom: 1px;
     font-size: 32px;
-    color: rgb(20, 20, 20);
+    /* color: rgb(20, 20, 20); */
+    /* color: rgb(12, 12, 12); */
+    color: rgb(5, 5, 5)
 }
 
 .profileButton {
@@ -159,13 +207,18 @@ li {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: rgba(0, 0, 0, 0.85);
+    /* background-color: rgba(0, 0, 0, 0.85); */
+    background-color: rgb(12, 12, 12);
     border: none;
     border-radius: 100px;
     height: fit-content;
     width: fit-content;
     padding: 3px 12px 3px 3px;
     margin: 20px 20px 20px 0px;
+}
+
+.profileButton:hover {
+    cursor: pointer;
 }
 
 .profileButton_thumbnail {
@@ -176,21 +229,32 @@ li {
 }
 
 .profileButton_username {
-    font-size: 13px;
+    font-size: 12.5px;
     font-weight: 700;
-    padding: 0px 21px;
+    padding: 0px 24px;
     padding-top: 1px;
+    color: rgb(246, 246, 246);
 }
 
 .fa-caret-down {
     font-size: 18px;
+    color: rgb(246, 246, 246);
 }
 
 .fa-caret-up {
     font-size: 18px;
+    color: rgb(246, 246, 246);
 }
 
 .dropdownCaret {
+    color: rgb(12, 12, 12);
+    font-size: 42px;
+    position: absolute;
+    top: -22px;
+    right: 4px;
+}
+
+.dropdownCaret:hover {
     color: rgb(12, 12, 12);
     font-size: 42px;
     position: absolute;
@@ -206,20 +270,22 @@ li {
     width: 100%;
     padding: 10px 4px;
     background-color: rgb(12, 12, 12);
-    border-radius: 10px;  
+    /* border-radius: 10px;   */
+    border-radius: 5px; 
     align-items: center;
     justify-content: center;
     z-index: 1000;
 }
 
 .profileButton_dropdown > li {
-    color: rgb(250, 250, 250);
+    color: rgb(246, 246, 246);
     font-size: 12.5px;
     font-weight: 700;
     /* color: rgb(200, 200, 200); */
     text-align: center;
     padding: 4px 0px;
-    border-radius: 2px;
+    /* border-radius: 2px; */
+    border-radius: 1px;
 }
 
 .profileButton_dropdown > li:hover {
@@ -227,8 +293,7 @@ li {
     color: black;
     /* color: white; */
     /* background-color: rgba(255, 255, 255, 0.9); */
-    background-color: #00ffeeaa;
-    background-color: rgba(250, 250, 250);
+    background-color: rgba(250, 250, 250, 0.85);
     /* color: rgb(250, 250, 250); */
 }
 
@@ -306,12 +371,19 @@ li {
     height: 204px;
     margin-right: 25px;
     /* object-fit: cover; */
-    background-color: rgb(0, 0, 0, 0.85);
+    /* background-color: rgba(0, 0, 0, 0.85); */
+    background-color: rgb(12, 12, 12);
 }
 
 .likedSongsImage_heart > i {
     color: rgb(255, 75, 75);
     font-size: 100px;
+}
+
+.likedSongsImage_heart > i:hover {
+    color: rgb(255, 75, 75);
+    font-size: 100px;
+    cursor: default;
 }
 
 /* Your Library banner */
@@ -323,12 +395,87 @@ li {
     height: 204px;
     margin-right: 25px;
     /* object-fit: cover; */
-    background-color: rgb(0, 0, 0, 0.85);
+    /* background-color: rgb(0, 0, 0, 0.85); */
+    background-color: rgb(12, 12, 12);
 }
 
 .yourLibraryImage_book > i {
-    color: white;
+    color: rgb(246, 246, 246);
     font-size: 100px;
+}
+
+.yourLibraryImage_book > i:hover {
+    color: rgb(246, 246, 246);
+    font-size: 100px;
+    cursor: default;
+}
+
+#browseSongs_text {
+    position: absolute;
+    top: 30px;
+    left: 25px;
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 18px;
+}
+
+/* ----- Search ----- */
+
+.search_container {
+    position: absolute;
+    top: 25px;
+    right: 20px;
+    display: flex;
+}
+
+.magnifyingGlass_container {
+    background-color: rgba(255, 255, 255, 0.15);
+    height: 34px;
+    margin: 0px;
+    display: flex;
+    align-items: center;
+    padding: 0px 5px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.search_box {
+    color: rgba(255, 255, 255, 0.80);
+    background-color: rgba(255, 255, 255, 0.15);
+    height: 34px;
+    border: none;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    padding: 8px 10px;
+}
+
+.search_box:focus {
+    outline: none;
+}
+
+.search_box::placeholder {
+    color: rgba(255, 255, 255, 0.80);
+}
+
+.fa-search {
+    color: rgba(255, 255, 255, 0.80);
+    margin-bottom: 1px;
+    padding: 8px;
+    padding-right: 0px;
+}
+
+@media screen and (max-width: 600px) {
+    #browseSongs_text {
+        display: none;
+    }
+
+    .search_container {
+        left: 20px;
+        width: 204px;
+    }
+
+    .search_box {
+        width: 100%;
+    }
 }
 
 /* Song Container */
@@ -347,8 +494,9 @@ li {
 
 .playlist_header {
     display: grid;
-    grid-template-columns: 1.5% 32% 35% 27% 6%;
-    margin: 50px 50px 0px 50px;
+    /* grid-template-columns: 1.5% 32% 35% 27% 6%; */
+    grid-template-columns: 22px 32% 36% 24% 6%;
+    margin: 100px 50px 0px 50px;
     padding: 2px 10px;
     border-bottom: 2px solid rgb(75, 75, 75);
 }
@@ -361,7 +509,8 @@ li {
 
 .playlist_row {
     display: grid;
-    grid-template-columns: 1.5% 32% 35% 27% 6%;
+    /* grid-template-columns: 1.5% 32% 35% 27% 6%; */
+    grid-template-columns: 22px 32% 36% 24% 6%;
     align-items: center;
     margin: 20px 50px;
     padding: 2px 10px;
@@ -397,23 +546,39 @@ li {
 }
 
 @media screen and (max-width: 1450px) {
-    .playlist_header {
+    /* .playlist_header {
         grid-template-columns: 1.5% 38% 34% 21% 6%;
     }
 
     .playlist_row {
         grid-template-columns: 1.5% 38% 34% 21% 6%;
+    } */
+
+    .playlist_header {
+        grid-template-columns: 22px 38% 33% 20% 6%;
+    }
+
+    .playlist_row {
+        grid-template-columns: 22px 38% 33% 20% 6%;
     }
 
   }
 
-@media screen and (max-width: 1300px) {
+@media screen and (max-width: 1280px) {
     .playlist_header {
         grid-template-columns: 1.5% 42% 34% 25%;
     }
 
     .playlist_row {
         grid-template-columns: 1.5% 42% 34% 25%;
+    }
+
+    .playlist_header {
+        grid-template-columns: 22px 43% 35% 22%;
+    }
+
+    .playlist_row {
+        grid-template-columns: 22px 43% 35% 22%;
     }
 
     #genre_header {
@@ -426,13 +591,13 @@ li {
 
   }
 
-  @media screen and (max-width: 1200px) {
+  @media screen and (max-width: 1175px) {
     .playlist_header {
-        grid-template-columns: 52% 50%;
+        grid-template-columns: 54% 48%;
     }
 
     .playlist_row {
-        grid-template-columns: 52% 50%;
+        grid-template-columns: 54% 48%;
     }
 
     #dateAdded_header {
@@ -475,7 +640,7 @@ li {
     }
   }
 
-@media screen and (max-width: 1030px) {
+@media screen and (max-width: 1065px) {
     .playlist_header {
         grid-template-columns: 103%;
     }
@@ -534,12 +699,12 @@ li {
         position: relative;
         margin: 0px 0px 0px 20px;
         width: 204px;
-        border-radius: 2px;
+        /* border-radius: 2px; */
     }
 
-    .profileButton_thumbnail {
+    /* .profileButton_thumbnail {
         border-radius: 1px;
-    }
+    } */
 
     .banner_home {
         flex-direction: column;
@@ -557,7 +722,7 @@ li {
     }
 
     .playlist_header {
-        margin-top: 25px;
+        margin: 100px 15px 0px 15px;
     }
 
     .banner_mainText {
@@ -584,14 +749,14 @@ li {
     }
 
     .profileButton_dropdown {
-        border-radius: 2px;
+        /* border-radius: 2px; */
+        background-color: rgb(14, 14, 14);
     }
 
     .profileButton_dropdown > li:hover {
-        color: black;
-        /* color: white; */
-        background-color: #9585ffee;
-        background-color: rgba(250, 250, 250);
+        /* color: black; */
+        /* background-color: #9585ffee;
+        background-color: rgba(250, 250, 250); */
     }
 
     .audioPlayer_songTitle_artist {
@@ -660,8 +825,7 @@ li {
     } */
 
     .playlist_header {
-        margin: 25px 10px 0px 10px;
-        
+        margin: 100px 15px 0px 15px;
     }
     
     .playlist_row {
@@ -688,6 +852,10 @@ li {
     padding-right: 8px;
 }
 
+.titleAndButtons_container > .playlistTitle_container:hover {
+    cursor: pointer;
+}
+
 .albumCover_thumbnail {
     width: 30px;
     height: 30px;
@@ -696,13 +864,31 @@ li {
 }
 
 .playlist_songTitle {
-    color: white;
+    color: rgb(250, 250, 250);
     padding-bottom: 1px;
 }
 
-.fa-edit, .fa-trash-alt, .fa-plus, .fa-minus, .fa-heart, .fa-random, .fa-sync-alt {
+.fa-edit, .fa-trash-alt, .fa-plus, .fa-minus, .fa-heart, .fa-random {
     padding: 0px 3px;
     font-size: 12.5px;
+}
+
+.fa-edit:hover, .fa-plus:hover, .fa-minus:hover, .fa-heart:hover, .fa-random:hover {
+    color: rgb(250, 250, 250);
+    cursor: pointer;
+}
+
+.fa-random {
+    transition: all 0.0s linear;
+}
+
+.fa-trash-alt {
+    transition: all 0.15s linear;
+}
+
+.fa-trash-alt:hover {
+    color: rgb(255, 75, 75);
+    cursor: pointer;
 }
 
 .playlistDate_container {
@@ -756,8 +942,9 @@ li {
     font-size: 18px;
 }
 
-#shuffle_selected, #loop_selected {
+#shuffle_selected {
     color: #02c48a;
+    transition: all 0.0s linear;
 }
 
 .rhap_container {
@@ -770,6 +957,25 @@ li {
 
 .audioPlayer * {
     color:rgb(170, 170, 170);
+}
+
+.rhap_main-controls > button:hover > svg * {
+    color: rgb(250, 250, 250);
+    cursor: pointer;
+}
+
+.rhap_additional-controls > button:hover > svg * {
+    color: rgb(250, 250, 250);
+    cursor: pointer;
+}
+
+.rhap_additional-controls > button > svg * {
+    transition: all 0.0s linear;
+}
+
+.rhap_volume-controls > .rhap_volume-container > button:hover > svg * {
+    color: rgb(250, 250, 250);
+    cursor: pointer;
 }
 
 .rhap_main-controls * {

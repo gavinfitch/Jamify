@@ -10,6 +10,12 @@
     margin: 10px 0px;
     margin-bottom: 18%;
     width: 100%;
+    transition: all 0.15s linear;
+}
+
+.signup_submitButton:hover {
+    color: rgb(245, 245, 245);
+    cursor: pointer;
 }
 
 .signup_fileInput_label {

@@ -131,7 +131,7 @@ export const thunk_removeFromPlaylist = ({ playlistId, songId }) =>
 
 export const thunk_deletePlaylist = ({ playlistId }) =>
     async (dispatch) => {
-        const res = await fetch(`/api/playlists/${playlistId}`, {
+        const res = await fetch(`/api/playlists/${playlistId}/`, {
             method: 'DELETE',
             headers: {
                 "Content-Type": "application/json"
