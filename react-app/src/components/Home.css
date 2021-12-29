@@ -21,6 +21,15 @@ li {
     display: flex;
 }
 
+i {
+    transition: all 0.15s linear;
+}
+
+i:hover {
+    color: rgb(250, 250, 250);
+    cursor: pointer;
+}
+
 /* ----- Sidebar ----- */
 .sidebar {
     background-color: black;
@@ -39,9 +48,16 @@ li {
 }
 
 .sideNav_container > ul > li {
+    width: fit-content;
     padding: 10px 0px;
     display: flex;
     align-items: flex-end;
+    transition: all 0.15s linear;
+}
+
+.sideNav_container > ul > li:hover {
+    color: rgb(250, 250, 250);
+    cursor: pointer;
 }
 
 .sideForm_container {
@@ -52,15 +68,33 @@ li {
 }
 
 .sideForm_container > ul > li {
+    width: fit-content;
     padding: 10px 0px;
     display: flex;
     align-items: flex-end;
+    transition: all 0.15s linear;
+}
+
+.sideForm_container > ul > li:hover {
+    color: rgb(250, 250, 250);
+    cursor: pointer;
 }
 
 .sideBar_icon {
     margin-right: 12px;
     margin-bottom: 4px;
     font-size: 16px;
+    transition: all 0.15s linear;
+}
+
+.sideNav_container > ul > li:hover > i {
+    color: rgb(250, 250, 250);
+    cursor: pointer;
+}
+
+.sideForm_container > ul > li:hover > i {
+    color: rgb(250, 250, 250);
+    cursor: pointer;
 }
 
 .sideForm_container > ul > li > .fa-plus {
@@ -81,6 +115,11 @@ li {
     padding: 4px 0px;
 }
 
+.sideBar_playlistTitle:hover {
+    color: rgb(250, 250, 250);
+    cursor: pointer;
+}
+
 .sideBar_playlist_container {
     display: flex;
     justify-content: space-between;
@@ -90,6 +129,12 @@ li {
     font-size: 13.5px;
     font-weight: 500;
     padding: 5px 0px;
+    transition: all 0.15s linear;
+}
+
+.sideBar_playlistTitle:hover {
+    color: rgb(250, 250, 250);
+    cursor: pointer;
 }
 
 .sideBar_edit_delete_container {
@@ -799,6 +844,15 @@ li {
 .fa-edit, .fa-trash-alt, .fa-plus, .fa-minus, .fa-heart, .fa-random, .fa-sync-alt {
     padding: 0px 3px;
     font-size: 12.5px;
+}
+
+.fa-trash-alt {
+    transition: all 0.15s linear;
+}
+
+.fa-trash-alt:hover {
+    color: rgb(255, 75, 75);
+    cursor: pointer;
 }
 
 .playlistDate_container {
