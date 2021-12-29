@@ -44,3 +44,7 @@
     outline: none;
 }
 
+.form_inputField_dropdown:hover {
+    cursor: pointer;
+}
+

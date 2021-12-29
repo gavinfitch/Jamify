@@ -52,7 +52,7 @@ const AddToPlaylistModal = ({ songToAdd, setSongToAdd, setSelectedPlaylist }) =>
                 await dispatch(playlistStore.thunk_addToPlaylist({ playlistId, songId }))
                 setSongToAdd('')
                 setPlaylistToAdd('')
-                setSelectedPlaylist(playlistId)
+                // setSelectedPlaylist(playlistId)
             }
         } else {
             history.push('/')
