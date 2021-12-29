@@ -25,6 +25,10 @@ i {
     transition: all 0.15s linear;
 }
 
+svg * {
+    transition: all 0.15s linear;
+}
+
 /* ----- Sidebar ----- */
 .sidebar {
     background-color: black;
@@ -376,6 +380,12 @@ i {
     font-size: 100px;
 }
 
+.likedSongsImage_heart > i:hover {
+    color: rgb(255, 75, 75);
+    font-size: 100px;
+    cursor: default;
+}
+
 /* Your Library banner */
 .banner_yourLibraryImage {
     display: flex;
@@ -392,6 +402,12 @@ i {
 .yourLibraryImage_book > i {
     color: rgb(246, 246, 246);
     font-size: 100px;
+}
+
+.yourLibraryImage_book > i:hover {
+    color: rgb(246, 246, 246);
+    font-size: 100px;
+    cursor: default;
 }
 
 #browseSongs_text {
@@ -862,6 +878,10 @@ i {
     cursor: pointer;
 }
 
+.fa-random {
+    transition: all 0.0s linear;
+}
+
 .fa-trash-alt {
     transition: all 0.15s linear;
 }
@@ -922,8 +942,9 @@ i {
     font-size: 18px;
 }
 
-#shuffle_selected, #loop_selected {
+#shuffle_selected {
     color: #02c48a;
+    transition: all 0.0s linear;
 }
 
 .rhap_container {
@@ -936,6 +957,25 @@ i {
 
 .audioPlayer * {
     color:rgb(170, 170, 170);
+}
+
+.rhap_main-controls > button:hover > svg * {
+    color: rgb(250, 250, 250);
+    cursor: pointer;
+}
+
+.rhap_additional-controls > button:hover > svg * {
+    color: rgb(250, 250, 250);
+    cursor: pointer;
+}
+
+.rhap_additional-controls > button > svg * {
+    transition: all 0.0s linear;
+}
+
+.rhap_volume-controls > .rhap_volume-container > button:hover > svg * {
+    color: rgb(250, 250, 250);
+    cursor: pointer;
 }
 
 .rhap_main-controls * {
