@@ -242,24 +242,26 @@ function Home() {
                 <div className="sidebar">
                     <div className="sideNav_container">
                         <ul>
-                            <li onClick={() => { history.push(`/`); setSelectedPlaylist(''); setLibrarySelected(false); setLikesSelected(false); setSearchTerm(''); setCurrentPage('Home') }}><i class="fas fa-home sideBar_icon"></i>Home</li>
+                            <li onClick={() => { history.push(`/`); setSelectedPlaylist(''); setLibrarySelected(false); setLikesSelected(false); setSearchTerm(''); setCurrentPage('Home') }}><i class="fas fa-home sideBar_icon"></i><div className="sidebarItem_title">Home</div></li>
                             {/* <li><i class="fas fa-search sideBar_icon"></i>Search</li> */}
-                            <li onClick={() => { setLikesSelected(true); setSelectedPlaylist(''); setLibrarySelected(false); setSearchTerm(''); setCurrentPage('LikedSongs') }}><i class="fas fa-heart sideBar_icon"></i>Liked Songs</li>
-                            <li onClick={() => { setLibrarySelected(true); setLikesSelected(false); setSelectedPlaylist(''); setSearchTerm(''); setCurrentPage('YourLibrary') }}><i class="fas fa-book sideBar_icon"></i>Your Library</li>
+                            <li onClick={() => { setLikesSelected(true); setSelectedPlaylist(''); setLibrarySelected(false); setSearchTerm(''); setCurrentPage('LikedSongs') }}><i class="fas fa-heart sideBar_icon"></i><div className="sidebarItem_title">Liked Songs</div></li>
+                            <li onClick={() => { setLibrarySelected(true); setLikesSelected(false); setSelectedPlaylist(''); setSearchTerm(''); setCurrentPage('YourLibrary') }}><i class="fas fa-book sideBar_icon"></i><div className="sidebarItem_title">Your Library</div></li>
                         </ul>
                     </div>
                     <div className="sideForm_container">
                         <ul>
-                            <li onClick={() => setCreatePlaylist(true)}><i class="fas fa-plus sideBar_icon"></i>Create Playlist</li>
-                            <li onClick={() => setUploadSong(true)}><i class="fas fa-cloud-upload-alt sideBar_icon"></i>Upload Song</li>
+                            <li onClick={() => setCreatePlaylist(true)}><i class="fas fa-plus sideBar_icon"></i><div className="sidebarItem_title">Create Playlist</div></li>
+                            <li onClick={() => setUploadSong(true)}><i class="fas fa-cloud-upload-alt sideBar_icon"></i><div className="sidebarItem_title">Upload Song</div></li>
                         </ul>
                     </div>
                     {/* ----- Playlist section of sidebar ----- */}
                     <div className="playlist_container">
                         <ul>
                             {userPlaylistsArr && userPlaylistsArr.map((playlist) => {
+                                console.log(`${playlist.title.slice(0, 2)}...`)
                                 return <li className="sideBar_playlist_container">
                                     <div className="sideBar_playlistTitle" onClick={() => { setSelectedPlaylist(playlist.id); setLibrarySelected(false); setLikesSelected(false); setSearchTerm(''); setCurrentPage('Playlist') }}>{playlist.title}</div>
+                                    <div className="sideBar_playlistTitle_small" onClick={() => { setSelectedPlaylist(playlist.id); setLibrarySelected(false); setLikesSelected(false); setSearchTerm(''); setCurrentPage('Playlist') }}>{`${playlist.title.slice(0, 2)}...`}</div>
                                     <div className="sideBar_edit_delete_container">
                                         <div onClick={() => setPlaylistToEdit(playlist.id)}><i class="fas fa-edit"></i></div>
                                         <div onClick={() => deletePlaylist(playlist.id, playlist.coverPhoto_s3Name)}><i class="fas fa-trash-alt"></i></div>
