@@ -670,11 +670,11 @@ svg * {
 
 @media screen and (max-width: 1065px) {
     .playlist_header {
-        grid-template-columns: 103%;
+        grid-template-columns: 102%;
     }
 
     .playlist_row {
-        grid-template-columns: 103%;
+        grid-template-columns: 102%;
     }
 
     #album_header {
@@ -751,6 +751,12 @@ svg * {
 
     .playlist_header {
         margin: 100px 15px 0px 15px;
+    }
+    
+    .playlist_row {
+        margin: 20px 15px 20px 15px;
+        /* margin: 20px 0px 20px 10px; */
+        /* padding: 2px 0px 2px 15px; */
     }
 
     .banner_mainText {
@@ -897,8 +903,8 @@ svg * {
     }
     
     .playlist_row {
-        margin: 20px 0px 20px 10px;
-        padding: 2px 0px 2px 10px;
+        margin: 20px 0px 20px 15px;
+        /* padding: 2px 0px 2px 10px; */
     }
   }
 
