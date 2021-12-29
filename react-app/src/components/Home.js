@@ -357,9 +357,9 @@ function Home() {
                                             <div>{song.artist}</div>
                                         </div>
                                     </div>
-                                    {user.id == song.userId && <div className="edit_delete_container">
-                                        <div onClick={() => setEditSong(song.id)}><i class="fas fa-edit"></i></div>
-                                        <div onClick={() => deleteSong(song.id, song.song_s3Name)}><i class="fas fa-trash-alt"></i></div>
+                                    {<div className="edit_delete_container">
+                                        {user.id == song.userId && <div onClick={() => setEditSong(song.id)}><i class="fas fa-edit"></i></div>}
+                                        {user.id == song.userId && <div onClick={() => deleteSong(song.id, song.song_s3Name)}><i class="fas fa-trash-alt"></i></div>}
                                         <div id="likeAndAdd_container_title">
                                             {!selectedPlaylist && !librarySelected && <div onClick={() => setSongToAdd(song.id)}><i class="fas fa-plus"></i></div>}
                                             {selectedPlaylist && <div onClick={() => removeFromPlaylist(selectedPlaylist, song.id)}><i class="fas fa-minus"></i></div>}
