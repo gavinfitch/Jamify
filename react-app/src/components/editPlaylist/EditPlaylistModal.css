@@ -208,3 +208,9 @@ input[type=file]::file-selector-button:hover {
     color: rgb(245, 245, 245);
     cursor: pointer;
 }
+
+@media screen and (max-height: 750px) {
+    .modal_container {
+        overflow: scroll;
+    }
+}
