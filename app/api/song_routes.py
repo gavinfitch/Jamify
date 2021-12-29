@@ -1,12 +1,13 @@
 from flask import Blueprint, request
 from app.models import db, Song, Like
+from sqlalchemy import desc
 
 song_routes = Blueprint('songs', __name__)
 
 # Get all songs
 @song_routes.route('/')
 def all_songs():
-    songs = Song.query.all()
+    songs = Song.query.order_by(desc(Song.created_at)).all()
     return {'songs': [song.to_dict() for song in songs]}
 
 # Upload song
@@ -27,7 +28,7 @@ def upload_song():
     db.session.add(new_song)
     db.session.commit()
 
-    songs = Song.query.all()
+    songs = Song.query.order_by(desc(Song.created_at)).all()
     return {'songs': [song.to_dict() for song in songs]}
 
 # Delete song
@@ -38,7 +39,7 @@ def delete_song(id):
     db.session.delete(songToDelete)
     db.session.commit()
 
-    songs = Song.query.all()
+    songs = Song.query.order_by(desc(Song.created_at)).all()
     return {'songs': [song.to_dict() for song in songs]}
 
 # Edit Song
@@ -56,7 +57,7 @@ def edit_song(id):
     
     db.session.commit()
 
-    songs = Song.query.all()
+    songs = Song.query.order_by(desc(Song.created_at)).all()
     return {'songs': [song.to_dict() for song in songs]}
 
 # Like Post
@@ -76,6 +77,6 @@ def like_song(id):
         db.session.add(new_like)
         db.session.commit()
 
-    songs = Song.query.all()
+    songs = Song.query.order_by(desc(Song.created_at)).all()
     return {'songs': [song.to_dict() for song in songs]}
         
