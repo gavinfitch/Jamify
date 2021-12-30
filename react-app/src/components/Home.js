@@ -74,8 +74,12 @@ function Home() {
             }
 
         } else if (librarySelected) {
-            allSongsArr = allSongs.filter((song) => user.library.map(library_song => library_song.songId).includes(song.id));
-
+            let allSongsSet = new Set();
+            user.library.forEach(librarySong => {
+                allSongsSet.add(allSongs.filter(song => song.id == librarySong.songId)[0])
+            })
+            allSongsArr = Array.from(allSongsSet)
+            // allSongsArr = allSongs.filter((song) => user.library.map(library_song => library_song.songId).includes(song.id));
             if (searchTerm.length > 0) {
                 allSongsArr = searchFilter(allSongsArr, searchTerm)
             }
