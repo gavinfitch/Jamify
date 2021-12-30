@@ -84,7 +84,11 @@ function Home() {
                 allSongsArr = searchFilter(allSongsArr, searchTerm)
             }
         } else if (likesSelected) {
-            allSongsArr = allSongs.filter((song) => user.likes.map(like => like.songId).includes(song.id));
+            allSongsArr = [];
+            user.likes.forEach(likedSong => {
+                allSongsArr.push(allSongs.filter(song => song.id == likedSong.songId)[0])
+            })
+            // allSongsArr = allSongs.filter((song) => user.likes.map(like => like.songId).includes(song.id));
 
             if (searchTerm.length > 0) {
                 allSongsArr = searchFilter(allSongsArr, searchTerm)
