@@ -22,7 +22,7 @@ export const thunk_createPlaylist = ({ userId, title, coverPhoto_URL, coverPhoto
 
         if (res.ok) {
             const playlists = await res.json();
-            dispatch(allPlaylists(playlists));
+            await dispatch(allPlaylists(playlists));
             return playlists;
         }
     };
@@ -44,7 +44,7 @@ export const thunk_editPlaylist = ({ playlistToEdit, title, coverPhoto_URL, cove
 
         if (res.ok) {
             const playlists = await res.json();
-            dispatch(allPlaylists(playlists));
+            await dispatch(allPlaylists(playlists));
             return playlists;
         }
     };
@@ -64,7 +64,7 @@ export const thunk_addToPlaylist = ({ playlistId, songId }) =>
 
         if (res.ok) {
             const playlists = await res.json();
-            dispatch(allPlaylists(playlists));
+            await dispatch(allPlaylists(playlists));
             return playlists;
         }
     };
@@ -84,7 +84,7 @@ export const thunk_addToLibrary = ({ userId, songId }) =>
 
         if (res.ok) {
             const playlists = await res.json();
-            dispatch(allPlaylists(playlists));
+            await dispatch(allPlaylists(playlists));
             return playlists;
         }
     };
@@ -104,7 +104,7 @@ export const thunk_removeFromLibrary = ({ songId, userId }) =>
 
         if (res.ok) {
             const playlists = await res.json();
-            dispatch(allPlaylists(playlists));
+            await dispatch(allPlaylists(playlists));
             return playlists;
         }
     };
@@ -124,7 +124,7 @@ export const thunk_removeFromPlaylist = ({ playlistId, songId }) =>
 
         if (res.ok) {
             const playlists = await res.json();
-            dispatch(allPlaylists(playlists));
+            await dispatch(allPlaylists(playlists));
             return playlists;
         }
     };
@@ -143,7 +143,7 @@ export const thunk_deletePlaylist = ({ playlistId }) =>
 
         if (res.ok) {
             const playlists = await res.json();
-            dispatch(allPlaylists(playlists));
+            await dispatch(allPlaylists(playlists));
             return playlists;
         }
     };
@@ -179,7 +179,7 @@ export const thunk_getAllPlaylists = () =>
 
         if (res.ok) {
             const playlists = await res.json();
-            dispatch(allPlaylists(playlists));
+            await dispatch(allPlaylists(playlists));
             return playlists;
         }
     };

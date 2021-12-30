@@ -66,6 +66,7 @@ function Home() {
 
     if (allSongs) {
         if (selectedPlaylist) {
+
             allSongsArr = userPlaylists.filter((playlist) => playlist?.id == selectedPlaylist)[0]?.songs
             selectedPlaylistDetails = allPlaylists?.filter(playlist => playlist?.id == selectedPlaylist)[0]
 
