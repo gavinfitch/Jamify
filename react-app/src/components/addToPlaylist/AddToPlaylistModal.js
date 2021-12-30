@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { authenticate } from '../../store/session';
 import '../editPlaylist/EditPlaylistModal.css';
-import S3 from 'react-aws-s3';
+// import S3 from 'react-aws-s3';
 import * as playlistStore from '../../store/playlist';
 
 const AddToPlaylistModal = ({ songToAdd, setSongToAdd, setSelectedPlaylist }) => {
@@ -12,7 +12,7 @@ const AddToPlaylistModal = ({ songToAdd, setSongToAdd, setSelectedPlaylist }) =>
     const [librarySelected, setLibrarySelected] = useState(false);
     const user = useSelector(state => state.sessionReducer.user);
     const allPlaylists = useSelector((state) => state.playlistReducer.allPlaylists)
-    const userPlaylists = allPlaylists?.filter((playlist) => playlist.userId == user.id)
+    const userPlaylists = allPlaylists?.filter((playlist) => playlist.userId === user.id)
 
     let userPlaylistsArr;
     if (userPlaylists) {
@@ -75,9 +75,9 @@ const AddToPlaylistModal = ({ songToAdd, setSongToAdd, setSelectedPlaylist }) =>
                     ))}
                 </div>}
                 <ul className="addSong_dropdown">
-                    {librarySelected == true ? <li id="addSong_selected" onClick={() => { setLibrarySelected(true); setPlaylistToAdd('') }} >Your Library</li> : <li onClick={() => { setLibrarySelected(true); setPlaylistToAdd('') }} >Your Library</li>}
+                    {librarySelected === true ? <li id="addSong_selected" onClick={() => { setLibrarySelected(true); setPlaylistToAdd('') }} >Your Library</li> : <li onClick={() => { setLibrarySelected(true); setPlaylistToAdd('') }} >Your Library</li>}
                     {userPlaylistsArr && userPlaylistsArr.map(playlist => {
-                        return playlistToAdd == playlist.id ? <li id="addSong_selected" onClick={() => { setPlaylistToAdd(playlist.id); setLibrarySelected(false) }} >{playlist.title}</li> : <li onClick={() => { setPlaylistToAdd(playlist.id); setLibrarySelected(false) }} >{playlist.title}</li>
+                        return playlistToAdd === playlist.id ? <li id="addSong_selected" onClick={() => { setPlaylistToAdd(playlist.id); setLibrarySelected(false) }} >{playlist.title}</li> : <li onClick={() => { setPlaylistToAdd(playlist.id); setLibrarySelected(false) }} >{playlist.title}</li>
                     })}
                 </ul>
                 <div className="dividerLine"></div>

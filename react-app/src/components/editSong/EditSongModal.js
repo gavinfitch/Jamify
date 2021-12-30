@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams } from "react-router"
+// import { useParams } from "react-router"
 import { useHistory } from 'react-router-dom';
 import './EditSongModal.css';
 import S3 from 'react-aws-s3';
@@ -10,7 +10,7 @@ import * as playlistStore from '../../store/playlist';
 const EditSongForm = ({ genresArr, editSong, setEditSong }) => {
     const [errors, setErrors] = useState([]);
 
-    const user = useSelector(state => state.sessionReducer.user);
+    // const user = useSelector(state => state.sessionReducer.user);
     const allSongs = useSelector((state) => state.songReducer.allSongs)
 
     const dispatch = useDispatch()
@@ -18,7 +18,7 @@ const EditSongForm = ({ genresArr, editSong, setEditSong }) => {
 
     let currentSong;
     if (allSongs) {
-        currentSong = allSongs.filter(song => song.id == editSong)[0]
+        currentSong = allSongs.filter(song => song.id === editSong)[0]
     }
 
     const [title, setTitle] = useState(currentSong?.title);
@@ -58,7 +58,7 @@ const EditSongForm = ({ genresArr, editSong, setEditSong }) => {
         setErrors(validationErrors);
 
         if (!validationErrors.length) {
-            const userId = user.id;
+            // const userId = user.id;
             const songId = editSong;
 
             let albumCover_URL = '';

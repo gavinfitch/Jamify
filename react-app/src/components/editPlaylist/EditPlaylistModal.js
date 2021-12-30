@@ -10,7 +10,7 @@ const EditPlaylistModal = ({ playlistToEdit, setPlaylistToEdit }) => {
     const [errors, setErrors] = useState([]);
     const user = useSelector(state => state.sessionReducer.user);
     const allPlaylists = useSelector((state) => state.playlistReducer.allPlaylists)
-    const currentPlaylist = allPlaylists?.filter((playlist) => playlist.id == playlistToEdit)[0]
+    const currentPlaylist = allPlaylists?.filter((playlist) => playlist.id === playlistToEdit)[0]
 
     const dispatch = useDispatch()
     const history = useHistory()
@@ -38,7 +38,7 @@ const EditPlaylistModal = ({ playlistToEdit, setPlaylistToEdit }) => {
         if (!title) {
             validationErrors.push("Please provide title");
         }
-        if (user.playlists.map(playlist => playlist.title).includes(title) && user.playlists.filter(playlist => playlist.id == playlistToEdit)[0].title != title) {
+        if (user.playlists.map(playlist => playlist.title).includes(title) && user.playlists.filter(playlist => playlist.id === playlistToEdit)[0].title !== title) {
             validationErrors.push("Playlist already exists");
         }
 
@@ -100,7 +100,7 @@ const EditPlaylistModal = ({ playlistToEdit, setPlaylistToEdit }) => {
                         placeholder="Title"
                     />
                 </div>
-                {currentPlaylist.coverPhoto_URL && !coverPhoto && <img className="form_image" src={currentPlaylist.coverPhoto_URL}></img>}
+                {currentPlaylist.coverPhoto_URL && !coverPhoto && <img className="form_image" alt="" src={currentPlaylist.coverPhoto_URL}></img>}
                 {coverPhoto_title ? <div className="fileInput_label">{coverPhoto_title}</div> : <label className="fileInput_label" for="coverPhoto_input">Select cover photo (optional)</label>}
                 <div className="formInput_wrapper">
                     <input

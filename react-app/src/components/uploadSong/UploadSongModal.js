@@ -108,9 +108,9 @@ const UploadSongModal = ({ genresArr, setUploadSong }) => {
             <form className="modal_container" onSubmit={handleSubmit}>
                 <div className="modal_logoClose_container">
                     <div className="form_logo">
-                        <div className="formLogo_circle"><i id="formLogo_headphones" class="fas fa-headphones"></i></div>Jamify
+                        <div className="formLogo_circle"><i id="formLogo_headphones" className="fas fa-headphones"></i></div>Jamify
                     </div>
-                    <i onClick={() => setUploadSong('')} class="fas fa-window-close"></i>
+                    <i onClick={() => setUploadSong('')} className="fas fa-window-close"></i>
                 </div>
                 <div className="form_headerText">Upload Song</div>
                 {errors && <div className="error-container">

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Redirect, Router, useHistory } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import { login } from '../../store/session';
 import './LoginForm.css';
 
@@ -53,7 +53,7 @@ const LoginForm = () => {
     setCredential("Guest")
     setPassword("password")
 
-    const data = await dispatch(login(credential, password));
+    await dispatch(login(credential, password));
   }
 
   if (user) {
@@ -67,7 +67,7 @@ const LoginForm = () => {
           <div className="authFormLogo_circle"><i id="authFormLogo_headphones" class="fas fa-headphones"></i></div>Jamify
         </div>
         <div className="authForm_headerText">Log In</div>
-        {errors &&<div className="error-container">
+        {errors && <div className="error-container">
           {errors.map((error, ind) => (
             <div className="error-message" key={ind}>{error}</div>
           ))}
