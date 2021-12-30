@@ -15,19 +15,23 @@ def seed_playlists():
 
     july_electronic = Playlist(
         userId=1,
-        title='july electronic')
+        title='july electronic',
+        coverPhoto_URL="https://jamify.s3.us-west-2.amazonaws.com/Song+seeders/SpeedyJ/WarpAI_cover.jpeg")
 
     running = Playlist(
         userId=1,
-        title='Running')
+        title='Running',
+        coverPhoto_URL="https://jamify.s3.us-west-2.amazonaws.com/Song+seeders/LouReed/LouReed_ConeyIslandBaby_cover.jpeg")
 
     rock_playlist = Playlist(
         userId=1,
-        title='Rock playlist')
+        title='Rock playlist',
+        coverPhoto_URL="https://jamify.s3.us-west-2.amazonaws.com/Song+seeders/YoLaTengo/YoLaTengo_Painful_cover.png")
 
     wind_down = Playlist(
         userId=1,
-        title='wind down')
+        title='wind down',
+        coverPhoto_URL="https://jamify.s3.us-west-2.amazonaws.com/Song+seeders/BrianEno/BrianEno_Apollo_cover.jpeg")
 
     db.session.add(wind_down)
     db.session.add(rock_playlist)
