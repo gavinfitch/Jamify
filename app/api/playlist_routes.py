@@ -1,6 +1,6 @@
 from flask import Blueprint, request
 from app.models import db, Song, Playlist, playlist_song, playlist_songs, Library_Song
-from sqlalchemy import insert
+from sqlalchemy import insert, desc
 
 
 playlist_routes = Blueprint('playlists', __name__)
@@ -8,7 +8,7 @@ playlist_routes = Blueprint('playlists', __name__)
 # Get all playlists
 @playlist_routes.route('/')
 def all_playlists():
-    playlists = Playlist.query.all()
+    playlists = Playlist.query.order_by(desc(Playlist.created_at)).all()
     return {'playlists': [playlist.to_dict2() for playlist in playlists]}
 
 # Create playlist
@@ -24,7 +24,7 @@ def create_playlist():
     db.session.add(new_playlist)
     db.session.commit()
 
-    playlists = Playlist.query.all()
+    playlists = Playlist.query.order_by(desc(Playlist.created_at)).all()
     return {'playlists': [playlist.to_dict() for playlist in playlists]}
 
 # Delete playlist
@@ -35,7 +35,7 @@ def delete_playlist(id):
     db.session.delete(playlistToDelete)
     db.session.commit()
 
-    playlists = Playlist.query.all()
+    playlists = Playlist.query.order_by(desc(Playlist.created_at)).all()
     return {'playlists': [playlist.to_dict() for playlist in playlists]}
 
 # Edit playlist
@@ -50,7 +50,7 @@ def edit_song(id):
     
     db.session.commit()
 
-    playlists = Playlist.query.all()
+    playlists = Playlist.query.order_by(desc(Playlist.created_at)).all()
     return {'playlists': [playlist.to_dict() for playlist in playlists]}
 
 
@@ -66,7 +66,7 @@ def addsong_playlist(id):
     db.session.execute(addsong)
     db.session.commit()
     
-    playlists = Playlist.query.all()
+    playlists = Playlist.query.order_by(desc(Playlist.created_at)).all()
     return {'playlists': [playlist.to_dict() for playlist in playlists]}
 
 
@@ -80,7 +80,7 @@ def removesong_playlist(id):
 
     db.session.commit()
 
-    playlists = Playlist.query.all()
+    playlists = Playlist.query.order_by(desc(Playlist.created_at)).all()
     return {'playlists': [playlist.to_dict() for playlist in playlists]}
 
 # Add song to library
@@ -91,7 +91,7 @@ def addtolibrary():
     db.session.add(new_like)
     db.session.commit()
 
-    playlists = Playlist.query.all()
+    playlists = Playlist.query.order_by(desc(Playlist.created_at)).all()
     return {'playlists': [playlist.to_dict() for playlist in playlists]}
 
 
@@ -107,5 +107,5 @@ def removefromlibrary():
     db.session.delete(library_song)
     db.session.commit()
 
-    playlists = Playlist.query.all()
+    playlists = Playlist.query.order_by(desc(Playlist.created_at)).all()
     return {'playlists': [playlist.to_dict() for playlist in playlists]}
