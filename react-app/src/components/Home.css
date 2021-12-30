@@ -34,6 +34,8 @@ svg * {
     background-color: black;
     min-width: 280px;
     height: 100vh;
+    padding-bottom: 100px;
+    overflow-y: scroll;
 }
 
 .sidebar * {
@@ -182,6 +184,7 @@ svg * {
     background: linear-gradient(to right, #7454ca, #008c82);
     width: 100vw;
     height: 100vh;
+    overflow-x: hidden;
     overflow-y: scroll;
 }
 
@@ -229,7 +232,7 @@ svg * {
 }
 
 .profileButton {
-    position: relative;
+    position: absolute;
     top: 0px;
     right: 0px;
     display: flex;
@@ -1081,7 +1084,7 @@ svg * {
 }
 
 #audioPlayer_songInfo {
-    position: absolute;
+    position: fixed;
     display: flex;
     align-items: center;
     bottom: 40px;
