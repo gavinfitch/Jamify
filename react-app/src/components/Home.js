@@ -365,7 +365,7 @@ function Home() {
                                 dateAdded = `${splitDate[2]} ${splitDate[1]}, ${splitDate[3]}`
                             }
 
-                            return <ul key={song.id} className="playlist_row">
+                            return <ul key={index} className="playlist_row">
                                 <li className="index_column">{index + 1}</li>
                                 {/* <li className="index_column">100</li> */}
                                 <li className="titleAndButtons_container" id="titleAndButtons_container_phone">
