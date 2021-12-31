@@ -49,69 +49,65 @@ def seed_playlist_songs():
         playlist_id= 1
     )
 
-    db.session.execute(juneElec1)
-    db.session.execute(juneElec2)
-    db.session.execute(juneElec3)
-    db.session.execute(juneElec4)
-    db.session.execute(juneElec5)
-    db.session.execute(juneElec6)
-    db.session.execute(juneElec7)
-    db.session.execute(juneElec8)
-    db.session.execute(juneElec9)
-    db.session.execute(juneElec10)
-    db.session.execute(juneElec11)
-    db.session.commit()
+    # db.session.execute(juneElec1)
+    # db.session.execute(juneElec2)
+    # db.session.execute(juneElec3)
+    # db.session.execute(juneElec4)
+    # db.session.execute(juneElec5)
+    # db.session.execute(juneElec6)
+    # db.session.execute(juneElec7)
+    # db.session.execute(juneElec8)
+    # db.session.execute(juneElec9)
+    # db.session.execute(juneElec10)
+    # db.session.execute(juneElec11)
+    # db.session.commit()
 
 
     # Guest playlist-songs
 
     julyElec1 = insert(playlist_songs).values(
         song_id= 4,
-        playlist_id= 5
+        playlist_id= 3
     )
     julyElec2 = insert(playlist_songs).values(
         song_id= 13,
-        playlist_id= 5
+        playlist_id= 3
     )
     julyElec3 = insert(playlist_songs).values(
         song_id= 7,
-        playlist_id= 5
+        playlist_id= 3
     )
     julyElec4 = insert(playlist_songs).values(
         song_id= 6,
-        playlist_id= 5
+        playlist_id= 3
     )
     julyElec5 = insert(playlist_songs).values(
         song_id= 8,
-        playlist_id= 5
+        playlist_id= 3
     )
     julyElec6 = insert(playlist_songs).values(
         song_id= 12,
-        playlist_id= 5
+        playlist_id= 3
     )
     julyElec7 = insert(playlist_songs).values(
         song_id= 5,
-        playlist_id= 5
+        playlist_id= 3
     )
     julyElec8 = insert(playlist_songs).values(
         song_id= 2,
-        playlist_id= 5
+        playlist_id= 3
     )
     julyElec9 = insert(playlist_songs).values(
         song_id= 9,
-        playlist_id= 5
+        playlist_id= 3
     )
     julyElec10 = insert(playlist_songs).values(
         song_id= 11,
-        playlist_id= 5
+        playlist_id= 3
     )
     julyElec11 = insert(playlist_songs).values(
         song_id= 1,
-        playlist_id= 5
-    )
-    julyElec12 = insert(playlist_songs).values(
-        song_id= 25,
-        playlist_id= 5
+        playlist_id= 3
     )
 
     db.session.execute(julyElec1)
@@ -125,7 +121,6 @@ def seed_playlist_songs():
     db.session.execute(julyElec9)
     db.session.execute(julyElec10)
     db.session.execute(julyElec11)
-    db.session.execute(julyElec12)
     db.session.commit()
 
 
@@ -166,16 +161,16 @@ def seed_playlist_songs():
         playlist_id= 4
     )
 
-    db.session.execute(running1)
-    db.session.execute(running2)
-    db.session.execute(running3)
-    db.session.execute(running4)
-    db.session.execute(running5)
-    db.session.execute(running6)
-    db.session.execute(running7)
-    db.session.execute(running8)
-    db.session.execute(running9)
-    db.session.commit()
+    # db.session.execute(running1)
+    # db.session.execute(running2)
+    # db.session.execute(running3)
+    # db.session.execute(running4)
+    # db.session.execute(running5)
+    # db.session.execute(running6)
+    # db.session.execute(running7)
+    # db.session.execute(running8)
+    # db.session.execute(running9)
+    # db.session.commit()
 
 
     rock1 = insert(playlist_songs).values(
@@ -219,38 +214,38 @@ def seed_playlist_songs():
         playlist_id= 3
     )
 
-    db.session.execute(rock1)
-    db.session.execute(rock2)
-    db.session.execute(rock3)
-    db.session.execute(rock4)
-    db.session.execute(rock5)
-    db.session.execute(rock6)
-    db.session.execute(rock7)
-    db.session.execute(rock8)
-    db.session.execute(rock9)
-    db.session.execute(rock10)
-    db.session.commit()
+    # db.session.execute(rock1)
+    # db.session.execute(rock2)
+    # db.session.execute(rock3)
+    # db.session.execute(rock4)
+    # db.session.execute(rock5)
+    # db.session.execute(rock6)
+    # db.session.execute(rock7)
+    # db.session.execute(rock8)
+    # db.session.execute(rock9)
+    # db.session.execute(rock10)
+    # db.session.commit()
 
 
     windDown1 = insert(playlist_songs).values(
-        song_id= 31,
-        playlist_id= 2
+        song_id= 22,
+        playlist_id= 1
     )
     windDown2 = insert(playlist_songs).values(
         song_id= 2,
-        playlist_id= 2
+        playlist_id= 1
     )
     windDown3 = insert(playlist_songs).values(
         song_id= 1,
-        playlist_id= 2
+        playlist_id= 1
     )
     windDown4 = insert(playlist_songs).values(
         song_id= 6,
-        playlist_id= 2
+        playlist_id= 1
     )
     windDown5 = insert(playlist_songs).values(
         song_id= 3,
-        playlist_id= 2
+        playlist_id= 1
     )
 
     db.session.execute(windDown1)

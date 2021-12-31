@@ -236,6 +236,8 @@ function Home() {
         dispatch(playlistStore.thunk_getAllPlaylists());
     }, [dispatch])
 
+    console.log("Console log to trick Heroku...")
+
     return (
         <>
             {/* ----- Upload song modal ----- */}

@@ -7,9 +7,9 @@ def seed_playlists():
         userId=2,
         title='june electronic')
 
-    db.session.add(june_electronic)
+    # db.session.add(june_electronic)
 
-    db.session.commit()
+    # db.session.commit()
 
     # Guest playlists
 
@@ -35,7 +35,7 @@ def seed_playlists():
 
     db.session.add(wind_down)
     db.session.add(rock_playlist)
-    db.session.add(running)
+    # db.session.add(running)
     db.session.add(july_electronic)
 
     db.session.commit()
