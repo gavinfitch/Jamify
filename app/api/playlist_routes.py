@@ -25,7 +25,7 @@ def create_playlist():
     db.session.commit()
 
     playlists = Playlist.query.order_by(desc(Playlist.created_at)).all()
-    return {'playlists': [playlist.to_dict() for playlist in playlists]}
+    return {'playlists': [playlist.to_dict2() for playlist in playlists]}
 
 # Delete playlist
 @playlist_routes.route("/<int:id>/", methods=['DELETE'])
@@ -36,7 +36,7 @@ def delete_playlist(id):
     db.session.commit()
 
     playlists = Playlist.query.order_by(desc(Playlist.created_at)).all()
-    return {'playlists': [playlist.to_dict() for playlist in playlists]}
+    return {'playlists': [playlist.to_dict2() for playlist in playlists]}
 
 # Edit playlist
 @playlist_routes.route("/<int:id>/edit", methods=['POST'])
@@ -51,7 +51,7 @@ def edit_song(id):
     db.session.commit()
 
     playlists = Playlist.query.order_by(desc(Playlist.created_at)).all()
-    return {'playlists': [playlist.to_dict() for playlist in playlists]}
+    return {'playlists': [playlist.to_dict2() for playlist in playlists]}
 
 
 # Add song to playlist
@@ -67,7 +67,7 @@ def addsong_playlist(id):
     db.session.commit()
     
     playlists = Playlist.query.order_by(desc(Playlist.created_at)).all()
-    return {'playlists': [playlist.to_dict() for playlist in playlists]}
+    return {'playlists': [playlist.to_dict2() for playlist in playlists]}
 
 
 # Remove song from playlist
@@ -81,7 +81,7 @@ def removesong_playlist(id):
     db.session.commit()
 
     playlists = Playlist.query.order_by(desc(Playlist.created_at)).all()
-    return {'playlists': [playlist.to_dict() for playlist in playlists]}
+    return {'playlists': [playlist.to_dict2() for playlist in playlists]}
 
 # Add song to library
 @playlist_routes.route("/addtolibrary", methods=['POST'])
@@ -92,7 +92,7 @@ def addtolibrary():
     db.session.commit()
 
     playlists = Playlist.query.order_by(desc(Playlist.created_at)).all()
-    return {'playlists': [playlist.to_dict() for playlist in playlists]}
+    return {'playlists': [playlist.to_dict2() for playlist in playlists]}
 
 
 # Remove song from library
@@ -108,4 +108,4 @@ def removefromlibrary():
     db.session.commit()
 
     playlists = Playlist.query.order_by(desc(Playlist.created_at)).all()
-    return {'playlists': [playlist.to_dict() for playlist in playlists]}
+    return {'playlists': [playlist.to_dict2() for playlist in playlists]}
