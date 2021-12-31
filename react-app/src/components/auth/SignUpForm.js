@@ -113,7 +113,7 @@ const SignUpForm = () => {
     <div className="authForm_background">
       <form className="authForm_container" onSubmit={onSignUp}>
         <div className="authForm_logo">
-          <div className="authFormLogo_circle"><i id="authFormLogo_headphones" class="fas fa-headphones"></i></div>Jamify
+          <div className="authFormLogo_circle"><i id="authFormLogo_headphones" className="fas fa-headphones"></i></div>Jamify
         </div>
         <div className="authForm_headerText">Sign Up</div>
         {errors && <div className="error-container">
@@ -172,7 +172,7 @@ const SignUpForm = () => {
             // required={true}
           ></input>
         </div>
-        {userPhoto_title ? <div className="signup_fileInput_label">{userPhoto_title}</div> : <label className="signup_fileInput_label" for="coverPhoto_input">Select profile photo (optional)</label>}
+        {userPhoto_title ? <div className="signup_fileInput_label">{userPhoto_title}</div> : <label className="signup_fileInput_label" htmlFor="coverPhoto_input">Select profile photo (optional)</label>}
         <div className="signup_formInput_wrapper">
           <input
             type="file"

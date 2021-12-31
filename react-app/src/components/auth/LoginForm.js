@@ -64,7 +64,7 @@ const LoginForm = () => {
     <div className="authForm_background">
       <form className="authForm_container" onSubmit={onLogin}>
         <div className="authForm_logo">
-          <div className="authFormLogo_circle"><i id="authFormLogo_headphones" class="fas fa-headphones"></i></div>Jamify
+          <div className="authFormLogo_circle"><i id="authFormLogo_headphones" className="fas fa-headphones"></i></div>Jamify
         </div>
         <div className="authForm_headerText">Log In</div>
         {errors && <div className="error-container">
