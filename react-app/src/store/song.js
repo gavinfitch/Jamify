@@ -32,7 +32,7 @@ export const thunk_uploadSong = ({ userId, title, song_URL, song_s3Name, album, 
 
         if (res.ok) {
             const songs = await res.json();
-            dispatch(allSongs(songs));
+            await dispatch(allSongs(songs));
             return songs;
         }
     };
@@ -51,7 +51,7 @@ export const thunk_deleteSong = ({ songId }) =>
 
         if (res.ok) {
             const songs = await res.json();
-            dispatch(allSongs(songs));
+            await dispatch(allSongs(songs));
             return songs;
         }
     };
@@ -76,7 +76,7 @@ export const thunk_editSong = ({ songId, title, album, artist, genre, albumCover
 
         if (res.ok) {
             const songs = await res.json();
-            dispatch(allSongs(songs));
+            await dispatch(allSongs(songs));
             return songs;
         }
     };
@@ -94,10 +94,10 @@ export const thunk_likeSong =
                     songId
                 }),
             });
-            
+
             if (res.ok) {
                 const songs = await res.json();
-                dispatch(allSongs(songs));
+                await dispatch(allSongs(songs));
                 return songs;
             }
         };
@@ -108,7 +108,7 @@ export const thunk_getAllSongs = () =>
 
         if (res.ok) {
             const songs = await res.json();
-            dispatch(allSongs(songs));
+            await dispatch(allSongs(songs));
             return songs;
         }
     };
