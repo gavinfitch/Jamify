@@ -81,9 +81,9 @@ const EditPlaylistModal = ({ playlistToEdit, setPlaylistToEdit }) => {
             <div className="modal_container">
                 <div className="modal_logoClose_container">
                     <div className="form_logo">
-                        <div className="formLogo_circle"><i id="formLogo_headphones" class="fas fa-headphones"></i></div>Jamify
+                        <div className="formLogo_circle"><i id="formLogo_headphones" className="fas fa-headphones"></i></div>Jamify
                     </div>
-                    <i onClick={() => setPlaylistToEdit('')} class="fas fa-window-close"></i>
+                    <i onClick={() => setPlaylistToEdit('')} className="fas fa-window-close"></i>
                 </div>
                 <div className="form_headerText">Edit Playlist</div>
                 {errors && <div className="error-container">
@@ -101,7 +101,7 @@ const EditPlaylistModal = ({ playlistToEdit, setPlaylistToEdit }) => {
                     />
                 </div>
                 {currentPlaylist.coverPhoto_URL && !coverPhoto && <img className="form_image" alt="" src={currentPlaylist.coverPhoto_URL}></img>}
-                {coverPhoto_title ? <div className="fileInput_label">{coverPhoto_title}</div> : <label className="fileInput_label" for="coverPhoto_input">Select cover photo (optional)</label>}
+                {coverPhoto_title ? <div className="fileInput_label">{coverPhoto_title}</div> : <label className="fileInput_label" htmlFor="coverPhoto_input">Select cover photo (optional)</label>}
                 <div className="formInput_wrapper">
                     <input
                         type="file"

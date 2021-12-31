@@ -101,9 +101,9 @@ const EditSongForm = ({ genresArr, editSong, setEditSong }) => {
             <form className="modal_container" onSubmit={handleSubmit}>
                 <div className="modal_logoClose_container">
                     <div className="form_logo">
-                        <div className="formLogo_circle"><i id="formLogo_headphones" class="fas fa-headphones"></i></div>Jamify
+                        <div className="formLogo_circle"><i id="formLogo_headphones" className="fas fa-headphones"></i></div>Jamify
                     </div>
-                    <i onClick={() => setEditSong('')} class="fas fa-window-close"></i>
+                    <i onClick={() => setEditSong('')} className="fas fa-window-close"></i>
                 </div>
                 <div className="form_headerText">Edit Song</div>
                 {errors && <div className="error-container">
@@ -143,11 +143,11 @@ const EditSongForm = ({ genresArr, editSong, setEditSong }) => {
                 </div>
                 <select className="form_inputField_dropdown" onChange={(e) => setGenre(e.target.value)}>
                     <option selected disabled hidden>Genre</option>
-                    {genresArr && genresArr.map(genreOption => {
-                        return genreOption === genre ? <option selected value={genreOption}>{genreOption}</option> : <option value={genreOption}>{genreOption}</option>
+                    {genresArr && genresArr.map((genreOption, index) => {
+                        return genreOption === genre ? <option key={index} selected value={genreOption}>{genreOption}</option> : <option key={index} value={genreOption}>{genreOption}</option>
                     })}
                 </select>
-                {albumCover_title ? <div className="fileInput_label">{albumCover_title}</div> : <label className="fileInput_label" for="coverPhoto_input">Upload album cover (optional)</label>}
+                {albumCover_title ? <div className="fileInput_label">{albumCover_title}</div> : <label className="fileInput_label" htmlFor="coverPhoto_input">Upload album cover (optional)</label>}
                 <div className="formInput_wrapper">
                     <input
                         type="file"

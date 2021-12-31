@@ -118,7 +118,7 @@ const UploadSongModal = ({ genresArr, setUploadSong }) => {
                         <div className="error-message" key={ind}>{error}</div>
                     ))}
                 </div>}
-                {audioFile_title ? <div className="fileInput_label">{audioFile_title}</div> : <label className="fileInput_label" for="coverPhoto_input">Track select</label>}
+                {audioFile_title ? <div className="fileInput_label">{audioFile_title}</div> : <label className="fileInput_label" htmlFor="coverPhoto_input">Track select</label>}
                 <div className="formInput_wrapper track_select">
                     <input
                         type="file"
@@ -155,11 +155,11 @@ const UploadSongModal = ({ genresArr, setUploadSong }) => {
                 </div>
                 <select className="form_inputField_dropdown" onChange={(e) => setGenre(e.target.value)}>
                     <option selected disabled hidden>Genre</option>
-                    {genresArr && genresArr.map(genre => {
-                        return <option value={genre}>{genre}</option>
+                    {genresArr && genresArr.map((genre, index) => {
+                        return <option key={index} value={genre}>{genre}</option>
                     })}
                 </select>
-                {albumCover_title ? <div className="fileInput_label">{albumCover_title}</div> : <label className="fileInput_label" for="coverPhoto_input">Upload album cover (optional)</label>}
+                {albumCover_title ? <div className="fileInput_label">{albumCover_title}</div> : <label className="fileInput_label" htmlFor="coverPhoto_input">Upload album cover (optional)</label>}
                 <div className="formInput_wrapper">
                     <input
                         type="file"
