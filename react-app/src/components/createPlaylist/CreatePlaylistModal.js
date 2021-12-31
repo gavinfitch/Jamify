@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { authenticate } from '../../store/session';
 import '../editPlaylist/EditPlaylistModal.css';
 import S3 from 'react-aws-s3';
 import * as playlistStore from '../../store/playlist';
@@ -69,7 +70,7 @@ const CreatePlaylistModal = ({ setCreatePlaylist }) => {
                 .catch(async (res) => {
                     const data = await res.json();
                     if (data && data.errors) setErrors(data.errors)
-                }).then((res) => res && history.push("/"));
+                }).then((res) => dispatch(authenticate())).then((res) => res && history.push("/"));
         } else {
             history.push('/')
         }

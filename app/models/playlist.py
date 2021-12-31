@@ -1,5 +1,5 @@
 from .db import db
-from.playlist_song import playlist_songs
+from .playlist_song import playlist_songs
 import datetime
 from sqlalchemy import DateTime
 
@@ -26,6 +26,22 @@ class Playlist(db.Model):
 
     def to_dict(self):
 
+        playlistSongs = db.session.query(playlist_songs).all()
+        filteredPlaylistSongs = []
+        for song in playlistSongs:
+            if song[1] == self.id:
+                filteredPlaylistSongs.append(song)
+
+        songList = [song.to_dict() for song in self.songs]
+
+        filteredSongs = []
+        for playlistSong in filteredPlaylistSongs:
+            for song in songList:
+                if song['id'] == playlistSong[0]:
+                    filteredSongs.append(song)
+
+        # print("----------", "PLAYLIST ID ---> ", self.id, "FILTERED SONGS", filteredSongs, "----------")
+
         return {
             'id': self.id,
             'userId': self.userId,
@@ -33,10 +49,27 @@ class Playlist(db.Model):
             'title': self.title,
             'coverPhoto_URL': self.coverPhoto_URL,
             'coverPhoto_s3Name': self.coverPhoto_s3Name,
-            'songs': [song.to_dict() for song in self.songs],
+            # 'songs': [song.to_dict() for song in self.songs]
+            # 'songs': [song for song in filteredSongs],
+            'songs': filteredSongs,
         }
 
     def to_dict2(self):
+
+        playlistSongs = db.session.query(playlist_songs).all()
+        filteredPlaylistSongs = []
+        for song in playlistSongs:
+            if song[1] == self.id:
+                filteredPlaylistSongs.append(song)
+
+        songList = [song.to_dict() for song in self.songs]
+
+        filteredSongs = []
+        for playlistSong in filteredPlaylistSongs:
+            for song in songList:
+                if song['id'] == playlistSong[0]:
+                    filteredSongs.append(song)
+
         return {
             'id': self.id,
             'userId': self.userId,
@@ -44,5 +77,7 @@ class Playlist(db.Model):
             'title': self.title,
             'coverPhoto_URL': self.coverPhoto_URL,
             'coverPhoto_s3Name': self.coverPhoto_s3Name,
-            'songs': [song.to_dict() for song in self.songs],
+            # 'songs': [song.to_dict() for song in self.songs]
+            # 'songs': [song for song in filteredSongs],
+            'songs': filteredSongs,
         }
