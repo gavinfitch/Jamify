@@ -38,6 +38,7 @@ function Home() {
     const [editSong, setEditSong] = useState('')
     const [currentPage, setCurrentPage] = useState('Home')
     const [profileButtonDropdown, setProfileButtonDropdown] = useState(false)
+    const [sort, setSort] = useState('')
 
     // const [title, setTitle] = useState('');
     // const [coverPhoto, setCoverPhoto] = useState('')
@@ -67,9 +68,14 @@ function Home() {
     }
 
     if (allSongs) {
-        if (selectedPlaylist) {
 
+        if (selectedPlaylist) {
             allSongsArr = userPlaylists.filter((playlist) => playlist?.id === selectedPlaylist)[0]?.songs
+
+            if (sort) {
+                allSongsArr = allSongsArr.slice().sort((a, b) => a[sort] < b[sort] ? -1 : 1)
+            }
+
             selectedPlaylistDetails = allPlaylists?.filter(playlist => playlist?.id === selectedPlaylist)[0]
 
             if (searchTerm.length > 0) {
@@ -83,6 +89,11 @@ function Home() {
             })
             allSongsArr = Array.from(allSongsSet)
             // allSongsArr = allSongs.filter((song) => user.library.map(library_song => library_song.songId).includes(song.id));
+
+            if (sort) {
+                allSongsArr = allSongsArr.slice().sort((a, b) => a[sort] < b[sort] ? -1 : 1)
+            }
+
             if (searchTerm.length > 0) {
                 allSongsArr = searchFilter(allSongsArr, searchTerm)
             }
@@ -93,11 +104,19 @@ function Home() {
             })
             // allSongsArr = allSongs.filter((song) => user.likes.map(like => like.songId).includes(song.id));
 
+            if (sort) {
+                allSongsArr = allSongsArr.slice().sort((a, b) => a[sort] < b[sort] ? -1 : 1)
+            }
+
             if (searchTerm.length > 0) {
                 allSongsArr = searchFilter(allSongsArr, searchTerm)
             }
         } else {
             allSongsArr = Object.values(allSongs)
+
+            if (sort) {
+                allSongsArr = allSongsArr.slice().sort((a, b) => a[sort] < b[sort] ? -1 : 1)
+            }
 
             if (searchTerm.length > 0) {
                 allSongsArr = searchFilter(allSongsArr, searchTerm)
@@ -334,6 +353,17 @@ function Home() {
                     {/* ----- Song feed (playlist) ----- */}
                     <div className="song_container">
                         {currentPage === "Home" && <p id="browseSongs_text">Browse all songs</p>}
+
+                        <select className="sort_dropdown" onChange={(e) => setSort(e.target.value)}>
+                            <option selected disabled hidden>Sort</option>
+                            <option value=''>#</option>
+                            <option value='title'>Title</option>
+                            <option value='artist'>Artist</option>
+                            <option value='album'>Album</option>
+                            <option value='genre'>Genre</option>
+                        </select>
+
+                        {/* ----- Search box ----- */}
                         <div className="search_container">
                             <div className="magnifyingGlass_container">
                                 <i className="fas fa-search"></i>

@@ -70,7 +70,7 @@ const CreatePlaylistModal = ({ setCreatePlaylist }) => {
                 .catch(async (res) => {
                     const data = await res.json();
                     if (data && data.errors) setErrors(data.errors)
-                }).then((res) => dispatch(authenticate())).then((res) => res && history.push("/"));
+                }).then((res) => res && history.push("/"));
         } else {
             history.push('/')
         }
