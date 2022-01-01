@@ -417,7 +417,7 @@ function Home() {
                         </div>
                         <ul className="playlist_header">
                             <li id="index_header">#</li>
-                            <li id="title_header">TITLE {sortOrder === 'ASC' ? <i onClick={() => setSortOrder('DESC')} className="fas fa-caret-up"></i> : <i onClick={() => setSortOrder('ASC')} className="fas fa-caret-down"></i>}</li>
+                            <li id="title_header">TITLE {sortOrder === 'DESC' ? <i onClick={() => setSortOrder('ASC')} id="sortOrder_caret" className="fas fa-caret-up"></i> : <i onClick={() => setSortOrder('DESC')} id="sortOrder_caret" className="fas fa-caret-down sortOrder_caret"></i>}</li>
                             <li id="album_header">ALBUM</li>
                             <li id="dateAdded_header">DATE ADDED</li>
                             <li id="genre_header">GENRE</li>

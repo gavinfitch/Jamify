@@ -480,6 +480,14 @@ svg * {
     cursor: pointer;
 }
 
+#sortOrder_caret {
+    position: absolute;
+    top: 101px;
+    margin-left: 12px;
+    font-size: 18px;
+    color: #02c48a;
+}
+
 .search_container {
     /* position: absolute;
     top: 25px;
