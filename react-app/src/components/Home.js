@@ -39,6 +39,7 @@ function Home() {
     const [currentPage, setCurrentPage] = useState('Home')
     const [profileButtonDropdown, setProfileButtonDropdown] = useState(false)
     const [sort, setSort] = useState('')
+    const [sortOrder, setSortOrder] = useState('ASC')
 
     // const [title, setTitle] = useState('');
     // const [coverPhoto, setCoverPhoto] = useState('')
@@ -76,6 +77,14 @@ function Home() {
                 allSongsArr = allSongsArr.slice().sort((a, b) => a[sort] < b[sort] ? -1 : 1)
             }
 
+            if (sortOrder === 'DESC') {
+                if (sort) {
+                    allSongsArr = allSongsArr.slice().sort((a, b) => a[sort] > b[sort] ? -1 : 1)
+                } else {
+                    allSongsArr = [...allSongsArr].reverse()
+                }
+            }
+
             selectedPlaylistDetails = allPlaylists?.filter(playlist => playlist?.id === selectedPlaylist)[0]
 
             if (searchTerm.length > 0) {
@@ -94,6 +103,14 @@ function Home() {
                 allSongsArr = allSongsArr.slice().sort((a, b) => a[sort] < b[sort] ? -1 : 1)
             }
 
+            if (sortOrder === 'DESC') {
+                if (sort) {
+                    allSongsArr = allSongsArr.slice().sort((a, b) => a[sort] > b[sort] ? -1 : 1)
+                } else {
+                    allSongsArr = [...allSongsArr].reverse()
+                }
+            }
+
             if (searchTerm.length > 0) {
                 allSongsArr = searchFilter(allSongsArr, searchTerm)
             }
@@ -108,6 +125,14 @@ function Home() {
                 allSongsArr = allSongsArr.slice().sort((a, b) => a[sort] < b[sort] ? -1 : 1)
             }
 
+            if (sortOrder === 'DESC') {
+                if (sort) {
+                    allSongsArr = allSongsArr.slice().sort((a, b) => a[sort] > b[sort] ? -1 : 1)
+                } else {
+                    allSongsArr = [...allSongsArr].reverse()
+                }
+            }
+
             if (searchTerm.length > 0) {
                 allSongsArr = searchFilter(allSongsArr, searchTerm)
             }
@@ -116,6 +141,14 @@ function Home() {
 
             if (sort) {
                 allSongsArr = allSongsArr.slice().sort((a, b) => a[sort] < b[sort] ? -1 : 1)
+            }
+
+            if (sortOrder === 'DESC') {
+                if (sort) {
+                    allSongsArr = allSongsArr.slice().sort((a, b) => a[sort] > b[sort] ? -1 : 1)
+                } else {
+                    allSongsArr = [...allSongsArr].reverse()
+                }
             }
 
             if (searchTerm.length > 0) {
@@ -384,7 +417,7 @@ function Home() {
                         </div>
                         <ul className="playlist_header">
                             <li id="index_header">#</li>
-                            <li id="title_header">TITLE</li>
+                            <li id="title_header">TITLE {sortOrder === 'ASC' ? <i onClick={() => setSortOrder('DESC')} className="fas fa-caret-up"></i> : <i onClick={() => setSortOrder('ASC')} className="fas fa-caret-down"></i>}</li>
                             <li id="album_header">ALBUM</li>
                             <li id="dateAdded_header">DATE ADDED</li>
                             <li id="genre_header">GENRE</li>
