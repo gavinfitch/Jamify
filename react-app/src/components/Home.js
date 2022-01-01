@@ -38,6 +38,8 @@ function Home() {
     const [editSong, setEditSong] = useState('')
     const [currentPage, setCurrentPage] = useState('Home')
     const [profileButtonDropdown, setProfileButtonDropdown] = useState(false)
+    const [sort, setSort] = useState('')
+    const [sortOrder, setSortOrder] = useState('ASC')
 
     // const [title, setTitle] = useState('');
     // const [coverPhoto, setCoverPhoto] = useState('')
@@ -67,9 +69,22 @@ function Home() {
     }
 
     if (allSongs) {
-        if (selectedPlaylist) {
 
+        if (selectedPlaylist) {
             allSongsArr = userPlaylists.filter((playlist) => playlist?.id === selectedPlaylist)[0]?.songs
+
+            if (sort) {
+                allSongsArr = allSongsArr.slice().sort((a, b) => a[sort] < b[sort] ? -1 : 1)
+            }
+
+            if (sortOrder === 'DESC') {
+                if (sort) {
+                    allSongsArr = allSongsArr.slice().sort((a, b) => a[sort] > b[sort] ? -1 : 1)
+                } else {
+                    allSongsArr = [...allSongsArr].reverse()
+                }
+            }
+
             selectedPlaylistDetails = allPlaylists?.filter(playlist => playlist?.id === selectedPlaylist)[0]
 
             if (searchTerm.length > 0) {
@@ -83,6 +98,19 @@ function Home() {
             })
             allSongsArr = Array.from(allSongsSet)
             // allSongsArr = allSongs.filter((song) => user.library.map(library_song => library_song.songId).includes(song.id));
+
+            if (sort) {
+                allSongsArr = allSongsArr.slice().sort((a, b) => a[sort] < b[sort] ? -1 : 1)
+            }
+
+            if (sortOrder === 'DESC') {
+                if (sort) {
+                    allSongsArr = allSongsArr.slice().sort((a, b) => a[sort] > b[sort] ? -1 : 1)
+                } else {
+                    allSongsArr = [...allSongsArr].reverse()
+                }
+            }
+
             if (searchTerm.length > 0) {
                 allSongsArr = searchFilter(allSongsArr, searchTerm)
             }
@@ -93,11 +121,35 @@ function Home() {
             })
             // allSongsArr = allSongs.filter((song) => user.likes.map(like => like.songId).includes(song.id));
 
+            if (sort) {
+                allSongsArr = allSongsArr.slice().sort((a, b) => a[sort] < b[sort] ? -1 : 1)
+            }
+
+            if (sortOrder === 'DESC') {
+                if (sort) {
+                    allSongsArr = allSongsArr.slice().sort((a, b) => a[sort] > b[sort] ? -1 : 1)
+                } else {
+                    allSongsArr = [...allSongsArr].reverse()
+                }
+            }
+
             if (searchTerm.length > 0) {
                 allSongsArr = searchFilter(allSongsArr, searchTerm)
             }
         } else {
             allSongsArr = Object.values(allSongs)
+
+            if (sort) {
+                allSongsArr = allSongsArr.slice().sort((a, b) => a[sort] < b[sort] ? -1 : 1)
+            }
+
+            if (sortOrder === 'DESC') {
+                if (sort) {
+                    allSongsArr = allSongsArr.slice().sort((a, b) => a[sort] > b[sort] ? -1 : 1)
+                } else {
+                    allSongsArr = [...allSongsArr].reverse()
+                }
+            }
 
             if (searchTerm.length > 0) {
                 allSongsArr = searchFilter(allSongsArr, searchTerm)
@@ -334,23 +386,38 @@ function Home() {
                     {/* ----- Song feed (playlist) ----- */}
                     <div className="song_container">
                         {currentPage === "Home" && <p id="browseSongs_text">Browse all songs</p>}
-                        <div className="search_container">
-                            <div className="magnifyingGlass_container">
-                                <i className="fas fa-search"></i>
+
+
+
+                        {/* ----- Search box ----- */}
+                        <div className="search_sort_container">
+                            <div className="search_container">
+                                <div className="magnifyingGlass_container">
+                                    <i className="fas fa-search"></i>
+                                </div>
+                                <input
+                                    className="search_box"
+                                    type="text"
+                                    placeholder="Search songs..."
+                                    value={searchTerm}
+                                    onChange={(e) => {
+                                        setSearchTerm(e.target.value);
+                                    }}
+                                ></input>
                             </div>
-                            <input
-                                className="search_box"
-                                type="text"
-                                placeholder="Search songs..."
-                                value={searchTerm}
-                                onChange={(e) => {
-                                    setSearchTerm(e.target.value);
-                                }}
-                            ></input>
+
+                            <select className="sort_dropdown" onChange={(e) => setSort(e.target.value)}>
+                                <option selected disabled hidden>Sort</option>
+                                <option value=''>#</option>
+                                <option value='title'>Title</option>
+                                <option value='artist'>Artist</option>
+                                <option value='album'>Album</option>
+                                <option value='genre'>Genre</option>
+                            </select>
                         </div>
                         <ul className="playlist_header">
                             <li id="index_header">#</li>
-                            <li id="title_header">TITLE</li>
+                            <li id="title_header">TITLE {sortOrder === 'DESC' ? <i onClick={() => setSortOrder('ASC')} id="sortOrder_caret" className="fas fa-caret-up"></i> : <i onClick={() => setSortOrder('DESC')} id="sortOrder_caret" className="fas fa-caret-down sortOrder_caret"></i>}</li>
                             <li id="album_header">ALBUM</li>
                             <li id="dateAdded_header">DATE ADDED</li>
                             <li id="genre_header">GENRE</li>

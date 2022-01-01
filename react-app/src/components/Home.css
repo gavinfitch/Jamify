@@ -449,12 +449,53 @@ svg * {
     font-size: 18px;
 }
 
-/* ----- Search ----- */
+/* ----- Search / Sort ----- */
 
-.search_container {
+.search_sort_container {
     position: absolute;
     top: 25px;
     right: 20px;
+    width: 350px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.sort_dropdown {
+    color: rgba(255, 255, 255, 0.80);
+    background-color: rgba(255, 255, 255, 0.15);
+    height: 34px;
+    width: 148px;
+    width: 148px;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 12px;
+}
+
+.sort_dropdown:focus {
+    outline: none;
+}
+
+.sort_dropdown:hover {
+    cursor: pointer;
+}
+
+#sortOrder_caret {
+    position: absolute;
+    top: 101px;
+    margin-left: 12px;
+    font-size: 18px;
+    color: #02c48a;
+}
+
+#sortOrder_caret:hover {
+    cursor: pointer;
+}
+
+.search_container {
+    /* position: absolute;
+    top: 25px;
+    right: 20px; */
     display: flex;
 }
 
@@ -494,18 +535,28 @@ svg * {
     padding-right: 0px;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 650px) {
     #browseSongs_text {
         display: none;
     }
 
-    .search_container {
+    /* .search_container {
         left: 20px;
         width: 204px;
     }
 
     .search_box {
         width: 100%;
+    } */
+
+    .search_sort_container {
+        position: absolute;
+        top: 25px;
+        left: 20px;
+        width: 350px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
     }
 }
 
