@@ -198,13 +198,13 @@ def seed_playlist_songs():
         playlist_id= 2
     )
 
-    db.session.execute(rock1)
-    db.session.execute(rock2)
-    db.session.execute(rock3)
-    db.session.execute(rock4)
-    db.session.execute(rock5)
-    db.session.execute(rock6)
-    db.session.commit()
+    # db.session.execute(rock1)
+    # db.session.execute(rock2)
+    # db.session.execute(rock3)
+    # db.session.execute(rock4)
+    # db.session.execute(rock5)
+    # db.session.execute(rock6)
+    # db.session.commit()
 
 
     windDown1 = insert(playlist_songs).values(

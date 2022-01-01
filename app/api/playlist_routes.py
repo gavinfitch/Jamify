@@ -28,7 +28,7 @@ def create_playlist():
     return {'playlists': [playlist.to_dict2() for playlist in playlists]}
 
 # Delete playlist
-@playlist_routes.route("/<int:id>/", methods=['DELETE'])
+@playlist_routes.route("/<int:id>/", methods=['POST'])
 def delete_playlist(id):
     playlistToDelete = Playlist.query.get(id)
 

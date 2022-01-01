@@ -40,13 +40,13 @@ export const thunk_uploadSong = ({ userId, title, song_URL, song_s3Name, album, 
 export const thunk_deleteSong = ({ songId }) =>
     async (dispatch) => {
         const res = await fetch(`/api/songs/${songId}`, {
-            method: 'DELETE',
+            method: 'POST',
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({
-                songId
-            })
+            // body: JSON.stringify({
+            //     songId
+            // })
         });
 
         if (res.ok) {

@@ -132,17 +132,19 @@ export const thunk_removeFromPlaylist = ({ playlistId, songId }) =>
 export const thunk_deletePlaylist = ({ playlistId }) =>
     async (dispatch) => {
         const res = await fetch(`/api/playlists/${playlistId}/`, {
-            method: 'DELETE',
+            method: 'POST',
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({
-                playlistId
-            })
+            // body: JSON.stringify({
+            //     playlistId
+            // })
         });
 
         if (res.ok) {
+            // console.log("You made it into the if res")
             const playlists = await res.json();
+            // console.log("Here are your playlists, ---> ", playlists)
             await dispatch(allPlaylists(playlists));
             return playlists;
         }

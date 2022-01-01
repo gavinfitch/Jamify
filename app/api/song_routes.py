@@ -32,7 +32,7 @@ def upload_song():
     return {'songs': [song.to_dict() for song in songs]}
 
 # Delete song
-@song_routes.route("/<int:id>", methods=['DELETE'])
+@song_routes.route("/<int:id>", methods=['POST'])
 def delete_song(id):
     songToDelete = Song.query.get(id)
 

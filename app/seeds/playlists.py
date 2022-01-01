@@ -24,7 +24,7 @@ def seed_playlists():
         coverPhoto_URL="https://jamify.s3.us-west-2.amazonaws.com/Song+seeders/LouReed/LouReed_ConeyIslandBaby_cover.jpeg")
 
     rock_playlist = Playlist(
-        userId=1,
+        userId=2,
         title='Rock playlist',
         coverPhoto_URL="https://jamify.s3.us-west-2.amazonaws.com/Song+seeders/YoLaTengo/YoLaTengo_Painful_cover.png")
 

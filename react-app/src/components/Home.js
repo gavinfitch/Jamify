@@ -288,6 +288,8 @@ function Home() {
         dispatch(playlistStore.thunk_getAllPlaylists());
     }, [dispatch])
 
+    // console.log("Console log for Heroku")
+
     return (
         <>
             {/* ----- Upload song modal ----- */}
