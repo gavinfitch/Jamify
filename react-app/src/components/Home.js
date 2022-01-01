@@ -354,29 +354,33 @@ function Home() {
                     <div className="song_container">
                         {currentPage === "Home" && <p id="browseSongs_text">Browse all songs</p>}
 
-                        <select className="sort_dropdown" onChange={(e) => setSort(e.target.value)}>
-                            <option selected disabled hidden>Sort</option>
-                            <option value=''>#</option>
-                            <option value='title'>Title</option>
-                            <option value='artist'>Artist</option>
-                            <option value='album'>Album</option>
-                            <option value='genre'>Genre</option>
-                        </select>
+
 
                         {/* ----- Search box ----- */}
-                        <div className="search_container">
-                            <div className="magnifyingGlass_container">
-                                <i className="fas fa-search"></i>
+                        <div className="search_sort_container">
+                            <div className="search_container">
+                                <div className="magnifyingGlass_container">
+                                    <i className="fas fa-search"></i>
+                                </div>
+                                <input
+                                    className="search_box"
+                                    type="text"
+                                    placeholder="Search songs..."
+                                    value={searchTerm}
+                                    onChange={(e) => {
+                                        setSearchTerm(e.target.value);
+                                    }}
+                                ></input>
                             </div>
-                            <input
-                                className="search_box"
-                                type="text"
-                                placeholder="Search songs..."
-                                value={searchTerm}
-                                onChange={(e) => {
-                                    setSearchTerm(e.target.value);
-                                }}
-                            ></input>
+
+                            <select className="sort_dropdown" onChange={(e) => setSort(e.target.value)}>
+                                <option selected disabled hidden>Sort</option>
+                                <option value=''>#</option>
+                                <option value='title'>Title</option>
+                                <option value='artist'>Artist</option>
+                                <option value='album'>Album</option>
+                                <option value='genre'>Genre</option>
+                            </select>
                         </div>
                         <ul className="playlist_header">
                             <li id="index_header">#</li>
