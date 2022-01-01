@@ -488,6 +488,10 @@ svg * {
     color: #02c48a;
 }
 
+#sortOrder_caret:hover {
+    cursor: pointer;
+}
+
 .search_container {
     /* position: absolute;
     top: 25px;
