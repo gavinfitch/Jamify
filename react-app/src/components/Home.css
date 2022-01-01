@@ -523,18 +523,28 @@ svg * {
     padding-right: 0px;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 650px) {
     #browseSongs_text {
         display: none;
     }
 
-    .search_container {
+    /* .search_container {
         left: 20px;
         width: 204px;
     }
 
     .search_box {
         width: 100%;
+    } */
+
+    .search_sort_container {
+        position: absolute;
+        top: 25px;
+        left: 20px;
+        width: 350px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
     }
 }
 
