@@ -8,19 +8,19 @@ Jamify is an application built on PostgreSQL, Flask, React, and Redux which allo
 
 Login form -
 
-![Login form](https://jamify.s3.us-west-2.amazonaws.com/utils/Login_form.png)
+![Login form](https://jamify.s3.us-west-2.amazonaws.com/Jamify+README+photos/Login.jpg)
 
 Home view -
 
-![Home view](https://jamify.s3.us-west-2.amazonaws.com/utils/Home_view.png)
+![Home view](https://jamify.s3.us-west-2.amazonaws.com/Jamify+README+photos/Home.jpg)
 
 Song upload form -
 
-![Song upload form](https://jamify.s3.us-west-2.amazonaws.com/utils/Upload_song_form.png)
+![Song upload form](https://jamify.s3.us-west-2.amazonaws.com/Jamify+README+photos/Upload_form.jpg)
 
 Playlist view -
 
-![Playlist view](https://jamify.s3.us-west-2.amazonaws.com/utils/Playlist_view.png)
+![Playlist view](https://jamify.s3.us-west-2.amazonaws.com/Jamify+README+photos/Playlist.jpg)
 
 ## Application Architecture
 
