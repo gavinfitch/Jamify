@@ -97,6 +97,12 @@ const LoginForm = () => {
         <button onClick={() => loginAsGuest()} className="authForm_submitButton_black">Login as Guest</button>
         <div className="authForm_redirectText">Don't have an account? <span className="authForm_redirectLink" onClick={() => history.push('/signup')}>SIGNUP</span></div>
       </form>
+      <div className="connect">
+        <div className="connect-item" id="connect-text">Connect with the developer</div>
+        <a className="connect-item connect-icon" id="email-link" href="mailto:gavin.fitch@gmail.com" target="_blank"><i class="fas fa-envelope"></i></a>
+        <a className="connect-item connect-icon" id="linkedin-link" href="https://www.linkedin.com/in/gavinfitch/" target="_blank"><i class="fab fa-linkedin"></i></a>
+        <a className="connect-item connect-icon" id="github-link" href="https://github.com/gavinfitch" target="_blank"><i class="fab fa-github"></i></a>
+      </div>
     </div>
   );
 };
