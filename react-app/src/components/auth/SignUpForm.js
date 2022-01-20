@@ -35,7 +35,7 @@ const SignUpForm = () => {
     e.preventDefault();
 
     const validationErrors = [];
-    
+
     if (!name) {
       validationErrors.push("Please provide name");
     }
@@ -169,7 +169,7 @@ const SignUpForm = () => {
             onChange={updateRepeatPassword}
             placeholder='Confirm password'
             value={repeatPassword}
-            // required={true}
+          // required={true}
           ></input>
         </div>
         {userPhoto_title ? <div className="signup_fileInput_label">{userPhoto_title}</div> : <label className="signup_fileInput_label" htmlFor="coverPhoto_input">Select profile photo (optional)</label>}
@@ -183,6 +183,12 @@ const SignUpForm = () => {
         <button className="signup_submitButton" type='submit'>Sign Up</button>
         <div className="signup_authForm_redirectText">Already have an account? <span className="authForm_redirectLink" onClick={() => history.push('/login')}>LOGIN</span></div>
       </form>
+      <div className="connect">
+        <div className="connect-item" id="connect-text">Connect with the developer</div>
+        <a className="connect-item connect-icon" id="email-link" href="mailto:gavin.fitch@gmail.com" target="_blank"><i class="fas fa-envelope"></i></a>
+        <a className="connect-item connect-icon" id="linkedin-link" href="https://www.linkedin.com/in/gavinfitch/" target="_blank"><i class="fab fa-linkedin"></i></a>
+        <a className="connect-item connect-icon" id="github-link" href="https://github.com/gavinfitch" target="_blank"><i class="fab fa-github"></i></a>
+      </div>
     </div>
   );
 };

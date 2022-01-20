@@ -1,6 +1,7 @@
 .authForm_background {
     position: fixed;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     top: 0px;
@@ -136,4 +137,31 @@
     border-bottom: 1px solid rgb(55, 55, 55);
     align-self: flex-start;
     width: 100%;
+}
+
+.connect {
+    position: relative;
+    bottom: 15px;
+    right: 15px;
+    display: flex;
+    align-items: center;
+    align-self: flex-end;
+}
+
+.connect-item, .connect-item i {
+    margin: 0px 5px;
+    color: rgb(250, 250, 250);
+    font-size: 13.5px;
+}
+
+#connect-text {
+    margin-right: 10px;
+}
+
+.connect-item i {
+    font-size: 17px;
+}
+
+.connect-item i:hover {
+    color: rgba(250, 250, 250, 0.75);
 }
