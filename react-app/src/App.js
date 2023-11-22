@@ -13,6 +13,8 @@ import Home from './components/Home'
 // import CreatePlaylistForm from './components/createPlaylist/CreatePlaylistForm'
 import { authenticate } from './store/session';
 
+// For test - to be removed
+
 function App() {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
