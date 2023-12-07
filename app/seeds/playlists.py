@@ -35,8 +35,8 @@ def seed_playlists():
 
     db.session.add(wind_down)
     db.session.add(rock_playlist)
-    # db.session.add(running)
     db.session.add(july_electronic)
+    # db.session.add(running)
 
     db.session.commit()
 
@@ -47,5 +47,5 @@ def seed_playlists():
 # resets the auto incrementing primary key, CASCADE deletes any
 # dependent entities
 def undo_playlists():
-    db.session.execute('TRUNCATE users RESTART IDENTITY CASCADE;')
+    db.session.execute('TRUNCATE playlists RESTART IDENTITY CASCADE;')
     db.session.commit()

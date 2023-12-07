@@ -51,7 +51,7 @@ const LoginForm = () => {
 
   const loginAsGuest = async () => {
     setCredential("Guest")
-    setPassword("password")
+    setPassword("Guest123!@#")
 
     await dispatch(login(credential, password));
   }
