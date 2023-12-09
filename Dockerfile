@@ -29,4 +29,4 @@ RUN pip install psycopg2
 # RUN pip install email_validator
 
 # Run the Flask environment
-CMD gunicorn __init__:app --chdir app
+CMD web: gunicorn __init__:app --chdir app
