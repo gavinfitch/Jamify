@@ -1,13 +1,11 @@
-from .db import db
-
-# from app.models.user import User
 import datetime
 from sqlalchemy import DateTime
-
+from .db import db
 
 class Like(db.Model):
     __tablename__ = "likes"
 
+    # Columns
     id = db.Column(db.Integer, primary_key=True)
     created_at = db.Column(DateTime, default=datetime.datetime.utcnow)
     updated_at = db.Column(DateTime, default=datetime.datetime.utcnow)
@@ -24,3 +22,4 @@ class Like(db.Model):
             "userId": self.userId,
             "songId": self.songId,
         }
+    

@@ -1,13 +1,13 @@
-from .db import db
-from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import UserMixin
 import datetime
+from flask_login import UserMixin
 from sqlalchemy import DateTime
-
+from werkzeug.security import generate_password_hash, check_password_hash
+from .db import db
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
 
+    # Columns
     id = db.Column(db.Integer, primary_key=True)
     full_name = db.Column(db.String(250), nullable=False)
     username = db.Column(db.String(50), nullable=False, unique=True)
@@ -48,3 +48,4 @@ class User(db.Model, UserMixin):
             'likes': [like.to_dict() for like in self.likes],
             'library': [library_song.to_dict() for library_song in self.library]
         }
+    
