@@ -26,7 +26,7 @@ COPY --from=build-stage /react-app/build/* app/static/
 # Install the Python dependencies
 RUN pip install -r requirements.txt
 RUN pip install psycopg2
-RUN pip install email_validator
+# RUN pip install email_validator
 
 # Run the Flask environment
 CMD gunicorn app:app
