@@ -1,13 +1,11 @@
-from .db import db
-
-# from app.models.user import User
 import datetime
 from sqlalchemy import DateTime
-
+from .db import db
 
 class Library_Song(db.Model):
     __tablename__ = "library_songs"
 
+    # Columns
     id = db.Column(db.Integer, primary_key=True)
     created_at = db.Column(DateTime, default=datetime.datetime.utcnow)
     updated_at = db.Column(DateTime, default=datetime.datetime.utcnow)
@@ -24,3 +22,4 @@ class Library_Song(db.Model):
             "userId": self.userId,
             "songId": self.songId,
         }
+    

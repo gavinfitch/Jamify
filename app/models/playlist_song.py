@@ -1,6 +1,6 @@
-from .db import db
 import datetime
 from sqlalchemy import DateTime
+from .db import db
 
 playlist_songs = db.Table(
     "playlist_songs",
@@ -9,4 +9,3 @@ playlist_songs = db.Table(
     db.Column("created_at", DateTime, default=datetime.datetime.utcnow),
     db.Column("updated_at", DateTime, default=datetime.datetime.utcnow)
 )
-
