@@ -160,7 +160,7 @@ const SignUpForm = () => {
                 <div className="signup_formInput_wrapper">
                     <input
                         type="file"
-                        onChange={(e) => { setUserPhoto(e.target.files[0]); setUserPhoto_title(e.target.files[0].name) }}
+                        onChange={(e) => { setUserPhoto(e.target.files[0]); setUserPhoto_title(e.target.files[0]?.name) }}
                     />
                 </div>
                 <div className="dividerLine" />
